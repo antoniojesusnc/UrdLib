@@ -14,8 +14,7 @@ namespace Urd.Animation
         public Tween DoAnimation(CanvasGroup rectTransform)
         {
             rectTransform.alpha = _initialFade;
-            //return rectTransform.DOFade(_finalFade, _duration);
-            return rectTransform.transform.DOMove(default, _duration);
+            return rectTransform.DOFade(_finalFade, _duration);
         }
     }
 }

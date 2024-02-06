@@ -18,7 +18,8 @@ namespace Urd.Services
 
         private const string MAIN_TABLE_REFERENCE = "MainTable";
             
-        public CultureInfo Language { get; }
+        public CultureInfo Language { get; private set; }
+        public List<Locale> AvailableLanguages => LocalizationSettings.AvailableLocales.Locales;
 
         private IEventBusService _eventBusService;
         
@@ -37,7 +38,21 @@ namespace Urd.Services
 
         private void OnInitializeLocalization(AsyncOperationHandle<LocalizationSettings> task)
         {
+            Language = task.Result.GetSelectedLocale().Identifier.CultureInfo;
             _eventBusService.Send(new EventOnLocalizationChanged());
+        }
+
+        public void ChangeLanguage(string languageCode)
+        {
+            var locale =
+                AvailableLanguages.Find(
+                    language => language.Identifier.Code.Equals(languageCode,
+                                                                StringComparison.InvariantCultureIgnoreCase));
+            if (locale != null)
+            {
+                LocalizationSettings.Instance.SetSelectedLocale(locale);
+                _eventBusService.Send(new EventOnLocalizationChanged());
+            }
         }
 
         public string Locate(string key)

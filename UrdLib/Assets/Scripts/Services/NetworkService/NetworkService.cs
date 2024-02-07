@@ -3,6 +3,7 @@ using System.Collections;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using Urd.DTO;
 using Urd.Error;
 using Urd.Services.Network;
 using Urd.Sockets;
@@ -22,6 +23,11 @@ namespace Urd.Services
 
         private ICoroutineService _coroutineService;
 
+        public NetworkService()
+        {
+            SocketAdapter = new DummyNetworkSocketAdapter();
+        }
+        
         public override void Init()
         {
             base.Init();

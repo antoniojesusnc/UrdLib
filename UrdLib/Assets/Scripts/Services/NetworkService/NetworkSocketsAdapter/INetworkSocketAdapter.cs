@@ -8,7 +8,7 @@ namespace Urd.Sockets
     {
         bool IsConnected { get; }
         void Init();
-        void Connect();
+        void Connect(string url);
 
         void EmitData(string reference, Action<JsonElement> callback,
             params KeyValuePair<string, string>[] values);

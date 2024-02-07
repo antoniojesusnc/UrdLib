@@ -11,7 +11,7 @@ namespace Urd.DTO
         public bool IsConnected { get; }
         public void Init(){ }
 
-        public void Connect() { }
+        public void Connect(string url) { }
         public void EmitData(string reference, Action<JsonElement> callback, params KeyValuePair<string, string>[] values) {}
 
         public void SubscribeToReferenceChanges(string reference, Action<JsonElement> callback) {}

@@ -17,7 +17,7 @@ namespace Urd.Notifications
 
         public Notification GetNotification()
         {
-            Notification notification = new Notification();
+            var notification = new Notification();
             notification.Text = _notificationText;
 
             return notification;

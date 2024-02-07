@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019ab3301c2391a4c94a07a205342ab7, type: 3}
+  m_Name: ServiceLocatorConfig
+  m_EditorClassIdentifier: 
+  <ListOfServices>k__BackingField:
+  - rid: 6975650469897306151
+  - rid: 6975650469897306152
+  - rid: 6975650469897306153
+  - rid: 6975650469897306154
+  - rid: 6975650469897306155
+  - rid: 6975650469897306156
+  - rid: 6975650469897306157
+  - rid: 6975650469897306158
+  - rid: 6975650469897306159
+  - rid: 6975650469897306160
+  - rid: 6975650469897306161
+  - rid: 6975650469897306162
+  - rid: 6975650469897306163
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6975650469897306151
+      type: {class: AssetService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 
+    - rid: 6975650469897306152
+      type: {class: CoroutineService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 
+    - rid: 6975650469897306153
+      type: {class: ClockService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 
+    - rid: 6975650469897306154
+      type: {class: EventBusService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 
+    - rid: 6975650469897306155
+      type: {class: InputService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 
+    - rid: 6975650469897306156
+      type: {class: NetworkService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data:
+        <Environment>k__BackingField: 0
+        <SocketAdapter>k__BackingField:
+          rid: -2
+    - rid: 6975650469897306157
+      type: {class: SaveLoadService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data:
+        _providers: []
+    - rid: 6975650469897306158
+      type: {class: LocalizationService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 
+    - rid: 6975650469897306159
+      type: {class: UnityService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 
+    - rid: 6975650469897306160
+      type: {class: NavigationService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data:
+        <NavigationManagers>k__BackingField: []
+    - rid: 6975650469897306161
+      type: {class: DotweenAnimationService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data:
+        _dotweenAnimationConfig: {fileID: 0}
+    - rid: 6975650469897306162
+      type: {class: NotificationService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data:
+        _notificationServiceConfig: {fileID: 0}
+    - rid: 6975650469897306163
+      type: {class: InteractionService, ns: Urd.Services, asm: MyLibrary.runtime}
+      data: 

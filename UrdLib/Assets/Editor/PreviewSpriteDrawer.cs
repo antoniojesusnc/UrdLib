@@ -1,7 +1,8 @@
 using UnityEditor;
 using UnityEngine;
+using Urd.Utils;
 
-namespace Urd.Utils
+namespace Urd.Editor.Utils
 {
     [CustomPropertyDrawer(typeof(PreviewSpriteAttribute))]
     public class PreviewSpriteDrawer : PropertyDrawer

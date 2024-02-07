@@ -9,7 +9,7 @@ namespace Urd.Services
     public class ServiceLocatorConfig : ScriptableObject
     {
         [field: SerializeReference, SubclassSelector]
-        public List<IBaseService> ListOfServices { get; private set; }
+        public List<IBaseService> ListOfServices { get; private set; } = new ();
 
         [ContextMenu("FillWithAllServices")]
         public void FillWithAllServices()

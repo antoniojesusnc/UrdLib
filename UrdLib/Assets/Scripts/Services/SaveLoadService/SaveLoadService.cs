@@ -8,10 +8,15 @@ namespace Urd.Services
     [Serializable]
     public class SaveLoadService : BaseService, ISaveLoadService
     {
-        [SerializeReference, SubclassSelector] private List<ISaveLoadServiceProvider> _providers;
+        [SerializeReference, SubclassSelector] private List<ISaveLoadServiceProvider> _providers = new();
 
         public override int LoadPriority => 30;
 
+        public SaveLoadService()
+        {
+            _providers.Add(new SaveLoadServiceProviderPlayerPref());
+        }
+        
         public void Save<T>(Enum key, T value) => Save(key.ToString(), value);
 
         public void Save<T>(string key, T value)

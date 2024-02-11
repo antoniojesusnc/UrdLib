@@ -6,5 +6,6 @@ namespace Urd.Services
     public interface IDotweenAnimationService : IBaseService
     {
         public bool TryGetAnimation<T>(Enum enumerable, out T animation) where T : class, IBaseTweenAnimation;
+        void SetConfig(DotweenAnimationConfig dotweenAnimationConfig);
     }
 }

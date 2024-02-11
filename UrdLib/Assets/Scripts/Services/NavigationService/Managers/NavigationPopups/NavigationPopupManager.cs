@@ -28,6 +28,11 @@ namespace Urd.Navigation
         }
         private Transform _popupParent;
 
+        public override void SetConfig(ScriptableObject config)
+        {
+            _popupConfig = config as UIPopupConfig;
+        } 
+
         public override void Init()
         {
             base.Init();

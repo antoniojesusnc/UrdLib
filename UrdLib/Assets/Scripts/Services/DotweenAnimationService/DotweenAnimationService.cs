@@ -11,9 +11,15 @@ namespace Urd.Services
 
         [SerializeField] private DotweenAnimationConfig _dotweenAnimationConfig;
         
+        public void SetConfig(DotweenAnimationConfig dotweenAnimationConfig)
+        {
+            _dotweenAnimationConfig = dotweenAnimationConfig;
+        }
+        
         public bool TryGetAnimation<T>(Enum enumerable, out T animation) where T : class, IBaseTweenAnimation
         {
             return _dotweenAnimationConfig.TryGetAnimation(enumerable, out animation);
         }
+
     }
 }

@@ -28,6 +28,11 @@ namespace Urd.Navigation
         }
         private Transform _boomerangParent;
 
+        public override void SetConfig(ScriptableObject config)
+        {
+            _boomerangConfig = config as UIBoomerangConfig;
+        } 
+        
         public override void Init()
         {
             base.Init();

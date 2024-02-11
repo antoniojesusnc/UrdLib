@@ -13,11 +13,18 @@ namespace Urd.Services
         public override int LoadPriority => 80;
 
         [field: SerializeReference, SubclassSelector]
-        public List<INavigationManager> NavigationManagers { get; private set; }
+        public List<INavigationManager> NavigationManagers { get; private set; } = new();
 
         public event Action<INavigableModel> OnNavigableOpened;
         public event Action OnCloseAll;
 
+        public NavigationService()
+        {
+            NavigationManagers.Add(new NavigationSceneManager());
+            NavigationManagers.Add(new NavigationPopupManager());
+            NavigationManagers.Add(new NavigationBoomerangManager());
+        }
+        
         public override void Init()
         {
             base.Init();

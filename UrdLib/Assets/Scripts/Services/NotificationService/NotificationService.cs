@@ -13,6 +13,11 @@ namespace Urd.Services
 
         private IUnityService _unityService;
 
+        public void SetConfig(NotificationServiceConfig notificationServiceConfig)
+        {
+            _notificationServiceConfig = notificationServiceConfig;
+        }
+        
         public override void Init()
         {
             base.Init();

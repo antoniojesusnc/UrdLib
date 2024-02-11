@@ -22,7 +22,6 @@ namespace Urd.Services
 
         private void OnNavigableOpened(INavigableModel navigableModel)
         {
-
             if (navigableModel.GetType().IsAssignableFrom(typeof(SceneModel)))
             {
                 GetAllCameraClickability();

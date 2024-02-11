@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using Urd.Error;
 
 namespace Urd.Navigation
@@ -11,6 +12,7 @@ namespace Urd.Navigation
         public abstract void Open(INavigableModel navigableModel, Action<ErrorModel> onOpenNavigable);
         public abstract void Close(INavigableModel navigableModel, Action<ErrorModel> onCloseNavigable);
         public abstract bool IsOpen(INavigableModel navigableModel);
+        public virtual void SetConfig(ScriptableObject config) {}
         public virtual void CloseAll() { }
     }
 }

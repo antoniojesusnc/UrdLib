@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ee2fb819163e646af6e942d7a85aaa, type: 3}
   m_Name: DotweenAnimationsConfig
   m_EditorClassIdentifier: 
-  _animationList: []
+  _animationList:
+  - {fileID: 0}

@@ -92,6 +92,7 @@ namespace Urd.Editor
         private static void AddConfigFiles()
         {
             AddPopupConfig();
+            FillPopupConfig();
             AddBoomerangConfig();
             AddDotweenAnimationConfig();
             AddNotificationConfig();
@@ -99,7 +100,8 @@ namespace Urd.Editor
             
             AssetDatabase.SaveAssets();
         }
-        
+
+
         private static void AddPopupConfig()
         {
             var uiPopupConfig = CreateConfig<UIPopupConfig>(CONFIG_FILE_POPUP);
@@ -109,6 +111,11 @@ namespace Urd.Editor
                 navigationService.NavigationManagers.Find(
                     navigationManager => navigationManager.GetType().IsAssignableFrom(typeof(NavigationPopupManager))) as NavigationPopupManager;
             navigationPopupManager.SetConfig(uiPopupConfig);
+        }
+        private static void FillPopupConfig()
+        {
+            var popupViews = AssemblyHelper.GetClassTypesThatImplement<UIPopupView>();
+            Debug.Log(popupViews);
         }
         
         private static void AddBoomerangConfig()

@@ -15,6 +15,12 @@ namespace Urd.Notifications
 
         public DateTime DeliveryDateTime => DateTime.UtcNow.AddMinutes(_delayTimeInMinutes);
 
+        public NotificationByTimeModel(float delayTimeInMinutes, string message)
+        {
+            _delayTimeInMinutes = delayTimeInMinutes;
+            _notificationText = message;
+        }
+        
         public Notification GetNotification()
         {
             var notification = new Notification();

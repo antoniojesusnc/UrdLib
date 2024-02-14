@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ee780348fa1ba41afc4db1946d6de5, type: 3}
   m_Name: UIPopupConfig
   m_EditorClassIdentifier: 
-  _dialogs: []
+  _popupViews: []

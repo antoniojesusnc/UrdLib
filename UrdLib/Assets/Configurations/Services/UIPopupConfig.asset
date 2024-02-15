@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ee780348fa1ba41afc4db1946d6de5, type: 3}
   m_Name: UIPopupConfig
   m_EditorClassIdentifier: 
-  <PopupViews>k__BackingField:
-  - {fileID: 6304076336700366222, guid: b12c1056de1a1ac4f957b93f58db835d, type: 3}
-  - {fileID: 0}
+  <PopupViews>k__BackingField: []

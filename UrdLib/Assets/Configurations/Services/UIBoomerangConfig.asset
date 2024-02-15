@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb7904010922924a93795da4b32a026, type: 3}
   m_Name: UIBoomerangConfig
   m_EditorClassIdentifier: 
-  <Boomerangs>k__BackingField: []
+  <Boomerangs>k__BackingField:
+  - {fileID: 5606478325693428155, guid: 87bc9c93a4cbf864b9476de68669190d, type: 3}

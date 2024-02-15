@@ -177,6 +177,7 @@ Transform:
   - {fileID: 4765050079860617077}
   - {fileID: 5889482306513056341}
   - {fileID: 3512266520949721003}
+  - {fileID: 8665250196655301118}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -192,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1d8783be7d32e4898fd602d3f59b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serviceLocatorConfig: {fileID: 11400000, guid: 8f40ac8faf40a9749b081a2dbe5da54c, type: 2}
+  _serviceLocatorConfig: {fileID: 11400000, guid: 13c14aa900f967c4b89c1e3a7daf67ef, type: 2}
 --- !u!114 &-8350625007601305741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,3 +306,56 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8289301703541707794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8665250196655301118}
+  - component: {fileID: 733166371778460669}
+  - component: {fileID: 4375103401868217208}
+  m_Layer: 0
+  m_Name: AudioServiceView
+  m_TagString: AudioService
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8665250196655301118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289301703541707794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1096811296353068743}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &733166371778460669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289301703541707794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00830ca6ceba0c544aa95bffd38f7b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!81 &4375103401868217208
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289301703541707794}
+  m_Enabled: 1

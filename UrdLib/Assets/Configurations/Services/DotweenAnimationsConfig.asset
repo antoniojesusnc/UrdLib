@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ee2fb819163e646af6e942d7a85aaa, type: 3}
   m_Name: DotweenAnimationsConfig
   m_EditorClassIdentifier: 
-  <AnimationList>k__BackingField:
-  - {fileID: 11400000, guid: 06ed4c3b63983984582aa6446b763439, type: 2}
-  - {fileID: 0}
+  <AnimationList>k__BackingField: []

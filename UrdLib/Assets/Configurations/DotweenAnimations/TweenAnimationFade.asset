@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TweenAnimationFade
   m_EditorClassIdentifier: 
   <AnimationType>k__BackingField: 0
-  _duration: 0
+  _duration: 0.2
   _ease: 6
   _initialFade: 0
-  _finalFade: 0
+  _finalFade: 1

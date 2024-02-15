@@ -15,10 +15,12 @@ namespace Urd.Editor
         private const string ANIMATIONS_FOLDER = "DotweenAnimations";
         private const string FILE_NAME_FORMAT = "ServiceLocatorConfig{0}.asset";
         
+        private const string CONFIG_FILE_AUDIO = "AudioConfig{0}.asset";
         private const string CONFIG_FILE_POPUP = "UIPopupConfig{0}.asset";
         private const string CONFIG_FILE_BOOMERANG = "UIBoomerangConfig{0}.asset";
         private const string CONFIG_FILE_DOTWEEEN_ANIMATION = "DotweenAnimationsConfig{0}.asset";
         private const string CONFIG_FILE_NOTIFICATION = "NotificationsConfig{0}.asset";
+        
         private const string DOTWEEEN_ANIMATION_FADE = "TweenAnimationFade{0}.asset";
 
         private static string Folder => $"{Application.dataPath}/{CONFIG_FOLDER}";
@@ -106,7 +108,7 @@ namespace Urd.Editor
             AddDotweenAnimationConfig();
             AddDotweenAnimationFade();
             AddNotificationConfig();
-            
+            AddAudioConfig();
             
             AssetDatabase.SaveAssets();
         }
@@ -157,6 +159,14 @@ namespace Urd.Editor
             var notificationService = _serviceLocatorConfig.ListOfServices.Find(
                 service => service.GetMainInterface().IsAssignableFrom(typeof(INotificationService))) as INotificationService;
             notificationService.SetConfig(notificationServiceConfig);
+        }
+        
+        private static void AddAudioConfig()
+        {
+            var audioConfig = CreateConfig<AudioConfig>(CONFIG_FILE_AUDIO, RelativeServiceFolder);
+            var audioService = _serviceLocatorConfig.ListOfServices.Find(
+                service => service.GetMainInterface().IsAssignableFrom(typeof(IAudioService))) as IAudioService;
+            audioService.SetConfig(audioConfig);
         }
     }
 }

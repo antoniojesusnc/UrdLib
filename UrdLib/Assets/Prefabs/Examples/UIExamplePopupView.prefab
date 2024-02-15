@@ -93,7 +93,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4250917666901377520, guid: 1e880282cc5db0b40943c2915755e65d, type: 3}
       propertyPath: m_Name
-      value: TemplatePopupView
+      value: UIExamplePopupView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e880282cc5db0b40943c2915755e65d, type: 3}
+--- !u!1 &2776035738644930634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4250917666901377520, guid: 1e880282cc5db0b40943c2915755e65d, type: 3}
+  m_PrefabInstance: {fileID: 2051458707647013306}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6304076336700366222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776035738644930634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2572dfe91ecaf45b75918ad0664c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PopupType>k__BackingField: 0
+  _useAnimationsWhenOpenOrClose: 0
+  _openAnimation: {fileID: 0}
+  _closeAnimation: {fileID: 0}

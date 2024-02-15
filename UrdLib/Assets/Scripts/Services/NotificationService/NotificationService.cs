@@ -1,21 +1,22 @@
 using System;
 using Unity.Notifications;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Urd.Services
 {
     public class NotificationService : BaseService, INotificationService
     {
         [SerializeField]
-        private NotificationServiceConfig _notificationServiceConfig;
+        private NotificationsConfig _notificationsConfig;
 
         public override int LoadPriority => 90;
 
         private IUnityService _unityService;
 
-        public void SetConfig(NotificationServiceConfig notificationServiceConfig)
+        public void SetConfig(NotificationsConfig notificationsConfig)
         {
-            _notificationServiceConfig = notificationServiceConfig;
+            _notificationsConfig = notificationsConfig;
         }
         
         public override void Init()
@@ -41,14 +42,14 @@ namespace Urd.Services
 
         private void ScheduleNotifications()
         {
-            if (_notificationServiceConfig == null) 
+            if (_notificationsConfig == null) 
             {
                 return;
             }
 
-            for (int i = 0; i < _notificationServiceConfig.Notifications.Count; i++)
+            for (int i = 0; i < _notificationsConfig.Notifications.Count; i++)
             {
-                TryScheduleNotification(_notificationServiceConfig.Notifications[i]);
+                TryScheduleNotification(_notificationsConfig.Notifications[i]);
             }
         }
 

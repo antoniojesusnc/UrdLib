@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using Urd.Animation;
 using Urd.Navigation;
 using Urd.Services;
 using Urd.Utils;
@@ -11,17 +12,21 @@ namespace Urd.Editor
     {
         private const string CONFIG_FOLDER = "Configurations";
         private const string SERVICES_FOLDER = "Services";
+        private const string ANIMATIONS_FOLDER = "DotweenAnimations";
         private const string FILE_NAME_FORMAT = "ServiceLocatorConfig{0}.asset";
         
         private const string CONFIG_FILE_POPUP = "UIPopupConfig{0}.asset";
         private const string CONFIG_FILE_BOOMERANG = "UIBoomerangConfig{0}.asset";
         private const string CONFIG_FILE_DOTWEEEN_ANIMATION = "DotweenAnimationsConfig{0}.asset";
-        private const string CONFIG_FILE_NOTIFICATION = "NotificatinsConfig{0}.asset";
+        private const string CONFIG_FILE_NOTIFICATION = "NotificationsConfig{0}.asset";
+        private const string DOTWEEEN_ANIMATION_FADE = "TweenAnimationFade{0}.asset";
 
         private static string Folder => $"{Application.dataPath}/{CONFIG_FOLDER}";
         private static string ServicesFolder => $"{Application.dataPath}/{CONFIG_FOLDER}/{SERVICES_FOLDER}";
+        private static string AnimationsFolder => $"{Application.dataPath}/{CONFIG_FOLDER}/{ANIMATIONS_FOLDER}";
         private static string RelativeFolder => $"Assets/{CONFIG_FOLDER}";
         private static string RelativeServiceFolder => $"Assets/{CONFIG_FOLDER}/{SERVICES_FOLDER}";
+        private static string RelativeAnimationsFolder => $"Assets/{CONFIG_FOLDER}/{ANIMATIONS_FOLDER}";
 
         private static ServiceLocatorConfig _serviceLocatorConfig;
         
@@ -43,25 +48,29 @@ namespace Urd.Editor
             {
                 Directory.CreateDirectory(ServicesFolder);
             }
+            if (!Directory.Exists(AnimationsFolder))
+            {
+                Directory.CreateDirectory(AnimationsFolder);
+            }
         }
         
         private static void CreateServiceLocatorConfig()
         {
-            _serviceLocatorConfig = CreateConfig<ServiceLocatorConfig>(FILE_NAME_FORMAT, false);
+            _serviceLocatorConfig = CreateConfig<ServiceLocatorConfig>(FILE_NAME_FORMAT, RelativeFolder);
             _serviceLocatorConfig.FillWithAllServices();
             AssetDatabase.SaveAssets();
             Debug.Log($"New Service locator config with path \" {_serviceLocatorConfig.name} \" created");
         }
         
-        private static T CreateConfig<T>(string fileNameFormat, bool isAServiceConfig = true) where T : ScriptableObject
+        private static T CreateConfig<T>(string fileNameFormat, string relativeFolder) where T : ScriptableObject
         {
             var config = ScriptableObject.CreateInstance<T>();
 
-            var filePath = $"{(isAServiceConfig?RelativeServiceFolder:RelativeFolder)}/{string.Format(fileNameFormat, "")}";
+            var filePath = $"{relativeFolder}/{string.Format(fileNameFormat, "")}";
             var file = AssetDatabase.LoadAssetAtPath<ServiceLocatorConfig>(filePath);
             if (file != null)
             {
-                filePath = GetNextFilePath<T>(fileNameFormat, isAServiceConfig);
+                filePath = GetNextFilePath<T>(fileNameFormat, relativeFolder);
                 if (filePath == null)
                 {
                     Debug.LogError("You already have more than 100 fileNameFormat in the folder");
@@ -74,12 +83,12 @@ namespace Urd.Editor
             return config;
         }
 
-        private static string GetNextFilePath<T>(string fileNameFormat, bool isAServiceConfig) where T : ScriptableObject
+        private static string GetNextFilePath<T>(string fileNameFormat, string relativeFolder) where T : ScriptableObject
         {
             string filePath = "";
             for (int i = 1; i < 100; i++)
             {
-                filePath = $"{(isAServiceConfig?RelativeServiceFolder:RelativeFolder)}/{string.Format(fileNameFormat, i.ToString("00"))}";
+                filePath = $"{relativeFolder}/{string.Format(fileNameFormat, i.ToString("00"))}";
                 var file = AssetDatabase.LoadAssetAtPath<T>(filePath);
                 if (file == null)
                 {
@@ -95,16 +104,16 @@ namespace Urd.Editor
             FillPopupConfig();
             AddBoomerangConfig();
             AddDotweenAnimationConfig();
+            AddDotweenAnimationFade();
             AddNotificationConfig();
             
             
             AssetDatabase.SaveAssets();
         }
 
-
         private static void AddPopupConfig()
         {
-            var uiPopupConfig = CreateConfig<UIPopupConfig>(CONFIG_FILE_POPUP);
+            var uiPopupConfig = CreateConfig<UIPopupConfig>(CONFIG_FILE_POPUP, RelativeServiceFolder);
             var navigationService = _serviceLocatorConfig.ListOfServices.Find(
                 service => service.GetMainInterface().IsAssignableFrom(typeof(INavigationService))) as INavigationService;
             var navigationPopupManager =
@@ -120,7 +129,7 @@ namespace Urd.Editor
         
         private static void AddBoomerangConfig()
         {
-            var uiBoomerangConfig = CreateConfig<UIBoomerangConfig>(CONFIG_FILE_BOOMERANG);
+            var uiBoomerangConfig = CreateConfig<UIBoomerangConfig>(CONFIG_FILE_BOOMERANG, RelativeServiceFolder);
             var navigationService = _serviceLocatorConfig.ListOfServices.Find(
                 service => service.GetMainInterface().IsAssignableFrom(typeof(INavigationService))) as INavigationService;
             var navigationBoomerangManager =
@@ -131,15 +140,20 @@ namespace Urd.Editor
         
         private static void AddDotweenAnimationConfig()
         {
-            var dotweenAnimationConfig = CreateConfig<DotweenAnimationConfig>(CONFIG_FILE_DOTWEEEN_ANIMATION);
+            var dotweenAnimationConfig = CreateConfig<DotweenAnimationConfig>(CONFIG_FILE_DOTWEEEN_ANIMATION, RelativeServiceFolder);
             var dotweenAnimationService = _serviceLocatorConfig.ListOfServices.Find(
                 service => service.GetMainInterface().IsAssignableFrom(typeof(IDotweenAnimationService))) as IDotweenAnimationService;
             dotweenAnimationService.SetConfig(dotweenAnimationConfig);
         }
         
+        private static void AddDotweenAnimationFade()
+        {
+            CreateConfig<TweenAnimationFade>(DOTWEEEN_ANIMATION_FADE, RelativeAnimationsFolder);
+        }
+        
         private static void AddNotificationConfig()
         {
-            var notificationServiceConfig = CreateConfig<NotificationServiceConfig>(CONFIG_FILE_NOTIFICATION);
+            var notificationServiceConfig = CreateConfig<NotificationsConfig>(CONFIG_FILE_NOTIFICATION, RelativeServiceFolder);
             var notificationService = _serviceLocatorConfig.ListOfServices.Find(
                 service => service.GetMainInterface().IsAssignableFrom(typeof(INotificationService))) as INotificationService;
             notificationService.SetConfig(notificationServiceConfig);

@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UIExampleBoomerangView : MonoBehaviour
+namespace Urd.Navigation
 {
-    // Start is called before the first frame update
-    void Start()
+    public class UIExampleBoomerangView : UIBoomerangView
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

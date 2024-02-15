@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "com.coffee.ui-effect": "https://github.com/mob-sakai/UIEffect.git",
     "com.coffee.ui-particle": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
+    "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git",
     "com.domybest.mybox": "https://github.com/Deadcows/MyBox.git",
     "com.h8man.2d.navmeshplus": "https://github.com/jl-randazzo/NavMeshPlus.git",
     "com.itisnajim.socketiounity": "https://github.com/itisnajim/SocketIOUnity.git",
@@ -27,6 +29,7 @@
     "com.unity.timeline": "1.6.5",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.1",
+    "devlocker.tools.assetmanagement": "https://github.com/NibbleByte/UnityAssetManagementTools.git#upm",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

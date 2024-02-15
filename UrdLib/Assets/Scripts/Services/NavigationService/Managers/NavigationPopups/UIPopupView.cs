@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using MyBox;
 using UnityEngine;
 using Urd.Animation;
 using Urd.Services;
@@ -15,30 +16,35 @@ namespace Urd.Navigation
 
         [Header("Components")]
         private CanvasGroup _background;
-        private CanvasGroup _container;
+        private CanvasGroup _dialog;
 
-        [Header("Animations")]                              
-        [SerializeField] private TweenAnimation _openAnimation;
-        [SerializeField] private TweenAnimation _closeAnimation;
+        [Header("Animations")] 
+        [SerializeField]
+        private bool _useAnimationsWhenOpenOrClose;
+        [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
+        private TweenAnimation _openAnimation;
+        [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
+        private TweenAnimation _closeAnimation;
         
         private IDotweenAnimationService _dotweenAnimationService;
+        private CanvasGroup _canvasGroup;
         
         protected virtual void Awake()
         {
-            var backgroundTransform = transform.GetChild(0).Find("BlackBackground");
+            var backgroundTransform = transform.Find("BlackBackground");
             if (backgroundTransform != null)
             {
                 _background = backgroundTransform.GetComponent<CanvasGroup>();
             }
             
-            var containerTransform = transform.GetChild(0).Find("Dialog");
+            var containerTransform = transform.Find("Dialog");
             if (containerTransform != null)
             {
-                _container = backgroundTransform.GetComponent<CanvasGroup>();
+                _dialog = backgroundTransform.GetComponent<CanvasGroup>();
             }
             
             _background.alpha = 0;
-            _container.alpha = 0;
+            _dialog.alpha = 0;
         }
 
         public virtual void Init(UIPopupModel model)
@@ -46,40 +52,58 @@ namespace Urd.Navigation
             Model = model;
             
             _dotweenAnimationService = StaticServiceLocator.Get<IDotweenAnimationService>();
-
-            SetHeaderText();
-        }
-
-        private void SetHeaderText()
-        {
-            //_headerText.text = Model.Type.ToString();
         }
 
         public virtual void Open(Action onOpenCallback = null)
         {
-            Tween tween = null;
+            Tween tweenBlackground = null;
+            Tween tweenDialog = null;
             if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
-                    PopupDotweenAnimationTypes.BackgroundFadeIn, out var fadeAnimation))
+                    PopupDotweenAnimationTypes.FadeIn, out var fadeAnimation))
             {
-                //tween = fadeAnimation.DoAnimation(_background);
+                tweenBlackground = fadeAnimation.DoAnimation(_background);
+            }
+            else
+            {
+                _background.alpha = 1;
             }
 
-            if (_openAnimation != null)
+            if (!_useAnimationsWhenOpenOrClose)
             {
-                var tweenAnimation = (_openAnimation as ITweenAnimation<RectTransform>);
-                tween = tweenAnimation?.DoAnimation(_container.GetComponent<RectTransform>());
+                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
+                        PopupDotweenAnimationTypes.FadeIn, out fadeAnimation))
+                {
+                    tweenDialog = fadeAnimation.DoAnimation(_dialog);
+                }
+                else
+                {
+                    _dialog.alpha = 1;
+                }
             }
-            else if (_dotweenAnimationService.TryGetAnimation<TweenAnimationPopupMoveAnchorFooter>(
-                         PopupDotweenAnimationTypes.PopupShowFromFooter, out var showAnimation))
+            else
             {
-                tween = showAnimation.DoAnimation(_container.GetComponent<RectTransform>());
+                tweenDialog = SetUpOpenAnimation();
             }
+            
+            if (tweenBlackground != null || tweenDialog != null)
+            {
+                if((tweenBlackground?.Delay() + tweenBlackground?.Duration()) > (tweenDialog?.Delay() + tweenDialog?.Duration()))
+                {
+                    tweenBlackground.onComplete += () => OnOpen(onOpenCallback);
+                }else
+                {
+                    tweenDialog.onComplete += () => OnOpen(onOpenCallback);
+                }
+            }
+            else
+            {
+                OnOpen(onOpenCallback);
+            }
+        }
 
-            _container.alpha = 1;
-            if (tween != null)
-            {
-                tween.onComplete += () => OnOpen(onOpenCallback);
-            }
+        protected virtual Tween SetUpOpenAnimation()
+        {
+            return default;
         }
 
         protected virtual void OnOpen(Action onOpenCallback)
@@ -94,35 +118,55 @@ namespace Urd.Navigation
         
         public virtual void Close(Action onCloseCallback = null)
         {
-            Tween tween = null;
-            if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(PopupDotweenAnimationTypes.BackgroundFadeOut, out var fadeAnimation))
+            Tween tweenBlackground = null;
+            Tween tweenDialog = null;
+            if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(PopupDotweenAnimationTypes.FadeOut, out var fadeAnimation))
             {
-                //tween = fadeAnimation.DoAnimation(_background);
+                tweenBlackground = fadeAnimation.DoAnimation(_background);
+            }
+            else
+            {
+                _background.alpha = 0;
             }
             
-            if (_closeAnimation != null)
+            if (!_useAnimationsWhenOpenOrClose)
             {
-                var tweenAnimation = (_closeAnimation as ITweenAnimation<RectTransform>);
-                tween = tweenAnimation?.DoAnimation(_container.GetComponent<RectTransform>());
+                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
+                        PopupDotweenAnimationTypes.FadeOut, out fadeAnimation))
+                {
+                    tweenDialog = fadeAnimation.DoAnimation(_dialog);
+                }
+                else
+                {
+                    _dialog.alpha = 0;
+                }
             }
-            else if (_dotweenAnimationService.TryGetAnimation<TweenAnimationPopupMoveAnchorFooter>(
-                           PopupDotweenAnimationTypes.DialogHideFromFooter, out var hideAnimation))
+            else
             {
-                tween = hideAnimation.DoAnimation(_container.GetComponent<RectTransform>());
+                tweenDialog = SetUpCloseAnimation();
             }
 
-            if (tween != null)
+            if (tweenBlackground != null || tweenDialog != null)
             {
-                tween.onComplete += () => OnFinishPopupMovement(onCloseCallback);
+                if((tweenBlackground?.Delay() + tweenBlackground?.Duration()) > (tweenDialog?.Delay() + tweenDialog?.Duration()))
+                {
+                    tweenBlackground.onComplete += () => OnClose(onCloseCallback);
+                }else
+                {
+                    tweenDialog.onComplete += () => OnClose(onCloseCallback);
+                }
+            }
+            else
+            {
+                OnClose(onCloseCallback);
             }
         }
 
-        private void OnFinishPopupMovement(Action onCloseCallback)
+        protected virtual Tween SetUpCloseAnimation()
         {
-            _container.alpha = 0;
-            OnClose(onCloseCallback);
+            return default;
         }
-
+        
         protected virtual void OnClose(Action onCloseCallback)
         {
             onCloseCallback?.Invoke();

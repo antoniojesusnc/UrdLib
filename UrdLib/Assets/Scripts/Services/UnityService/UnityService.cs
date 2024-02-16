@@ -1,5 +1,5 @@
 using System;
-using UnityEngine;
+using Unity.Services.Core;
 
 namespace Urd.Services
 {
@@ -14,6 +14,8 @@ namespace Urd.Services
         public override void Init()
         {
             base.Init();
+            
+            UnityServices.InitializeAsync();
         }
 
         public void CallOnGameFocus(bool focus)

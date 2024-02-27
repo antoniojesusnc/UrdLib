@@ -56,6 +56,13 @@
       "dependencies": {},
       "hash": "61dcbd958f0f2b483218c1ee3650710541e83afb"
     },
+    "com.marijnzwemmer.unity-toolbar-extender": {
+      "version": "https://github.com/marijnz/unity-toolbar-extender.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "dbd76ed996483d219c39d240f785b1790aa039ed"
+    },
     "com.pimdewitte.unitymainthreaddispatcher": {
       "version": "https://github.com/PimDeWitte/UnityMainThreadDispatcher.git",
       "depth": 0,

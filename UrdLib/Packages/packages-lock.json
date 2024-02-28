@@ -57,11 +57,11 @@
       "hash": "c9e06b15391449ad42fd9b0f39fea48054751bcd"
     },
     "com.mackysoft.serializereference-extensions": {
-      "version": "https://github.com/Invertex/Unity-SerializeReferenceExtensions.git?path=Assets/MackySoft/MackySoft.SerializeReferenceExtensions",
+      "version": "https://github.com/mackysoft/Unity-SerializeReferenceExtensions.git?path=Assets/MackySoft/MackySoft.SerializeReferenceExtensions",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "61dcbd958f0f2b483218c1ee3650710541e83afb"
+      "hash": "301cb4b12cf419c60509836d23d2bd482c131368"
     },
     "com.marijnzwemmer.unity-toolbar-extender": {
       "version": "https://github.com/marijnz/unity-toolbar-extender.git",
@@ -480,11 +480,11 @@
       "url": "https://packages.unity.com"
     },
     "devlocker.tools.assetmanagement": {
-      "version": "https://github.com/NibbleByte/UnityAssetManagementTools.git#upm",
+      "version": "https://github.com/NibbleByte/UnityAssetManagementTools.git#v1.3.0",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "619f39d2527c0a82ead52e34d09271f56bf5e0b5"
+      "hash": "2727aa72ab46db6913c09920cfdae1ad59c6ae11"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

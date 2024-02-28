@@ -2,7 +2,7 @@ using MyBox;
 using UnityEngine;
 
 
-namespace BrenaBurger
+namespace Urd.Utils.WorldMobile
 {
     [ExecuteAlways]
     public class AdjustToFullScreen : MonoBehaviour

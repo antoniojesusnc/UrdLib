@@ -18,8 +18,14 @@ namespace Urd.Services
             _providers.Add(new RemoteConfigurationServiceProviderUnityRemoteConfig());
         }
 
-        public void Init()
+        public override void Init()
         {
+            base.Init();
+            
+            for (int i = 0; i < _providers.Count; i++)
+            {
+                _providers[i].Init();
+            }
         }
 
         public T Load<T>(Enum key, T defaultValue) => Load(key.ToString(), defaultValue);

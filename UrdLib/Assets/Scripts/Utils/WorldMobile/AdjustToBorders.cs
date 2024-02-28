@@ -3,7 +3,7 @@ using MyBox;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace BrenaBurger
+namespace Urd.Utils.WorldMobile
 {
     [ExecuteAlways]
     public class AdjustToBorders : MonoBehaviour

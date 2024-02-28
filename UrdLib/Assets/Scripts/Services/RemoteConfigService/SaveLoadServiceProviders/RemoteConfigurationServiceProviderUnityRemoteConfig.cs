@@ -8,11 +8,12 @@ namespace Urd.SaveLoad
     [Serializable]
     public class RemoteConfigurationServiceProviderUnityRemoteConfig : IRemoteConfigurationServiceProvider
     {
-        public RemoteConfigurationServiceProviderUnityRemoteConfig()
+
+        public void Init()
         {
             RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         }
-
+        
         private void ApplyRemoteConfig(ConfigResponse configResponse)
         {
             // TODO check the data

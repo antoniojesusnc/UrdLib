@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BrenaBurger
+namespace Urd.Utils.WorldMobile
 {
     [ExecuteAlways]
     public class VerticalLayoutWorld : ChildLayoutWorld

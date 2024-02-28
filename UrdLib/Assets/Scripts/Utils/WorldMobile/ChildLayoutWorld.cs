@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BrenaBurger
+namespace Urd.Utils.WorldMobile
 {
     [ExecuteAlways]
     public abstract class ChildLayoutWorld : MonoBehaviour

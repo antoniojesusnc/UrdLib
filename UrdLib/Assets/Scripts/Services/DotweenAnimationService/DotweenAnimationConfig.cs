@@ -11,7 +11,7 @@ namespace Urd.Services
     public class DotweenAnimationConfig : ScriptableObject
     {
         [field: SerializeField, DisplayInspector]
-        public List<TweenAnimation> AnimationList { get; private set; }
+        public List<TweenAnimation> AnimationList { get; private set; } = new();
 
         public bool TryGetAnimation<T>(Enum enumerable, out T animation) where T : class, IBaseTweenAnimation
         {

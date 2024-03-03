@@ -10,7 +10,7 @@ namespace Urd.Navigation
     public class UIBoomerangConfig : ScriptableObject
     {
         [field: SerializeField, DisplayInspector()]
-        public List<UIBoomerangView> Boomerangs { get; private set; }
+        public List<UIBoomerangView> Boomerangs { get; private set; } = new List<UIBoomerangView>();
 
         public bool TryGetBoomerangView(Enum boomerangType, out UIBoomerangView boomerangView)
         {

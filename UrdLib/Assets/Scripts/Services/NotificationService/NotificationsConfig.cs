@@ -8,6 +8,6 @@ namespace Urd.Services
     public class NotificationsConfig : ScriptableObject
     {
         [field: SerializeReference, SubclassSelector]
-        public List<INotificationModel> Notifications { get; private set; }
+        public List<INotificationModel> Notifications { get; private set; } = new();
     }
 }

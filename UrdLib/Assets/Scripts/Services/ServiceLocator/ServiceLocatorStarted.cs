@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Urd.Services
 {
@@ -36,7 +37,14 @@ namespace Urd.Services
                 StaticServiceLocator.Register(services[i], services[i].GetMainInterface());
             }
             
-            StaticServiceLocator.ServicesLoaded();
+            StaticServiceLocator.ServicesLoaded(); 
+            LoadFirstScene();
+        }
+
+        private void LoadFirstScene()
+        {
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
+            SceneManager.UnloadSceneAsync(0);
         }
 
         private void LoadServiceLocatorConfigInDefaultPath()

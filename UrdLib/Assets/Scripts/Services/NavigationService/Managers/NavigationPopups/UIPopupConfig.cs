@@ -10,7 +10,7 @@ namespace Urd.Navigation
     public class UIPopupConfig : ScriptableObject
     {
         [field: SerializeField, DisplayInspector()]
-        public List<UIPopupView> PopupViews { get; private set; }
+        public List<UIPopupView> PopupViews { get; private set; } = new List<UIPopupView>();
 
         public bool TryGetPopupView(Enum popupType, out UIPopupView popupView)
         {

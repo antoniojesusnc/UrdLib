@@ -12,6 +12,8 @@ namespace Urd.Services
 
         void SubscribeToUpdate(Action<float> listener, bool pausable = true);
         void UnSubscribeToUpdate(Action<float> listener);
+        void SubscribeToUpdatePerSecond(Action<float> listener, bool pausable = true);
+        void UnSubscribeToUpdatePerSecond(Action<float> listener);
         void SubscribeToFixedUpdate(Action<float> listener, bool pausable = true);
         void UnSubscribeToFixedUpdate(Action<float> listener);
 

@@ -17,6 +17,7 @@ namespace Urd.Services
         public DateTime Now => DateTime.UtcNow;
 
         List<ClockServiceUpdateModel> _updateListeners = new List<ClockServiceUpdateModel>();
+        List<ClockServiceUpdateModel> _updatePerSecondListeners = new List<ClockServiceUpdateModel>();
         List<ClockServiceUpdateModel> _fixedUpdateListeners = new List<ClockServiceUpdateModel>();
         List<TimerModel> _delayedCalls = new List<TimerModel>();
 
@@ -25,6 +26,7 @@ namespace Urd.Services
         private bool _update = true;
         private bool _fixedUpdate = true;
 
+        private float _secondTimestamp = 0;
         public override void Init()
         {
             base.Init();
@@ -64,6 +66,20 @@ namespace Urd.Services
             }
         }
 
+        public void SubscribeToUpdatePerSecond(Action<float> listener, bool pausable = true)
+        {
+            _updatePerSecondListeners.Add(new ClockServiceUpdateModel(listener, pausable));
+        }
+
+        public void UnSubscribeToUpdatePerSecond(Action<float> listenerToDelete)
+        {
+            var model = _updatePerSecondListeners.Find(listener => listener.Listener == listenerToDelete);
+            if(model != null)
+            {
+                _updatePerSecondListeners.Remove(model);
+            }
+        }
+
         public void SubscribeToFixedUpdate(Action<float> listener, bool pausable = true)
         {
             _fixedUpdateListeners.Add(new ClockServiceUpdateModel(listener, pausable));
@@ -93,7 +109,9 @@ namespace Urd.Services
                 float deltaTime = Time.deltaTime;
                 UpdateUpdates(deltaTime);
                 UpdateDelayedCalls(deltaTime);
-                
+
+                UpdatePerSecondUpdates(deltaTime);
+
                 yield return 0;
             }
         }
@@ -135,6 +153,29 @@ namespace Urd.Services
                     _updateListeners[i].CallListener(deltaTime);
                 }
             }
+        }
+
+        private void UpdatePerSecondUpdates(float deltaTime)
+        {
+            _secondTimestamp += deltaTime;
+            if (_secondTimestamp < 1)
+            {
+                return;
+            }
+
+            int seconds = (int)_secondTimestamp;
+            for (int i = 0; i < seconds; i++)
+            {
+                for (int j = 0; j < _updatePerSecondListeners.Count; j++)
+                {
+                    if (!IsInPause || !_updatePerSecondListeners[j].IsPausable)
+                    {
+                        _updatePerSecondListeners[j].CallListener(1);
+                    }
+                }
+            }
+
+            _secondTimestamp -= seconds;
         }
 
         private void UpdateDelayedCalls(float deltaTime)

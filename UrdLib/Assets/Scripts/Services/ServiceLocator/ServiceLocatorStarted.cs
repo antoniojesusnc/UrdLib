@@ -44,7 +44,6 @@ namespace Urd.Services
         private void LoadFirstScene()
         {
             SceneManager.LoadScene(1, LoadSceneMode.Single);
-            SceneManager.UnloadSceneAsync(0);
         }
 
         private void LoadServiceLocatorConfigInDefaultPath()

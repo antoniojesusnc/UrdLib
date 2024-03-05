@@ -45,15 +45,15 @@ namespace Urd.Services
                 return;
             }
 
-            navigationManager.Open(navigableModel, (errorModel) => OnOpenNavigable(navigableModel as SceneModel, errorModel, onOpenNavigableCallback));
+            navigationManager.Open(navigableModel, (errorModel) => OnOpenNavigable(navigableModel, errorModel, onOpenNavigableCallback));
         }
 
-        private void OnOpenNavigable(SceneModel sceneModel, ErrorModel errorModel,
+        private void OnOpenNavigable(INavigableModel navigableModel, ErrorModel errorModel,
             Action<ErrorModel> onOpenNavigable)
         {
             if (errorModel.IsSuccess)
             {
-                OnNavigableOpened?.Invoke(sceneModel);
+                OnNavigableOpened?.Invoke(navigableModel);
             }
             onOpenNavigable?.Invoke(errorModel);
         }

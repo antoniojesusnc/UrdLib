@@ -31,5 +31,7 @@ namespace Urd.Services
 
             return null;
         }
+
+        public virtual void Dispose() { }
     }
 }

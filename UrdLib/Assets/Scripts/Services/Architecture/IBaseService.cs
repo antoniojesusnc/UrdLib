@@ -2,7 +2,7 @@
 
 namespace Urd.Services
 {
-    public interface IBaseService 
+    public interface IBaseService : IDisposable 
     {
         public int LoadPriority { get; }
         void Init();

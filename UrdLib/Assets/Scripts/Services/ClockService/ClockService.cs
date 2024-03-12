@@ -182,6 +182,12 @@ namespace Urd.Services
         {
             for (int i = _delayedCalls.Count - 1; i >= 0; i--)
             {
+                if (_delayedCalls[i].Disposed)
+                {
+                    _delayedCalls.RemoveAt(i);
+                    continue;
+                }
+                
                 if (!IsInPause || !_delayedCalls[i].IsPausable)
                 {
                     if (_delayedCalls[i].IsInCooldown)

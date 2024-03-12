@@ -8,7 +8,7 @@ namespace Urd.Navigation
         public event Action OnBoomerangClosed;
         
         public Enum Type { get; private set; }
-        public UIBoomerangModel(UIBoomerangTypes boomerangType)
+        public UIBoomerangModel(Enum boomerangType)
         {
             Type = boomerangType;
         }

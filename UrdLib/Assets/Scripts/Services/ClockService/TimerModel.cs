@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Urd.Timer
 {
     [Serializable]
-    public class TimerModel
+    public class TimerModel : IDisposable
     {
         private static int TIMER_MODEL_ID = 0;
 
@@ -18,7 +18,8 @@ namespace Urd.Timer
 
         public bool IsInCooldown => RemainingTime > 0;
         public bool HasCooldown => Duration > 0;
-
+        public bool Disposed { get; private set; }
+        
         public TimerModel(float duration) : this(duration, null, true) { }
         public TimerModel(float duration, Action finishCallback) : this(duration, finishCallback, true) { }
 
@@ -58,6 +59,11 @@ namespace Urd.Timer
         public void ForceFinish()
         {
             DeductTime(RemainingTime);
+        }
+
+        public void Dispose()
+        {
+            Disposed = true;
         }
     }
 }

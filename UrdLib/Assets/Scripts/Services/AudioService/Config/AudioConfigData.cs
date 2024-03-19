@@ -14,7 +14,7 @@ namespace Urd.Services
         [field: SerializeField] public AudioClip Clip { get; private set; }
         [field: SerializeField, Range(0,1)] public float Volume { get; private set; } = 1;
         [field: SerializeField] public AudioMixerType Mixer { get; private set; } = AudioMixerType.Sfx;
-        [field: SerializeField, Range(-5,5)] public float Pitch { get; private set; }
+        [field: SerializeField, Range(0.1f, 5f)] public float Pitch { get; private set; } = 1;
         [field: SerializeField] public bool Loop { get; private set; }
     }
 }

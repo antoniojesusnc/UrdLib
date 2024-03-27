@@ -14,7 +14,7 @@ namespace Urd.Navigation
 
         public bool TryGetPopupView(Enum popupType, out UIPopupView popupView)
         {
-            popupView = PopupViews.Find(dialog => dialog.PopupType.Equals(popupType));
+            popupView = PopupViews.Find(dialog => dialog.Type.Equals(popupType));
             return popupView != null;
         }
     }

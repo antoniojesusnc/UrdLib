@@ -7,7 +7,7 @@ namespace Urd.Navigation
         public event Action OnPopupClosed;
         
         public Enum Type { get; private set; }
-        public UIPopupModel(UIPopupTypes popupType)
+        public UIPopupModel(Enum popupType)
         {
             Type = popupType;
         }

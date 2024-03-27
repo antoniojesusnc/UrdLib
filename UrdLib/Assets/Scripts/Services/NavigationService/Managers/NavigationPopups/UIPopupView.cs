@@ -7,10 +7,10 @@ using Urd.Services;
 
 namespace Urd.Navigation
 {
-    public class UIPopupView : MonoBehaviour
+    public abstract class UIPopupView : MonoBehaviour
     {
         [field: SerializeField]
-        public UIPopupTypes PopupType { get; private set; }
+        public abstract Enum Type { get; }
 
         public UIPopupModel Model { get; private set; }
 

@@ -14,7 +14,7 @@ namespace Urd.Navigation
 
         public bool TryGetBoomerangView(Enum boomerangType, out UIBoomerangView boomerangView)
         {
-            boomerangView = Boomerangs.Find(boomerang => boomerang.BoomerangType.Equals(boomerangType));
+            boomerangView = Boomerangs.Find(boomerang => boomerang.Type.Equals(boomerangType));
             return boomerangView != null;
         }
     }

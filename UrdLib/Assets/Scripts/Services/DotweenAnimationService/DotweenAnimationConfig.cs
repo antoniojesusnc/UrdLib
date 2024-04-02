@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Urd.Animation;
 
 namespace Urd.Services

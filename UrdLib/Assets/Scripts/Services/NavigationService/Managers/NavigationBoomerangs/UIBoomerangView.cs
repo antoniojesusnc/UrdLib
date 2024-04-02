@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using MyBox;
 using UnityEngine;
@@ -8,11 +9,11 @@ using Urd.Services;
 
 namespace Urd.Navigation
 {
-    public class UIBoomerangView : MonoBehaviour
+    public abstract class UIBoomerangView : MonoBehaviour
     {
         [field: SerializeField]
-        public UIBoomerangTypes BoomerangType { get; private set; }
-
+        public abstract Enum Type { get; }
+        
         public UIBoomerangModel Model { get; private set; }
 
         [Header("Components")]
@@ -23,9 +24,11 @@ namespace Urd.Navigation
         [SerializeField]
         private bool _useAnimationsWhenOpenOrClose;
         [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
-        private TweenAnimation _openAnimation;
+        protected TweenAnimation _openAnimation;
         [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
-        private TweenAnimation _closeAnimation;
+        protected TweenAnimation _closeAnimation;
+
+        protected List<Tween> _activeTween = new List<Tween>();
         
         private IDotweenAnimationService _dotweenAnimationService;
         
@@ -94,12 +97,17 @@ namespace Urd.Navigation
             
             if (tweenBlackground != null || tweenDialog != null)
             {
-                if((tweenBlackground?.Delay() + tweenBlackground?.Duration()) > (tweenDialog?.Delay() + tweenDialog?.Duration()))
+                if((tweenBlackground?.Delay() + tweenBlackground?.Duration() ?? 0) > (tweenDialog?.Delay() + tweenDialog?.Duration() ?? 0))
                 {
                     tweenBlackground.onComplete += () => OnOpen(onOpenCallback);
-                }else
+                    tweenBlackground.onComplete += () => _activeTween.Remove(tweenBlackground);
+                    _activeTween.Add(tweenBlackground);
+                }
+                else
                 {
                     tweenDialog.onComplete += () => OnOpen(onOpenCallback);
+                    tweenDialog.onComplete += () => _activeTween.Remove(tweenDialog);
+                    _activeTween.Add(tweenDialog);
                 }
             }
             else
@@ -155,12 +163,17 @@ namespace Urd.Navigation
 
             if (tweenBlackground != null || tweenDialog != null)
             {
-                if((tweenBlackground?.Delay() + tweenBlackground?.Duration()) > (tweenDialog?.Delay() + tweenDialog?.Duration()))
+                if((tweenBlackground?.Delay() + tweenBlackground?.Duration() ?? 0) > (tweenDialog?.Delay() + tweenDialog?.Duration() ?? 0))
                 {
                     tweenBlackground.onComplete += () => OnClose(onCloseCallback);
-                }else
+                    tweenBlackground.onComplete += () => _activeTween.Remove(tweenBlackground);
+                    _activeTween.Add(tweenBlackground);
+                }
+                else
                 {
                     tweenDialog.onComplete += () => OnClose(onCloseCallback);
+                    tweenDialog.onComplete += () => _activeTween.Remove(tweenDialog);
+                    _activeTween.Add(tweenDialog);
                 }
             }
             else

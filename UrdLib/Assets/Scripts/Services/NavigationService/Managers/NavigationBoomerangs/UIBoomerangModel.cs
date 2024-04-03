@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using Urd.Navigation;
 
 namespace Urd.Navigation
@@ -6,8 +7,9 @@ namespace Urd.Navigation
     public class UIBoomerangModel : IDisposable, INavigableModel
     {
         public event Action OnBoomerangClosed;
-        
         public Enum Type { get; private set; }
+        public Transform Parent { get; set; }
+        
         public UIBoomerangModel(Enum boomerangType)
         {
             Type = boomerangType;
@@ -24,5 +26,9 @@ namespace Urd.Navigation
             
         }
 
+        public void SetParent(Transform parent)
+        {
+            Parent = parent;
+        }
     }
 }

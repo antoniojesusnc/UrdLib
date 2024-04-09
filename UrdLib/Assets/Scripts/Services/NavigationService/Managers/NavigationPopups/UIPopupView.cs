@@ -122,7 +122,7 @@ namespace Urd.Navigation
             Tween tweenDialog = null;
             if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(PopupDotweenAnimationTypes.FadeOut, out var fadeAnimation))
             {
-                tweenBlackground = fadeAnimation.DoAnimation(_background);
+                //tweenBlackground = fadeAnimation.DoAnimation(_background);
             }
             else
             {
@@ -134,7 +134,7 @@ namespace Urd.Navigation
                 if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
                         PopupDotweenAnimationTypes.FadeOut, out fadeAnimation))
                 {
-                    tweenDialog = fadeAnimation.DoAnimation(_dialog);
+                    //tweenDialog = fadeAnimation.DoAnimation(_dialog);
                 }
                 else
                 {

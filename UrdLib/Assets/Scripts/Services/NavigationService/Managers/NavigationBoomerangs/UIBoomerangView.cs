@@ -68,14 +68,18 @@ namespace Urd.Navigation
         {
             Tween tweenBlackground = null;
             Tween tweenDialog = null;
-            if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
-                    PopupDotweenAnimationTypes.FadeIn, out var fadeAnimation))
+            TweenAnimationFade fadeAnimation;
+            if (_background != null)
             {
-                tweenBlackground = fadeAnimation.DoAnimation(_background);
-            }
-            else
-            {
-                _background.alpha = 1;
+                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
+                        PopupDotweenAnimationTypes.FadeIn, out fadeAnimation))
+                {
+                    tweenBlackground = fadeAnimation.DoAnimation(_background);
+                }
+                else
+                {
+                    _background.alpha = 1;
+                }
             }
 
             if (!_useAnimationsWhenOpenOrClose)
@@ -135,15 +139,21 @@ namespace Urd.Navigation
         {
             Tween tweenBlackground = null;
             Tween tweenDialog = null;
-            if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(PopupDotweenAnimationTypes.FadeOut, out var fadeAnimation))
+            TweenAnimationFade fadeAnimation;
+            if (_background != null)
             {
-                tweenBlackground = fadeAnimation.DoAnimation(_background);
+
+                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
+                        PopupDotweenAnimationTypes.FadeOut, out fadeAnimation))
+                {
+                    tweenBlackground = fadeAnimation.DoAnimation(_background);
+                }
+                else
+                {
+                    _background.alpha = 0;
+                }
             }
-            else
-            {
-                _background.alpha = 0;
-            }
-            
+
             if (!_useAnimationsWhenOpenOrClose)
             {
                 if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(

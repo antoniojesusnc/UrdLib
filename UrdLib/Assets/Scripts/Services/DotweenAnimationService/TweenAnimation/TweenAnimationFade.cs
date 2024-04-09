@@ -20,6 +20,11 @@ namespace Urd.Animation
 
         public Tween DoAnimation(CanvasGroup rectTransform)
         {
+            if (rectTransform == null)
+            {
+                return null;
+            }
+
             rectTransform.alpha = _initialFade;
             return rectTransform.DOFade(_finalFade, _duration);
         }

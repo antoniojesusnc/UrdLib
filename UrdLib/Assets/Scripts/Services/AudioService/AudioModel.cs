@@ -25,12 +25,21 @@ namespace Urd.Audio
             ? _audioMixerType
             : AudioConfigData.Mixer ;
         public IAudioConfigData AudioConfigData { get; private set; }
-        public AudioClip Clip => AudioConfigData.Clip;
+        public AudioClip _clip;
+        public AudioClip Clip => _clip != null
+            ? _clip
+            : AudioConfigData.Clip;
+        
         public bool Loop => AudioConfigData.Loop;
 
         public AudioModel(Enum audioType)
         {
             AudioType = audioType;
+        }
+        
+        public void SetAudioClip(AudioClip audioClip)
+        {
+            _clip = audioClip;
         }
 
         public void SetAudioLocation(Transform audioLocation)

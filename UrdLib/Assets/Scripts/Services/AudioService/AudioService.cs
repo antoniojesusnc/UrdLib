@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
@@ -9,6 +10,7 @@ using Urd.Error;
 
 namespace Urd.Services
 {
+    [Serializable]
     public class AudioService : BaseService, IAudioService
     {
         [SerializeField]
@@ -45,6 +47,7 @@ namespace Urd.Services
             {
                 ErrorModel errorModel = new ErrorModel($"Audio with enum {audioModel.AudioType} not Found",
                                                        ErrorCode.Error_404_Not_Found);
+                UnityEngine.Debug.LogWarning(errorModel.ToString());
                 return;
             }
 

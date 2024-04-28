@@ -11,7 +11,6 @@ namespace Urd.Navigation
 {
     public abstract class UIBoomerangView : MonoBehaviour
     {
-        [field: SerializeField]
         public abstract Enum Type { get; }
         
         public UIBoomerangModel Model { get; private set; }

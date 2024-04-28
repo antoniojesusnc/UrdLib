@@ -9,7 +9,6 @@ namespace Urd.Navigation
 {
     public abstract class UIPopupView : MonoBehaviour
     {
-        [field: SerializeField]
         public abstract Enum Type { get; }
 
         public UIPopupModel Model { get; private set; }

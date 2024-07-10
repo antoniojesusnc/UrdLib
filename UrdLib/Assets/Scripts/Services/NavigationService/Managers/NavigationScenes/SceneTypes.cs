@@ -4,6 +4,7 @@ namespace Urd.Navigation
     {
         None,
         LoadingScene,
-        MainScene
+        MainScene,
+        GameScene
     }
 }

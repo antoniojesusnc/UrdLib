@@ -121,7 +121,7 @@ namespace Urd.Services
                 case NetworkRequestType.Get:
                     return UnityWebRequest.Get(networkRequestModel.Url);
                 case NetworkRequestType.Post:
-                    return UnityWebRequest.Post(networkRequestModel.Url, networkRequestModel.PostData);
+                    return UnityWebRequest.PostWwwForm(networkRequestModel.Url, networkRequestModel.PostData);
                 case NetworkRequestType.Put:
                     return UnityWebRequest.Put(networkRequestModel.Url, networkRequestModel.PutData);
                 case NetworkRequestType.Head:

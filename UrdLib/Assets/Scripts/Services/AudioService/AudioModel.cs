@@ -75,5 +75,10 @@ namespace Urd.Audio
         {
             AudioConfigData = audioConfigData;
         }
+
+        public void SetPitch(float pitch)
+        {
+            _pitch = pitch;
+        }
     }
 }

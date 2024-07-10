@@ -51,6 +51,15 @@ namespace Urd.Navigation
 
         public override bool IsOpen(INavigableModel navigableModel)
         {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                var scene = SceneManager.GetSceneAt(i);
+                if (scene.name == navigableModel.Type.ToString())
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 

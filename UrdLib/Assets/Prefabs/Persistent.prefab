@@ -32,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1096811296353068743}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -56,9 +55,11 @@ Canvas:
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1154962535
-  m_SortingOrder: 90
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &5703485490124021886
 MonoBehaviour:
@@ -124,13 +125,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5272245905775554541}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1096811296353068743}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6790574286700332664
 MonoBehaviour:
@@ -169,6 +170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7199379602983792154}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -179,7 +181,6 @@ Transform:
   - {fileID: 3512266520949721003}
   - {fileID: 8665250196655301118}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3579910632257775505
 MonoBehaviour:
@@ -238,7 +239,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1096811296353068743}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -262,7 +262,9 @@ Canvas:
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1154962535
   m_SortingOrder: 90
   m_TargetDisplay: 0
@@ -331,13 +333,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8289301703541707794}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1096811296353068743}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &733166371778460669
 MonoBehaviour:

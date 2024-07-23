@@ -51,7 +51,7 @@ namespace Urd.Utils
 
         private void OnCollisionEnter2D(Collision2D collision2D)
         {
-            if ((_layerMask & collision2D.gameObject.layer) > 0)
+            if ((_layerMask & 1 << collision2D.gameObject.layer) > 0)
             {
                 onCollisionEnter2D?.Invoke(collision2D);
             }
@@ -59,7 +59,7 @@ namespace Urd.Utils
         
         private void OnCollisionStay2D(Collision2D collision2D)
         {
-            if ((_layerMask & collision2D.gameObject.layer) > 0)
+            if ((_layerMask & 1 << collision2D.gameObject.layer) > 0)
             {
                 onCollisionStay2D?.Invoke(collision2D);
             }
@@ -67,7 +67,7 @@ namespace Urd.Utils
         
         private void OnCollisionExit2D(Collision2D collision2D)
         {
-            if ((_layerMask & collision2D.gameObject.layer) > 0)
+            if ((_layerMask & 1 << collision2D.gameObject.layer) > 0)
             {
                 onCollisionExit2D?.Invoke(collision2D);
             }

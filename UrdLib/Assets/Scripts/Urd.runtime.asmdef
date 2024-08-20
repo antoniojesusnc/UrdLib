@@ -28,7 +28,9 @@
         "Newtonsoft.Json.dll",
         "DOTween.dll",
         "DOTweenPro.dll",
-        "System.Text.Json.dll"
+        "System.Text.Json.dll",
+        "GoogleMobileAds.dll",
+        "GoogleMobileAds.Core.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

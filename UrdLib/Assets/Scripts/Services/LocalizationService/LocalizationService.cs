@@ -27,8 +27,8 @@ namespace Urd.Services
         {
             base.Init();
 
-            //_eventBusService = ServiceLocatorService.Get<IEventBusService>();
-            //LoadLanguage();
+            _eventBusService = StaticServiceLocator.Get<IEventBusService>();
+            LoadLanguage();
         }
         private void LoadLanguage()
         {
@@ -39,7 +39,7 @@ namespace Urd.Services
         private void OnInitializeLocalization(AsyncOperationHandle<LocalizationSettings> task)
         {
             Language = task.Result.GetSelectedLocale().Identifier.CultureInfo;
-            _eventBusService.Send(new EventOnLocalizationChanged());
+            _eventBusService?.Send(new EventOnLocalizationChanged());
         }
 
         public void ChangeLanguage(string languageCode)

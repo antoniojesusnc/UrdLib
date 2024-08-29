@@ -11,7 +11,9 @@ namespace Urd.Animation
 
         public Tween DoAnimation(RectTransform rectTransform)
         {
-            return rectTransform.DOAnchorPos(rectTransform.anchoredPosition + rectTransform.lossyScale.x*_finalPositionOffset, _duration).SetEase(_ease);
+            return rectTransform.DOAnchorPos(rectTransform.anchoredPosition + 
+                                             rectTransform.lossyScale.x*_finalPositionOffset, _duration)
+                                .SetEase(_ease);
         }
     }
 }

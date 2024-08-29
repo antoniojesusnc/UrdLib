@@ -1,6 +1,7 @@
 using System;
 using Unity.Notifications;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Urd.Notifications
 {
@@ -11,11 +12,19 @@ namespace Urd.Notifications
         private float _delayTimeInMinutes;
 
         [SerializeField]
-        private string _notificationText;
+        private LocalizedString _notificationText;
 
         public DateTime DeliveryDateTime => DateTime.UtcNow.AddMinutes(_delayTimeInMinutes);
 
-        public NotificationByTimeModel(float delayTimeInMinutes, string message)
+        public NotificationByTimeModel()
+        {
+            
+        }
+
+        public NotificationByTimeModel(float delayTimeInMinutes, string key) : this(
+            delayTimeInMinutes, new LocalizedString("Localizations", key)) { }
+        
+        public NotificationByTimeModel(float delayTimeInMinutes, LocalizedString message)
         {
             _delayTimeInMinutes = delayTimeInMinutes;
             _notificationText = message;
@@ -24,7 +33,7 @@ namespace Urd.Notifications
         public Notification GetNotification()
         {
             var notification = new Notification();
-            notification.Text = _notificationText;
+            notification.Text = _notificationText.GetLocalizedString();
 
             return notification;
         }

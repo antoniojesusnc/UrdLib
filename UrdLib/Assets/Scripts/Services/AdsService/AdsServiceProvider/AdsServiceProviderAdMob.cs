@@ -37,6 +37,7 @@ namespace Urd.Services
             }
             
             _banner = new BannerView(GetBannerAdUnitId(),
+                                     //AdSize.GetPortraitAnchoredAdaptiveBannerAdSizeWithWidth(adsBannerModel.Size.y),
                                      new AdSize(adsBannerModel.Size.x, adsBannerModel.Size.y),
                                      GetAdsPosition(adsBannerModel));
 

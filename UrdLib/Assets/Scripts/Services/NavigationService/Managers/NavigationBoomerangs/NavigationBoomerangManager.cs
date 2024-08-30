@@ -90,6 +90,7 @@ namespace Urd.Navigation
             GameObject.Destroy(uiBoomerangView.gameObject);
             _boomerangViews.Remove(uiBoomerangView);
             uiBoomerangView.Model.BoomerangClosed();
+            uiBoomerangView.Model.Dispose();
             onOpenNavigable?.Invoke(new ErrorModel());
         }
 

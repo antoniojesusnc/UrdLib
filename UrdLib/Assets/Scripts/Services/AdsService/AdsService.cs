@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Urd.Services
@@ -23,9 +24,9 @@ namespace Urd.Services
 
         public void ShowBanner(AdsBannerModel adsBannerModel) => _adsServiceProvider.ShowBanner(adsBannerModel);
         public void HideBanner() => _adsServiceProvider.HideBanner();
-        public void ShowInterstitial() => _adsServiceProvider.ShowInterstitial();
+        public void ShowInterstitial(Action<bool> onInterstitialWatchedCallback) => _adsServiceProvider.ShowInterstitial(onInterstitialWatchedCallback);
         public void HideInterstitial() => _adsServiceProvider.HideInterstitial();
-        public void ShowRewardedVideo() => _adsServiceProvider.ShowRewardedVideo();
+        public void ShowRewardedVideo(Action<bool> onRewardVideoWatchedCallback) => _adsServiceProvider.ShowRewardedVideo(onRewardVideoWatchedCallback);
         public void HideRewardedVideo() => _adsServiceProvider.HideRewardedVideo();
     }
 }

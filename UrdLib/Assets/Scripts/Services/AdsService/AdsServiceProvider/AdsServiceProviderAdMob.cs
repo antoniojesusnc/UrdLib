@@ -27,6 +27,8 @@ namespace Urd.Services
         {
             IsInitialized = true;
             onInitializeCallback?.Invoke();
+            
+            LoadRewardVideo();
         }
 
         public override void ShowBanner(AdsBannerModel adsBannerModel)
@@ -51,18 +53,23 @@ namespace Urd.Services
             _banner?.Destroy();
         }
 
-        public override void ShowInterstitial()
+        public override void ShowInterstitial(Action<bool> onInterstitialWatchedCallback)
         {
             var request = new AdRequest();
-            InterstitialAd.Load(GetBannerAdUnitId(), request, OnInterstitialLoaded );
+            InterstitialAd.Load(GetBannerAdUnitId(), request, (interstitialAd, loadAdError) => OnInterstitialLoaded(interstitialAd, loadAdError, onInterstitialWatchedCallback) );
         }
 
-        private void OnInterstitialLoaded(InterstitialAd interstitial, LoadAdError loadAdError)
+        private void OnInterstitialLoaded(InterstitialAd interstitial, LoadAdError loadAdError,
+            Action<bool> onInterstitialWatchedCallback)
         {
             _interstitialAd = interstitial;
             if (_interstitialAd.CanShowAd())
             {
                 _interstitialAd.Show();
+                _interstitialAd.OnAdFullScreenContentFailed +=
+                    (error) => onInterstitialWatchedCallback?.Invoke(false);
+                _interstitialAd.OnAdFullScreenContentClosed +=
+                    () => onInterstitialWatchedCallback?.Invoke(true);
             }
         }
 
@@ -71,30 +78,63 @@ namespace Urd.Services
             _interstitialAd.Destroy();
         }
 
-        public override void ShowRewardedVideo()
+        public override void ShowRewardedVideo(Action<bool> onRewardVideoWatchedCallback)
         {
-            var request = new AdRequest();
-            RewardedAd.Load(GetBannerAdUnitId(), request, OnRewardedVideoLoaded); 
-        }
-
-        private void OnRewardedVideoLoaded(RewardedAd rewardedVideo, LoadAdError loadAdError)
-        {
-            _rewardedVideo = rewardedVideo;
-            if (_rewardedVideo.CanShowAd())
+            if (_rewardedVideo != null && _rewardedVideo.CanShowAd())
             {
-                var reward = _rewardedVideo.GetRewardItem();
-                reward.Type = "temp";
-                reward.Amount = 11;
-                _rewardedVideo.Show(OnRewardedVideoShowed);
+                ShowRewardedVideoInternal(onRewardVideoWatchedCallback);
+            }
+            else
+            {
+                LoadRewardVideo(true, onRewardVideoWatchedCallback);
             }
         }
 
-        private void OnRewardedVideoShowed(Reward reward)
+        private void LoadRewardVideo(bool showAfterLoad = false, Action<bool> onRewardVideoWatchedCallback = null)
         {
+            var request = new AdRequest();
+            RewardedAd.Load(GetRVAdUnitId(), request, (rewardedVideo, loadAdError) => OnRewardedVideoLoaded(rewardedVideo, loadAdError, showAfterLoad,  onRewardVideoWatchedCallback));
+        }
+
+        private void OnRewardedVideoLoaded(RewardedAd rewardedVideo, LoadAdError loadAdError,
+            bool showAfterLoad, Action<bool> onRewardVideoWatchedCallback)
+        {
+            _rewardedVideo = rewardedVideo;
+            if (!showAfterLoad)
+            {
+                return;
+            }
+
+            if (_rewardedVideo.CanShowAd())
+            {
+                ShowRewardedVideoInternal(onRewardVideoWatchedCallback);
+            }
+            else
+            {
+                onRewardVideoWatchedCallback?.Invoke(false);
+            }
+        }
+
+        private void ShowRewardedVideoInternal(Action<bool> onRewardVideoWatchedCallback)
+        {
+            var reward = _rewardedVideo.GetRewardItem();
+            reward.Type = "temp";
+            reward.Amount = 11;
+            _rewardedVideo.Show(null);
+            _rewardedVideo.OnAdFullScreenContentClosed += () => OnCloseRewardVideo(true, onRewardVideoWatchedCallback);
+            _rewardedVideo.OnAdFullScreenContentFailed += (error) => OnCloseRewardVideo(false, onRewardVideoWatchedCallback);
+        }
+
+        private void OnCloseRewardVideo(bool success, Action<bool> onRewardVideoWatchedCallback)
+        {
+            _rewardedVideo?.Destroy();
+            _rewardedVideo = null;
+            onRewardVideoWatchedCallback?.Invoke(success);
         }
 
         public override void HideRewardedVideo()
         {
+            _rewardedVideo?.Destroy();
         }
 
         private AdPosition GetAdsPosition(AdsBannerModel adsBannerModel)

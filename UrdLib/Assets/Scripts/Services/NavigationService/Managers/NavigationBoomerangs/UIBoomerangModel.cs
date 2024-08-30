@@ -21,9 +21,9 @@ namespace Urd.Navigation
             OnBoomerangClosed = null;
         }
         
-        public void Dispose()
+        public virtual void Dispose()
         {
-            
+            OnBoomerangClosed = null;
         }
 
         public void SetParent(Transform parent)

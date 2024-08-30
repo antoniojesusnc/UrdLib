@@ -7,9 +7,9 @@ namespace Urd.Services
         void Init(Action onInitCallback = null);
         void ShowBanner(AdsBannerModel adsBannerModel);
         void HideBanner();
-        void ShowInterstitial();
+        void ShowInterstitial(Action<bool> onRewardVideoWatchedCallback);
         void HideInterstitial();
-        void ShowRewardedVideo();
+        void ShowRewardedVideo(Action<bool> onRewardVideoWatchedCallback);
         void HideRewardedVideo();
     }
 }

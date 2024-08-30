@@ -7,6 +7,8 @@ namespace Urd.Services
 {
     public class NotificationService : BaseService, INotificationService
     {
+        private const string MAIN_CHANNEL = "Main Channel";
+        
         [SerializeField]
         private NotificationsConfig _notificationsConfig;
 
@@ -18,14 +20,16 @@ namespace Urd.Services
         {
             _notificationsConfig = notificationsConfig;
         }
-        
+
         public override void Init()
         {
             base.Init();
 
             _unityService = StaticServiceLocator.Get<IUnityService>();
-
             _unityService.OnGamePaused += OnGamePaused;
+            var notificationArgs = new NotificationCenterArgs();
+            notificationArgs.AndroidChannelId = MAIN_CHANNEL;
+            NotificationCenter.Initialize(notificationArgs);
         }
 
         private void OnGamePaused(bool paused)

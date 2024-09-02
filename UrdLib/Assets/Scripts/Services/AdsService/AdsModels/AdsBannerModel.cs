@@ -1,3 +1,4 @@
+using GoogleMobileAds.Api;
 using UnityEngine;
 
 namespace Urd.Services
@@ -8,7 +9,6 @@ namespace Urd.Services
         public Vector2Int Size { get; private set; }
 
         public AdsBannerModel() : this(AdsBannerPosition.Top, AdsUtils.StandardsSize) { }
-
         public AdsBannerModel(AdsBannerPosition position, Vector2Int size)
         {
             Position = position;

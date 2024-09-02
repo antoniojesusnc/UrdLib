@@ -20,14 +20,15 @@ namespace Urd.Services
         public virtual void Init(Action onInitializeCallback) { }
         public virtual void Dispose() { }
 
-        public abstract void ShowBanner(AdsBannerModel adsBannerModel);
+        public abstract void ShowBanner(AdsBannerModel adsBannerModel, Action<bool> onBannerLoaded);
 
         public abstract void HideBanner();
         public abstract void ShowInterstitial(Action<bool> onRewardVideoWatchedCallback);
         public abstract void HideInterstitial();
         public abstract void ShowRewardedVideo(Action<bool> onRewardVideoWatchedCallback);
-        public abstract void HideRewardedVideo();
 
+        public abstract bool CanShowRewardedVideo(bool loadIfCannot);
+        public abstract void HideRewardedVideo();
 
         protected string GetRVAdUnitId()
         {

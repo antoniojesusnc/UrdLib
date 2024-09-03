@@ -6,6 +6,7 @@ namespace Urd.Services
     public interface IAdsService : IBaseService
     {
         void SetProvider(IAdsServiceProvider provider);
+        void HideBanner();
         void ShowBanner(AdsBannerModel adsBannerModel, Action<bool> onBannerLoaded);
         public void ShowInterstitial(Action<bool> onInterstitialWatchedCallback) ;
         public void HideInterstitial() ;

@@ -42,10 +42,11 @@ namespace Urd.Services
                 HideBanner();
             }
 
-            var adSize = adsBannerModel.Size.x == 0
-                ? AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(adsBannerModel.Size.y)
+            var adSize = adsBannerModel.Size.x <= 0
+                ? AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth)
                 : new AdSize(adsBannerModel.Size.x, adsBannerModel.Size.y);
-            
+
+            Debug.Log($"loading Banner of size:({adSize.Width},{adSize.Height}");
             _banner = new BannerView(GetBannerAdUnitId(),adSize, GetAdsPosition(adsBannerModel));
 
             var request = new AdRequest();
@@ -65,7 +66,13 @@ namespace Urd.Services
             {
                 Debug.Log($"Banner loaded with error: {error.GetResponseInfo()}");
             }
-            _eventBusService.Send(new OnBannerLoadedEvent(error == null));
+            
+            var scale = MobileAds.Utils.GetDeviceScale();
+            if (scale == 0)
+            {
+                scale = 1;
+            }
+            _eventBusService.Send(new OnBannerLoadedEvent(_banner.GetHeightInPixels()/scale, error == null));
             onBannerLoaded?.Invoke(error == null);
         }
 

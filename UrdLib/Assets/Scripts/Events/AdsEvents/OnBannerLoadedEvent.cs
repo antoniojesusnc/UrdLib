@@ -4,10 +4,12 @@ namespace Urd.Events
 {
     public class OnBannerLoadedEvent : IEventBusMessage
     {
+        public float HeightInPixels { get; private set; }
         public bool LoadedSuccess { get; private set; }
 
-        public OnBannerLoadedEvent(bool loadedSuccess)
+        public OnBannerLoadedEvent(float heightInPixels, bool loadedSuccess)
         {
+            HeightInPixels = heightInPixels;
             LoadedSuccess = loadedSuccess;
         }
     }

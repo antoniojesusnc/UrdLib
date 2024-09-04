@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Urd.Ads;
 
 namespace Urd.Services
 {
@@ -22,7 +23,7 @@ namespace Urd.Services
             _adsServiceProvider.Init();
         }
 
-        public void ShowBanner(AdsBannerModel adsBannerModel, Action<bool> onBannerLoaded) => _adsServiceProvider.ShowBanner(adsBannerModel, onBannerLoaded);
+        public void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded) => _adsServiceProvider.ShowBanner(adsBannerModel, onBannerLoaded);
         public void HideBanner() => _adsServiceProvider.HideBanner();
         public void ShowInterstitial(Action<bool> onInterstitialWatchedCallback) => _adsServiceProvider.ShowInterstitial(onInterstitialWatchedCallback);
         public void HideInterstitial() => _adsServiceProvider.HideInterstitial();

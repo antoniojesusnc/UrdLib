@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Urd.Ads;
 
 namespace Urd.Services
 {
@@ -20,7 +21,7 @@ namespace Urd.Services
         public virtual void Init(Action onInitializeCallback) { }
         public virtual void Dispose() { }
 
-        public abstract void ShowBanner(AdsBannerModel adsBannerModel, Action<bool> onBannerLoaded);
+        public abstract void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded);
 
         public abstract void HideBanner();
         public abstract void ShowInterstitial(Action<bool> onRewardVideoWatchedCallback);

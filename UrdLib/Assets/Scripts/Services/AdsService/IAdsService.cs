@@ -1,5 +1,5 @@
 using System;
-using UnityEngine;
+using Urd.Ads;
 
 namespace Urd.Services
 {
@@ -7,7 +7,7 @@ namespace Urd.Services
     {
         void SetProvider(IAdsServiceProvider provider);
         void HideBanner();
-        void ShowBanner(AdsBannerModel adsBannerModel, Action<bool> onBannerLoaded);
+        void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded);
         public void ShowInterstitial(Action<bool> onInterstitialWatchedCallback) ;
         public void HideInterstitial() ;
         bool CanShowRewardedVideo(bool loadIfCannot = false);

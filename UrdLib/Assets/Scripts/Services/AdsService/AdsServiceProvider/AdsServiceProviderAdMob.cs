@@ -1,8 +1,10 @@
 using System;
 using DG.Tweening;
-using GoogleMobileAds;
 using GoogleMobileAds.Api;
+using Newtonsoft.Json;
+using PimDeWitte.UnityMainThreadDispatcher;
 using UnityEngine;
+using Urd.Ads;
 using Urd.Events;
 
 namespace Urd.Services
@@ -35,7 +37,7 @@ namespace Urd.Services
             LoadRewardVideo();
         }
 
-        public override void ShowBanner(AdsBannerModel adsBannerModel, Action<bool> onBannerLoaded)
+        public override void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded)
         {
             if (_banner?.IsDestroyed == false)
             {
@@ -52,19 +54,23 @@ namespace Urd.Services
             var request = new AdRequest();
             _banner.OnBannerAdLoaded += () => OnBannerLoaded(null, onBannerLoaded);
             _banner.OnBannerAdLoadFailed += (error) => OnBannerLoaded(error, onBannerLoaded);
-            _banner.LoadAd(request);
             Debug.Log("Loading Banner");
+            _banner.LoadAd(request);
         }
 
-        private void OnBannerLoaded(LoadAdError error, Action<bool> onBannerLoaded)
+        private void OnBannerLoaded(LoadAdError error, Action<AdMobBannerError> onBannerLoaded)
         {
+            AdMobBannerError bannerError = new AdMobBannerError();
             if (error == null)
             {
-                Debug.Log($"Banner loaded success");
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                                                                 Debug.Log($"Banner loaded success"));
             }
             else
             {
-                Debug.Log($"Banner loaded with error: {error.GetResponseInfo()}");
+                UnityMainThreadDispatcher.Instance().Enqueue(()=> 
+                    Debug.Log($"Banner loaded with error: {error}"));
+                bannerError = JsonConvert.DeserializeObject<AdMobBannerError>(error.ToString());
             }
             
             var scale = MobileAds.Utils.GetDeviceScale();
@@ -72,8 +78,9 @@ namespace Urd.Services
             {
                 scale = 1;
             }
-            _eventBusService.Send(new OnBannerLoadedEvent(_banner.GetHeightInPixels()/scale, error == null));
-            onBannerLoaded?.Invoke(error == null);
+            DOVirtual.DelayedCall(0.1f, () => 
+                _eventBusService.Send(new OnBannerLoadedEvent(_banner.GetHeightInPixels()/scale, bannerError)));
+            onBannerLoaded?.Invoke(bannerError);
         }
 
         public override void HideBanner()

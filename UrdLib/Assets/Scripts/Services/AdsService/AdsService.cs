@@ -9,6 +9,9 @@ namespace Urd.Services
     {
         public override int LoadPriority => 10;
         
+        [field: SerializeField]
+        public bool IsBannerEnabled { get; private set; }
+        
         [SerializeReference, SubclassSelector]
         private IAdsServiceProvider _adsServiceProvider;
         
@@ -23,7 +26,17 @@ namespace Urd.Services
             _adsServiceProvider.Init();
         }
 
-        public void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded) => _adsServiceProvider.ShowBanner(adsBannerModel, onBannerLoaded);
+        public void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded)
+        {
+            if (!IsBannerEnabled)
+            {
+                onBannerLoaded?.Invoke(new AdMobBannerError());
+                return;
+            }
+            
+            _adsServiceProvider.ShowBanner(adsBannerModel, onBannerLoaded);
+        }
+
         public void HideBanner() => _adsServiceProvider.HideBanner();
         public void ShowInterstitial(Action<bool> onInterstitialWatchedCallback) => _adsServiceProvider.ShowInterstitial(onInterstitialWatchedCallback);
         public void HideInterstitial() => _adsServiceProvider.HideInterstitial();

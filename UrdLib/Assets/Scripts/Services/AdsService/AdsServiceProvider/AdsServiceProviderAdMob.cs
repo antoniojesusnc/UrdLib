@@ -174,10 +174,16 @@ namespace Urd.Services
 
         private void OnCloseRewardVideo(bool success, Action<bool> onRewardVideoWatchedCallback)
         {
-            _eventBusService.Send(new OnRewardedVideoWatchedEvent(success));
             _rewardedVideo?.Destroy();
             _rewardedVideo = null;
-            onRewardVideoWatchedCallback?.Invoke(success);
+
+            DOVirtual.DelayedCall(
+                0.1f, 
+                () =>
+                {
+                    onRewardVideoWatchedCallback?.Invoke(success);
+                    _eventBusService.Send(new OnRewardedVideoWatchedEvent(success));
+                });
         }
 
         public override void HideRewardedVideo()

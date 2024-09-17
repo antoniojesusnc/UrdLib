@@ -11,7 +11,8 @@ namespace Urd.Services.IAP
         public PurchaseEventArgs PurchaseEvent { get; private set; }
         public string Error { get; private set; }
 
-        public bool IsSuccess => PurchaseEvent != null;
+        public bool IsSuccess => _forceSuccess || PurchaseEvent != null;
+        private bool _forceSuccess;
 
         public PurchaseItem(string id) : this(id, ProductType.Consumable)
         {
@@ -27,9 +28,10 @@ namespace Urd.Services.IAP
             PurchaseEvent = null;
         }
 
-        public void AddPurchaseEventArgs(PurchaseEventArgs purchaseEvent)
+        public void AddPurchaseEventArgs(PurchaseEventArgs purchaseEvent, bool forceSuccess = false)
         {
             PurchaseEvent = purchaseEvent;
+            _forceSuccess = forceSuccess;
         }
 
         public void AddPurchaseError(string error)

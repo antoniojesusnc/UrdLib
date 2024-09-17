@@ -41,6 +41,8 @@ namespace RubberDuck.Config
         
         [field: SerializeField]
         public string RewardChest { get; private set; }
+        [field: SerializeField]
+        public int Amount { get; private set; }
         
         [field: SerializeField]
         public string AndroidProductId { get; private set; }
@@ -49,7 +51,7 @@ namespace RubberDuck.Config
 
 
         public void Hydrate(string id, LocalizedString name, LocalizedString description, StoreItemTypes type, PurchaseTypes purchaseType, StoreSectionTypes section, int durationMinutes,
-            Sprite image, string price, bool showInfo, string rewardPiece, string rewardChest, string androidProductId,
+            Sprite image, string price, bool showInfo, string rewardPiece, string rewardChest, int amount, string androidProductId,
             string iosProductID)
         {
             StoreItemId = id;
@@ -64,8 +66,9 @@ namespace RubberDuck.Config
             ShowInfo = showInfo;
             RewardPiece = rewardPiece;
             RewardChest = rewardChest;
-            AndroidProductId = androidProductId;
-            IosProductID = iosProductID;
+            Amount = amount;
+            AndroidProductId = string.IsNullOrEmpty(androidProductId)?id : androidProductId;
+            IosProductID = string.IsNullOrEmpty(iosProductID)?id : iosProductID;
         }
     }
 }

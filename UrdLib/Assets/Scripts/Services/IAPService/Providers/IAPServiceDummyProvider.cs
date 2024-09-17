@@ -22,7 +22,7 @@ namespace Urd.Services.IAP
         {
             if (_successPurchase)
             {
-                purchaseItem.AddPurchaseEventArgs(default);
+                purchaseItem.AddPurchaseEventArgs(default, true);
             }
 
             DOVirtual.DelayedCall(0.1f, () => onPurchase?.Invoke(purchaseItem));

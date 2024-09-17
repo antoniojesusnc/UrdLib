@@ -16,13 +16,14 @@ namespace RubberDuck.Gameplay
         PurchaseTypes PurchaseType  { get; }
         Sprite Sprite { get; }
         string Price { get; }
+        float PriceFloat { get; }
         int DurationMinutes { get; }
         DateTime UnlockDateTime { get; }
         bool IsPurchased { get; }
         string RewardPieces { get; }
         string RewardChest { get; }
+        public int Amount { get; }
         bool IsInCoolDown { get; }
-        bool IsFree { get; }
         bool ShowInfo { get; }
         string StoreId { get; }
 

@@ -145,8 +145,8 @@ namespace Urd.Services
         private void OnRewardedVideoLoaded(RewardedAd rewardedVideo, LoadAdError loadAdError,
             bool showAfterLoad, Action<bool> onRewardVideoWatchedCallback)
         {
-            _eventBusService.Send(new OnRewardedVideoLoadedEvent(loadAdError == null));
             _rewardedVideo = rewardedVideo;
+            _eventBusService.Send(new OnRewardedVideoLoadedEvent(loadAdError == null));
             if (!showAfterLoad)
             {
                 return;

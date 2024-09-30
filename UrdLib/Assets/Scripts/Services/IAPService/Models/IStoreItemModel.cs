@@ -34,5 +34,6 @@ namespace RubberDuck.Gameplay
         void SetPurchased(bool isPurchased);
         string GetPriceText();
         LocalizedString GetDescription();
+        bool ShowAsCoolDown();
     }
 }

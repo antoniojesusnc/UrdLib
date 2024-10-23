@@ -9,7 +9,9 @@ namespace Urd.Services
         bool IsInPause { get; }
         float DeltaTime { get; }
         DateTime Now { get; }
+        float SpeedMod { get; }
 
+        void SetSpeedMod(float speedMod);
         void SubscribeToUpdate(Action<float> listener, bool pausable = true);
         void UnSubscribeToUpdate(Action<float> listener);
         void SubscribeToUpdatePerSecond(Action<float> listener, bool pausable = true);

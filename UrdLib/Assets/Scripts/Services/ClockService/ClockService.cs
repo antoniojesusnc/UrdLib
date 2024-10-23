@@ -15,6 +15,7 @@ namespace Urd.Services
         public float DeltaTime => Time.deltaTime;
 
         public DateTime Now => DateTime.UtcNow;
+        public float SpeedMod { get; private set; } = 1;
 
         List<ClockServiceUpdateModel> _updateListeners = new List<ClockServiceUpdateModel>();
         List<ClockServiceUpdateModel> _updatePerSecondListeners = new List<ClockServiceUpdateModel>();
@@ -50,6 +51,11 @@ namespace Urd.Services
         public void SetPause(bool gamePaused)
         {
             IsInPause = gamePaused;
+        }
+
+        public void SetSpeedMod(float speedMod)
+        {
+            SpeedMod = speedMod;
         }
 
         public void SubscribeToUpdate(Action<float> listener, bool pausable = true)
@@ -107,6 +113,10 @@ namespace Urd.Services
             while (_update)
             {
                 float deltaTime = Time.deltaTime;
+                if (SpeedMod != 0)
+                {
+                    deltaTime *= SpeedMod;
+                }
                 UpdateUpdates(deltaTime);
                 UpdateDelayedCalls(deltaTime);
 
@@ -121,6 +131,11 @@ namespace Urd.Services
             while (_fixedUpdate)
             {
                 float deltaTime = Time.fixedDeltaTime;
+                if (SpeedMod != 0)
+                {
+                    deltaTime *= SpeedMod;
+                }
+
                 UpdateFixedUpdates(deltaTime);
                 
                 yield return new WaitForFixedUpdate();

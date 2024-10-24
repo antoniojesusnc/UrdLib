@@ -1,8 +1,12 @@
 using System;
 using Unity.Notifications;
 
-public interface INotificationModel
+namespace Urd.Notifications
 {
-    DateTime DeliveryDateTime { get; }
-    Notification GetNotification();
+    public interface INotificationModel
+    {
+        DateTime DeliveryDateTime { get; }
+        bool CanShowNotification();
+        Notification GetNotification();
+    }
 }

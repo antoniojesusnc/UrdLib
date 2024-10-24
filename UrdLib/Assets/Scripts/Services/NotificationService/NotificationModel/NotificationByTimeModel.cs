@@ -6,15 +6,10 @@ using UnityEngine.Localization;
 namespace Urd.Notifications
 {
     [Serializable]
-    public class NotificationByTimeModel : INotificationModel
+    public class NotificationByTimeModel : NotificationModel
     {
         [SerializeField]
         private float _delayTimeInMinutes;
-
-        [SerializeField]
-        private LocalizedString _notificationText;
-
-        public DateTime DeliveryDateTime => DateTime.UtcNow.AddMinutes(_delayTimeInMinutes);
 
         public NotificationByTimeModel()
         {
@@ -29,13 +24,15 @@ namespace Urd.Notifications
             _delayTimeInMinutes = delayTimeInMinutes;
             _notificationText = message;
         }
-        
-        public Notification GetNotification()
-        {
-            var notification = new Notification();
-            notification.Text = _notificationText.GetLocalizedString();
 
-            return notification;
+        protected override DateTime GetDeliveryTime()
+        {
+            return DateTime.UtcNow.AddMinutes(_delayTimeInMinutes);
+        }
+
+        public override bool CanShowNotification()
+        {
+            return true;
         }
     }
 }

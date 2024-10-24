@@ -2,6 +2,7 @@ using System;
 using Unity.Notifications;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Urd.Notifications;
 
 namespace Urd.Services
 {
@@ -30,6 +31,7 @@ namespace Urd.Services
             var notificationArgs = new NotificationCenterArgs();
             notificationArgs.AndroidChannelId = MAIN_CHANNEL;
             NotificationCenter.Initialize(notificationArgs);
+            NotificationCenter.RequestPermission();
         }
 
         private void OnGamePaused(bool paused)
@@ -53,7 +55,10 @@ namespace Urd.Services
 
             for (int i = 0; i < _notificationsConfig.Notifications.Count; i++)
             {
-                TryScheduleNotification(_notificationsConfig.Notifications[i]);
+                if (_notificationsConfig.Notifications[i].CanShowNotification())
+                {
+                    TryScheduleNotification(_notificationsConfig.Notifications[i]);
+                }
             }
         }
 

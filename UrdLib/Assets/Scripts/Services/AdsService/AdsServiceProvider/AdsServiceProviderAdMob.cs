@@ -152,6 +152,9 @@ namespace Urd.Services
                 return;
             }
 
+            ShowRewardedVideo(onRewardVideoWatchedCallback);
+            
+            /*
             if (_rewardedVideo.CanShowAd())
             {
                 ShowRewardedVideoInternal(onRewardVideoWatchedCallback);
@@ -160,6 +163,7 @@ namespace Urd.Services
             {
                 onRewardVideoWatchedCallback?.Invoke(false);
             }
+            */
         }
 
         private void ShowRewardedVideoInternal(Action<bool> onRewardVideoWatchedCallback)

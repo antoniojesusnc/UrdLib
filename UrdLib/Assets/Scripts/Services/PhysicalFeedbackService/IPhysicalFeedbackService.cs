@@ -1,7 +1,11 @@
+using Urd.Feedback;
+
 namespace Urd.Services
 {
-    public interface IVibrationService : IBaseService
+    public interface IPhysicalFeedbackService : IBaseService
     {
+        bool IsEnabled { get; }
+        void Haptic(HapticType hapticType);
         void Vibrate(VibrationType vibrationType);
         
         /// <summary>
@@ -10,5 +14,6 @@ namespace Urd.Services
         /// <param name="pattern"></param>
         void VibratePattern(int loop = -1, params long[] pattern);
         void Cancel();
+        void SetHapticEnabled(bool enabled);
     }
 }

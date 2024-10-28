@@ -1,4 +1,4 @@
-namespace Urd.Vibrate
+namespace Urd.Feedback
 {
     public class VibrationPlatformNone : VibrationPlatform
     {

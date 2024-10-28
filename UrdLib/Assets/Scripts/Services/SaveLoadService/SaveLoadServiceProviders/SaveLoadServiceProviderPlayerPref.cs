@@ -37,10 +37,35 @@ namespace Urd.SaveLoad
                 return defaultValue;
             }
         }
+        public bool LoadAndPopulate<T>(string key, ref T valeToPopulate)
+        {
+            if (!PlayerPrefs.HasKey(key))
+            {
+                return false;
+            }
+            
+            var jsonDefaultValue = Newtonsoft.Json.JsonConvert.SerializeObject(valeToPopulate);
+            var loadedValue = PlayerPrefs.GetString(key, jsonDefaultValue);
+            if (loadedValue == jsonDefaultValue)
+            {
+                return false;
+            }
+
+            try
+            {
+                Newtonsoft.Json.JsonConvert.PopulateObject(loadedValue, valeToPopulate);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public bool HasKey(string key)
         {
             return PlayerPrefs.HasKey(key);
         }
+
     }
 }

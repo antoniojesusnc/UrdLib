@@ -13,6 +13,7 @@ namespace Urd.Inputs
         [SerializeField]
         private UnityEvent<Vector2> onEndDrag;
 
+        public bool IsInteractable => true;
         public void OnBeginDrag(Vector2 position)
         {
             onBeginDrag?.Invoke(position);

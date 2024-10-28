@@ -1,8 +1,4 @@
-using System;
-using DG.Tweening;
-using Urd.Services;
-
-namespace Urd.Vibrate
+namespace Urd.Feedback
 {
     public class VibrationPlatformIOS : VibrationPlatform
     {

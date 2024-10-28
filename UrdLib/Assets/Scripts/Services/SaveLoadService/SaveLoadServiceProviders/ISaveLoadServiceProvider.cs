@@ -7,5 +7,6 @@ namespace Urd.SaveLoad
         void Save<T>(string key, T value);
         T Load<T>(string key, T defaultValue);
         bool HasKey(string key);
+        bool LoadAndPopulate<T>(string key, ref T valeToPopulate);
     }
 }

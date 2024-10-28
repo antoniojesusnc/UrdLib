@@ -8,9 +8,6 @@ namespace Urd.Services
     {
         public override int LoadPriority => 10;
         
-        [field: SerializeField]
-        public bool IsBannerEnabled { get; private set; }
-
         [SerializeReference, SubclassSelector]
         private List<IErrorServiceProvider> _errorServiceProvider = new List<IErrorServiceProvider>();
         

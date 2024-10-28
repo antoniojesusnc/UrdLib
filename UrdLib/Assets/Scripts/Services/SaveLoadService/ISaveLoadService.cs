@@ -8,6 +8,7 @@ namespace Urd.Services
         void Save<T>(string key, T value);
         T Load<T>(string key, T defaultValue);
         T Load<T>(Enum key, T defaultValue);
+        bool LoadAndPopulate<T>(string key, ref T valeToPopulate);
         bool HasKey(string key);
     }
 }

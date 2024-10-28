@@ -8,10 +8,12 @@ namespace Urd.Inputs
     {
         [SerializeField]
         private UnityEvent onTouchAction;
+        public bool IsInteractable => true;
 
-        public void OnTouch()
+        public void OnTouch(Vector2 position)
         {
             onTouchAction?.Invoke();
         }
+
     }
 }

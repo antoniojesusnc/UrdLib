@@ -1,6 +1,6 @@
 using Urd.Services;
 
-namespace Urd.Vibrate
+namespace Urd.Feedback
 {
     public interface IVibrationPlatform
     {

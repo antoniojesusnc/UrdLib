@@ -67,7 +67,15 @@ namespace Urd.Navigation
         private UIBoomerangView CreateView(UIBoomerangModel boomerangModel, UIBoomerangView boomerangView)
         {
             var parent = boomerangModel.Parent != null? boomerangModel.Parent: BoomerangParent;
-            var newBoomerangView = GameObject.Instantiate(boomerangView, parent);
+            UIBoomerangView newBoomerangView = null;
+            if (boomerangModel.Position != Vector3.zero)
+            {
+                newBoomerangView = GameObject.Instantiate(boomerangView, boomerangModel.Position, Quaternion.identity, parent);
+            }
+            else
+            {
+                newBoomerangView = GameObject.Instantiate(boomerangView, parent);
+            }
             newBoomerangView.Init(boomerangModel);
             return newBoomerangView;
         }

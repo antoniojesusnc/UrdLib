@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace Urd.Inputs
 {
-    public interface ITouchable
+    public interface ITouchable : IInteractable
     {
-        void OnTouch();
+        void OnTouch(Vector2 position);
     }
 }

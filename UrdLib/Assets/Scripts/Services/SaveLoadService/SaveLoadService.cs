@@ -27,6 +27,8 @@ namespace Urd.Services
             }
         }
 
+        
+
         public T Load<T>(Enum key, T defaultValue) => Load(key.ToString(), defaultValue);
 
         public T Load<T>(string key, T defaultValue)
@@ -39,6 +41,16 @@ namespace Urd.Services
             }
 
             return default(T);
+        }
+        
+        public bool LoadAndPopulate<T>(string key, ref T valeToPopulate)
+        {
+            if (_providers.Count > 0)
+            {
+                return _providers[0].LoadAndPopulate<T>(key, ref valeToPopulate);
+            }
+
+            return false;
         }
 
         public bool HasKey(Enum key) => HasKey(key.ToString());

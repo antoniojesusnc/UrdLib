@@ -11,7 +11,7 @@ namespace Urd.Inputs
         private InputTouchController _inputTouchController;
         private IDraggable _dragObject;
 
-        private void Start()
+        private void Awake()
         {
             _camera = GetComponent<Camera>();
             _inputTouchController = new InputTouchController();
@@ -34,8 +34,11 @@ namespace Urd.Inputs
 
         private void Subscribe()
         {
-            _inputTouchController.OnClick += OnClick;
-            _inputTouchController.OnDrag += OnDrag;
+            if (_inputTouchController != null)
+            {
+                _inputTouchController.OnClick += OnClick;
+                _inputTouchController.OnDrag += OnDrag;
+            }
         }
 
         private void UnSubscribe()
@@ -54,15 +57,21 @@ namespace Urd.Inputs
             _inputTouchController = null;
         }
 
-        private bool TryGetClickElement<T>(Vector2 position, out T result) where T : class
+        private bool TryGetClickElement<T>(Vector2 position, out T result) where T : IInteractable
         {
-            result = null;
+            result = default;
             var ray = _camera.ScreenPointToRay(position);
-            var hitInfo = Physics2D.Raycast(ray.origin, ray.direction, 100, LayerUtils.Interactable);
-            if(hitInfo.transform != null)
+            var hitInfo = Physics2D.RaycastAll(ray.origin, ray.direction, 100, LayerUtils.Interactable);
+            for (int i = 0; i < hitInfo.Length; i++)
             {
-                result = hitInfo.transform.GetComponentInParent<T>();
-                return result != null;
+                if (hitInfo[i].transform != null)
+                {
+                    result = hitInfo[i].transform.GetComponentInParent<T>();
+                    if (result?.IsInteractable == true)
+                    {
+                        return result != null;
+                    }
+                }
             }
 
             return false;
@@ -72,10 +81,10 @@ namespace Urd.Inputs
         {
             if (TryGetClickElement(position, out ITouchable touchable))
             {
-                touchable.OnTouch();
+                var worldPosition = _camera.ScreenToWorldPoint(position).SetZ(0);
+                touchable.OnTouch(worldPosition);
             }
         }
-
 
         private void OnDrag(bool isDragging, Vector2 position)
         {

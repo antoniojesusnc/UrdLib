@@ -28,6 +28,8 @@ namespace Urd.Navigation
         }
         private Transform _boomerangParent;
 
+        public override bool IsOpenAny() => _boomerangViews.Count > 0;
+
         public override void SetConfig(ScriptableObject config)
         {
             _boomerangConfig = config as UIBoomerangConfig;
@@ -72,7 +74,10 @@ namespace Urd.Navigation
 
         public override void Close(INavigableModel navigableModel, Action<ErrorModel> onCloseNavigable)
         {
-            var boomerangView = _boomerangViews.Find(boomerangView => boomerangView.Model.Type.Equals(navigableModel.Type));
+            var boomerangView = _boomerangViews.Find(
+                boomerangView => 
+                    boomerangView.Model.Type.Equals(navigableModel.Type)
+                    && boomerangView.Model.Id.Equals(navigableModel.Id));
             if (boomerangView != null)
             {
                 boomerangView.Close(() => OnCloseView(boomerangView, onCloseNavigable));

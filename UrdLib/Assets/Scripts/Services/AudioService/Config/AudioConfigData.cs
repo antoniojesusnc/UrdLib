@@ -16,5 +16,6 @@ namespace Urd.Services
         [field: SerializeField] public AudioMixerType Mixer { get; private set; } = AudioMixerType.Sfx;
         [field: SerializeField, Range(0.1f, 5f)] public float Pitch { get; private set; } = 1;
         [field: SerializeField] public bool Loop { get; private set; }
+        [field: SerializeField] public float FadeOutDuration { get; private set; }
     }
 }

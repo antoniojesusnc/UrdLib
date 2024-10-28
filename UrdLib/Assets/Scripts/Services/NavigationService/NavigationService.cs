@@ -16,6 +16,7 @@ namespace Urd.Services
         public List<INavigationManager> NavigationManagers { get; private set; } = new();
 
         public event Action<INavigableModel> OnNavigableOpened;
+        public event Action<INavigableModel> OnNavigableClosed;
         public event Action OnCloseAll;
 
         public NavigationService()
@@ -70,6 +71,18 @@ namespace Urd.Services
             return navigationManager.IsOpen(navigableModel);
         }
 
+        public bool IsOpenAny<T>() where T : INavigableModel
+        {
+            if (!TryGetManager(typeof(T), out var navigationManager))
+            {
+                var errorMessage = $"[NavigationService] Cannot find manager for model {typeof(T)}";
+                var error = new ErrorModel(errorMessage, ErrorCode.Error_404_Not_Found);
+                return false;
+            }
+
+            return navigationManager.IsOpenAny();
+        }
+
         public void CloseAll<T>() where T : INavigableModel
         {
             if (!TryGetManager(typeof(T), out var navigationManager))
@@ -93,9 +106,19 @@ namespace Urd.Services
                 return;
             }
 
-            navigationManager.Close(navigableModel, callback);
+            navigationManager.Close(navigableModel, error => OnCloseNavigable(navigableModel, error, callback));
         }
-        
+
+        private void OnCloseNavigable(INavigableModel navigableModel, ErrorModel error, Action<ErrorModel> callback)
+        {
+            if (error.IsSuccess)
+            {
+                OnNavigableClosed?.Invoke(navigableModel);
+            }
+            
+            callback?.Invoke(error);
+        }
+
         private bool TryGetManager(Type navigableType, out INavigationManager navigationManager)
         {
             navigationManager =

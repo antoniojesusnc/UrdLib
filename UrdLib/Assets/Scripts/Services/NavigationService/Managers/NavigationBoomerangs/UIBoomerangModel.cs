@@ -6,12 +6,15 @@ namespace Urd.Navigation
 {
     public class UIBoomerangModel : IDisposable, INavigableModel
     {
+        private static int INCREMENTAL_ID = 0; 
+        public int Id { get; private set; }
         public event Action OnBoomerangClosed;
         public Enum Type { get; private set; }
         public Transform Parent { get; set; }
-        
+
         public UIBoomerangModel(Enum boomerangType)
         {
+            Id = INCREMENTAL_ID++;
             Type = boomerangType;
         }
 

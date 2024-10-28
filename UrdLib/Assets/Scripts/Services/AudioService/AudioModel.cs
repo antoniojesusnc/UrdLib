@@ -8,7 +8,12 @@ namespace Urd.Audio
     {
         public Enum AudioType { get; private set; }
         public Transform AudioLocation { get; private set; } = null;
-        public float FadeOut { get; private set; }
+        public float _fadeOut;
+
+        public float FadeOut => _fadeOut > 0
+            ? _fadeOut
+            : AudioConfigData.FadeOutDuration;
+        
         private float _volume = int.MaxValue;
 
         public float Volume => _volume != int.MaxValue
@@ -64,7 +69,7 @@ namespace Urd.Audio
         
         public void SetFadeOut(float fadeOut)
         {
-            FadeOut = fadeOut;
+            _fadeOut = fadeOut;
         }
 
         public void Dispose()

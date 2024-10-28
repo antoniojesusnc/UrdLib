@@ -11,5 +11,6 @@ namespace Urd.Audio
         AudioMixerType Mixer { get;  }
         float Pitch { get; }
         public bool Loop { get; }
+        float FadeOutDuration { get; }
     }
 }

@@ -5,8 +5,10 @@ namespace Urd.Navigation
 {
     public class SceneModel : INavigableModel
     {
+        
         private const int EMPTY_BUILD_INDEX = -1;
 
+        public int Id => BuildIndex;
         public Enum Type { get; private set; }
 
         public bool IsInBuildIndex => BuildIndex >= 0;

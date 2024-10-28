@@ -13,6 +13,7 @@ namespace Urd.Services
         void Open(INavigableModel navigableModel, Action<ErrorModel> onOpenNavigableCallback = null);
         void Close(INavigableModel navigableModel, Action<ErrorModel> callback = null);
         bool IsOpen(INavigableModel navigableModel);
+        bool IsOpenAny<T>() where T : INavigableModel;
         void CloseAll<T>() where T : INavigableModel;
     }
 }

@@ -13,5 +13,6 @@ namespace Urd.Services
         public bool IsSoundOfType(AudioModel audioModel);
         public void StopSound(Enum audioType, Action onStopSound);
         public void StopSound(AudioModel audioModel, Action onStopSound);
+        AudioMixerModel GetAudioMixer(AudioMixerType audioMixerType);
     }
 }

@@ -63,6 +63,8 @@ namespace Urd.Navigation
             return false;
         }
 
+        public override bool IsOpenAny() => true;
+
         private void OnUnLoadSceneCallback(bool success, Action<ErrorModel> onCloseNavigable)
         {
             onCloseNavigable?.Invoke(new ErrorModel());

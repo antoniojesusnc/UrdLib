@@ -11,6 +11,7 @@ namespace Urd.Navigation
         void Open(INavigableModel navigableModel, Action<ErrorModel> onOpenNavigable);
         void Close(INavigableModel navigableModel, Action<ErrorModel> callback);
         bool IsOpen(INavigableModel navigableModel);
+        bool IsOpenAny();
         void SetConfig(ScriptableObject config);
         void CloseAll();
     }

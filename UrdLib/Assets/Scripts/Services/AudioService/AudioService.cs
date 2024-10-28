@@ -20,15 +20,41 @@ namespace Urd.Services
         
         public override int LoadPriority => 100;
 
-        private List<AudioSource> _audioSources;
+        private List<AudioMixerModel> _audioMixersModels = new List<AudioMixerModel>();
+        private List<AudioSourceModel> _audioSourcesModels = new List<AudioSourceModel>();
         
         public override void Init()
         {
             base.Init();
             
             GetAudioServiceView();
+            CreateMixerModels();
         }
-        
+
+        private void CreateMixerModels()
+        {
+            _audioMixersModels = new List<AudioMixerModel>();
+            for (int i = 0; i < _audioConfig.Mixers.Count; i++)
+            {
+                var mixerModel = new AudioMixerModel(_audioConfig.Mixers[i]);
+                mixerModel.OnEnabledChanged += isEnabled => OnMixerModelEnabledChanged(mixerModel);
+                _audioMixersModels.Add(mixerModel);
+            }
+        }
+
+        private void OnMixerModelEnabledChanged(AudioMixerModel mixerModel)
+        {
+            for (int i = 0; i < _audioSourcesModels.Count; i++)
+            {
+                var audioSource = _audioSourcesModels[i].AudioSource;
+                if (audioSource.isPlaying && audioSource.outputAudioMixerGroup == mixerModel.MixerGroup)
+                {
+                    _audioSourcesModels[i].SetVolume(GetAudioMixer(_audioSourcesModels[i].AudioModel.AudioMixerType));
+                }
+            }
+        }
+
+
         public void SetConfig(AudioConfig audioConfig)
         {
             _audioConfig = audioConfig;
@@ -57,23 +83,41 @@ namespace Urd.Services
 
         private void PlayInternal(AudioModel audioModel)
         {
-            var audioSource = GetEmptyAudioSource(audioModel);
+            var audioSourceModel = GetAudioSourceModel(audioModel);
+            if (audioSourceModel == null)
+            {
+                return;
+            }
+            
+            audioSourceModel.SetAudioModel(audioModel);
+
+            var audioSource = audioSourceModel.AudioSource;
+
+            var mixer = GetAudioMixer(audioModel.AudioMixerType);
+            
             audioSource.clip = audioModel.Clip;
-            audioSource.volume = audioModel.Volume;
             audioSource.pitch = audioModel.Pitch;
             audioSource.loop = audioModel.Loop;
-            audioSource.outputAudioMixerGroup = GetAudioMixer(audioModel);
+            audioSource.outputAudioMixerGroup = mixer.MixerGroup;
+            audioSourceModel.SetVolume(mixer);
             
             audioSource.Play();
         }
 
-        private AudioMixerGroup GetAudioMixer(AudioModel audioModel)
+        public AudioMixerModel GetAudioMixer(AudioMixerType audioMixerType)
         {
-            return _audioConfig.GetMixer(audioModel.AudioMixerType);
+            return _audioMixersModels.Find(model => model.Type == audioMixerType);
         }
 
-        private AudioSource GetEmptyAudioSource(AudioModel audioModel)
+        private AudioSourceModel GetAudioSourceModel(AudioModel audioModel)
         {
+            AudioSourceModel audioSourceModel = null;
+
+            if (_audioServiceView == null)
+            {
+                return null;
+            }
+            
             Transform audioSourceLocation = _audioServiceView.transform;
             if (audioModel.AudioLocation != null)
             {
@@ -85,9 +129,15 @@ namespace Urd.Services
             if (audioSource == null)
             {
                 audioSource = audioSourceLocation.gameObject.AddComponent<AudioSource>();
+                audioSourceModel = new AudioSourceModel(audioSource);
+                _audioSourcesModels.Add(audioSourceModel);
+            }
+            else
+            {
+                audioSourceModel = _audioSourcesModels.Find(model => model.AudioSource == audioSource);
             }
             
-            return audioSource;
+            return audioSourceModel;
         }
 
 
@@ -147,7 +197,13 @@ namespace Urd.Services
                 return;
             }
 
-            audioSource.DOFade(0, audioModel.FadeOut).onComplete += () => onStopSound?.Invoke();
+            audioSource.DOFade(0, audioModel.FadeOut).onComplete += () => OnFinishFadeOut(audioModel, audioSource,  onStopSound);
+        }
+
+        private void OnFinishFadeOut(AudioModel audioModel, AudioSource audioSource, Action onStopSound)
+        {
+            audioSource.Stop();
+            onStopSound?.Invoke();
         }
     }
 }

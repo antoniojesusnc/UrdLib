@@ -28,6 +28,8 @@ namespace Urd.Navigation
         }
         private Transform _popupParent;
 
+        public override bool IsOpenAny() => _popupViews.Count > 0;
+
         public override void SetConfig(ScriptableObject config)
         {
             _popupConfig = config as UIPopupConfig;

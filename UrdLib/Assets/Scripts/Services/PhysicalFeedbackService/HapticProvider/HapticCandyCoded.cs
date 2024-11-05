@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Urd.Feedback
 {
@@ -11,6 +12,8 @@ namespace Urd.Feedback
             CandyCoded.HapticFeedback.iOS.HapticFeedback.PerformHapticFeedback(GetIOSStringFromHaptic(hapticType));
 #elif UNITY_ANDROID && !UNITY_EDITOR
             CandyCoded.HapticFeedback.Android.HapticFeedback.PerformHapticFeedback(GetAndroidFromHaptic(hapticType));
+#else
+            //Debug.Log($"Haptic: {hapticType.ToString()}");
 #endif
         }
         

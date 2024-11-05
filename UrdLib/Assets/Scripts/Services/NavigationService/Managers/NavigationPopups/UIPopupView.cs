@@ -3,6 +3,7 @@ using DG.Tweening;
 using MyBox;
 using UnityEngine;
 using Urd.Animation;
+using Urd.Feedback;
 using Urd.Services;
 
 namespace Urd.Navigation
@@ -112,6 +113,7 @@ namespace Urd.Navigation
 
         public void ClosePopup()
         {
+            StaticServiceLocator.Get<IPhysicalFeedbackService>().Haptic(HapticType.Light);
             StaticServiceLocator.Get<INavigationService>().Close(Model);
         }
         

@@ -1,7 +1,6 @@
-using System;
 using Unity.Notifications;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Android;
 using Urd.Notifications;
 
 namespace Urd.Services
@@ -31,7 +30,20 @@ namespace Urd.Services
             var notificationArgs = new NotificationCenterArgs();
             notificationArgs.AndroidChannelId = MAIN_CHANNEL;
             NotificationCenter.Initialize(notificationArgs);
-            NotificationCenter.RequestPermission();
+            RequestPermision();
+        }
+
+        private void RequestPermision()
+        {
+            #if UNITY_ANDROID
+            if (!Permission.HasUserAuthorizedPermission("android.permission.POST_NOTIFICATIONS"))
+            {
+                Permission.RequestUserPermission("android.permission.POST_NOTIFICATIONS");
+            }
+
+            #else
+                NotificationCenter.RequestPermission();
+            #endif
         }
 
         private void OnGamePaused(bool paused)

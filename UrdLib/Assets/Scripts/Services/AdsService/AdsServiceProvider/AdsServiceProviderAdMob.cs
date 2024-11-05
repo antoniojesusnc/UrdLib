@@ -79,7 +79,7 @@ namespace Urd.Services
                 scale = 1;
             }
             DOVirtual.DelayedCall(0.1f, () => 
-                _eventBusService.Send(new OnBannerLoadedEvent(_banner.GetHeightInPixels()/scale, bannerError)));
+                _eventBusService.Send(new OnBannerLoadedEvent(_banner.GetHeightInPixels()*scale, bannerError)));
             onBannerLoaded?.Invoke(bannerError);
         }
 

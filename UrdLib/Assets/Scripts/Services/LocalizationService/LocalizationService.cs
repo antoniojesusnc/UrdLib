@@ -51,6 +51,7 @@ namespace Urd.Services
             if (locale != null)
             {
                 LocalizationSettings.Instance.SetSelectedLocale(locale);
+                Language = locale.Identifier.CultureInfo;
                 _eventBusService.Send(new EventOnLocalizationChanged());
             }
         }

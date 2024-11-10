@@ -3,6 +3,7 @@ using DG.Tweening;
 using MyBox;
 using UnityEngine;
 using Urd.Animation;
+using Urd.Audio;
 using Urd.Feedback;
 using Urd.Services;
 
@@ -114,6 +115,8 @@ namespace Urd.Navigation
         public void ClosePopup()
         {
             StaticServiceLocator.Get<IPhysicalFeedbackService>().Haptic(HapticType.Light);
+            StaticServiceLocator.Get<IAudioService>().PlaySound(AudioGenericType.ButtonClick);
+
             StaticServiceLocator.Get<INavigationService>().Close(Model);
         }
         

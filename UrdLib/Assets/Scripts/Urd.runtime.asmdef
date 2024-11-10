@@ -34,7 +34,11 @@
         "DOTweenPro.dll",
         "System.Text.Json.dll",
         "GoogleMobileAds.dll",
-        "GoogleMobileAds.Core.dll"
+        "GoogleMobileAds.Core.dll",
+        "Firebase.App.dll",
+        "Firebase.Crashlytics.dll",
+        "Firebase.Platform.dll",
+        "Firebase.TaskExtension.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

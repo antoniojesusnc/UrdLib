@@ -1,4 +1,5 @@
 using System;
+using Firebase.Crashlytics;
 using UnityEngine;
 
 namespace Urd.Services
@@ -8,22 +9,20 @@ namespace Urd.Services
     {
         public void Init()
         {
-            /*
-            Firebase.FirebaseApp.CheckAndFixDependicesAsync().ContinueWith(
+            Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(
                 task =>
                 {
                     var dependencyStatus = task.Result;
                     if (dependencyStatus == Firebase.DependencyStatus.Available)
                     {
                         Firebase.FirebaseApp app = Firebase.FirebaseApp.DefaultInstance;
-                        CrashLytics.ReportUncaughtExceptionAsFatal = true;
+                        Crashlytics.ReportUncaughtExceptionsAsFatal = true;
                     }
                     else
                     {
                         Debug.LogWarning("ErrorServiceProviderFirebase not initialized");
                     }
                 });
-            */
         }
     }
 }

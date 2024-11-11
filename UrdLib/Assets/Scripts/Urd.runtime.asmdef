@@ -35,10 +35,10 @@
         "System.Text.Json.dll",
         "GoogleMobileAds.dll",
         "GoogleMobileAds.Core.dll",
-        "Firebase.App.dll",
         "Firebase.Crashlytics.dll",
         "Firebase.Platform.dll",
-        "Firebase.TaskExtension.dll"
+        "Firebase.TaskExtension.dll",
+        "Firebase.App.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

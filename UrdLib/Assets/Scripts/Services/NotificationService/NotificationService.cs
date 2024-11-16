@@ -1,7 +1,8 @@
-using Unity.Notifications;
+#if UNITY_ANDROID || UNITY_IOS
 using UnityEngine;
-using UnityEngine.Android;
 using Urd.Notifications;
+
+using Unity.Notifications;
 
 namespace Urd.Services
 {
@@ -86,3 +87,4 @@ namespace Urd.Services
         }
     }
 }
+#endif

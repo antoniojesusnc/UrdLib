@@ -1,3 +1,5 @@
+#if UNITY_ANDROID || UNITY_IOS
+
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -29,3 +31,4 @@ namespace Urd.Editor
         }
     }
 }
+#endif

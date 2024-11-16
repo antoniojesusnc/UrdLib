@@ -1,3 +1,5 @@
+#if UNITY_ANDROID || UNITY_IOS
+
 using System.Collections.Generic;
 using UnityEngine;
 using Urd.Notifications;
@@ -12,3 +14,4 @@ namespace Urd.Services
         public List<INotificationModel> Notifications { get; private set; } = new();
     }
 }
+#endif

@@ -1,3 +1,5 @@
+#if UNITY_ANDROID || UNITY_IOS
+
 using System;
 using Unity.Notifications;
 
@@ -10,3 +12,4 @@ namespace Urd.Notifications
         Notification GetNotification();
     }
 }
+#endif

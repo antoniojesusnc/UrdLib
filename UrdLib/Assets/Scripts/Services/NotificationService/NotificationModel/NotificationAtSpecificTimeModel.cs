@@ -1,3 +1,5 @@
+#if UNITY_ANDROID || UNITY_IOS
+
 using System;
 using Unity.Notifications;
 using UnityEngine;
@@ -34,3 +36,4 @@ namespace Urd.Notifications
         }
     }
 }
+#endif

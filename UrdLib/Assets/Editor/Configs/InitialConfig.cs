@@ -155,10 +155,13 @@ namespace Urd.Editor
         
         private static void AddNotificationConfig()
         {
+#if UNITY_ANDROID || UNITY_IOS
+
             var notificationServiceConfig = CreateConfig<NotificationsConfig>(CONFIG_FILE_NOTIFICATION, RelativeServiceFolder);
             var notificationService = _serviceLocatorConfig.ListOfServices.Find(
                 service => service.GetMainInterface().IsAssignableFrom(typeof(INotificationService))) as INotificationService;
             notificationService.SetConfig(notificationServiceConfig);
+#endif
         }
         
         private static void AddAudioConfig()

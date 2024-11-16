@@ -4,6 +4,8 @@ namespace Urd.Feedback
     {
         public virtual void Vibrate(VibrationType vibrationType)
         {
+#if UNITY_ANDROID || UNITY_IOS
+
             switch (vibrationType)
             {
                 case VibrationType.Light: Vibration.VibratePop();
@@ -18,6 +20,7 @@ namespace Urd.Feedback
                     Vibration.Vibrate();
                     break;
             }
+#endif
         }
 
         public virtual void Cancel() { }

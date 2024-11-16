@@ -22,8 +22,10 @@ namespace Urd.Services
             base.Init();
 
             _vibrationPlatform = GetVibrationPlatform();
-            
+#if UNITY_ANDROID || UNITY_IOS
+
             Vibration.Init();
+#endif
         }
 
         private IVibrationPlatform GetVibrationPlatform()

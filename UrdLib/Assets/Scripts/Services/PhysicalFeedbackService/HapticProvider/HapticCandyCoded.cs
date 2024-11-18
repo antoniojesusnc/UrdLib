@@ -32,6 +32,7 @@ namespace Urd.Feedback
         {
             switch (hapticType)
             {
+                case HapticType.Light: return CandyCoded.HapticFeedback.Android.HapticFeedbackConstants.CLOCK_TICK;
                 case HapticType.Medium: return CandyCoded.HapticFeedback.Android.HapticFeedbackConstants.VIRTUAL_KEY;
                 case HapticType.Heavy: return CandyCoded.HapticFeedback.Android.HapticFeedbackConstants.LONG_PRESS;
                 case HapticType.LongPress: return CandyCoded.HapticFeedback.Android.HapticFeedbackConstants.LONG_PRESS;

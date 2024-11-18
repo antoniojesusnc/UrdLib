@@ -6,6 +6,7 @@ namespace Urd.Services
     {
         void CancelNotifications();
         void SetConfig(NotificationsConfig notificationsConfig);
+        void RequestPermission();
     }
 }
 #endif

@@ -34,8 +34,7 @@ namespace Urd.Services
         private void InitNotifications()
         {
             var permissionStatus = AndroidNotificationCenter.UserPermissionToPost;
-            if (permissionStatus == PermissionStatus.DeniedDontAskAgain
-                || permissionStatus == PermissionStatus.Denied)
+            if (permissionStatus == PermissionStatus.DeniedDontAskAgain)
             {
                 _hasPermission = false;
                 return;
@@ -48,7 +47,8 @@ namespace Urd.Services
             }
             
             if (permissionStatus == PermissionStatus.NotRequested
-                     || permissionStatus == PermissionStatus.RequestPending)
+                     || permissionStatus == PermissionStatus.RequestPending
+                     || permissionStatus == PermissionStatus.Denied)
             {
                 _unityService = StaticServiceLocator.Get<IUnityService>();
                 _unityService.OnGamePaused += OnGamePaused;
@@ -63,11 +63,18 @@ namespace Urd.Services
 
         public void RequestPermission()
         {
-            InitNotifications();
-            if (!_hasPermission)
+            try
             {
-                NotificationCenter.RequestPermission();
-                return;
+                InitNotifications();
+                if (!_hasPermission)
+                {
+                    NotificationCenter.RequestPermission();
+                    InitNotifications();
+                }
+            }
+            catch
+            {
+                _hasPermission = false;
             }
         }
 

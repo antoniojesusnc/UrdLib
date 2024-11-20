@@ -4,14 +4,13 @@ using UnityEngine;
 using Urd.Notifications;
 
 using Unity.Notifications;
+using Unity.Notifications.Android;
 using UnityEngine.Android;
 
 namespace Urd.Services
 {
     public class NotificationService : BaseService, INotificationService
     {
-        private const string NOTIFICATION_PERMISION = "NOTIFICATION_PERMISION";
-
         private const string MAIN_CHANNEL = "Main Channel";
 
         [SerializeField] private NotificationsConfig _notificationsConfig;
@@ -30,61 +29,46 @@ namespace Urd.Services
         public override void Init()
         {
             base.Init();
+        }
 
-            _hasPermission = StaticServiceLocator.Get<ISaveLoadService>().Load(NOTIFICATION_PERMISION, true);
-
-            if (_hasPermission)
+        private void InitNotifications()
+        {
+            var permissionStatus = AndroidNotificationCenter.UserPermissionToPost;
+            if (permissionStatus == PermissionStatus.DeniedDontAskAgain
+                || permissionStatus == PermissionStatus.Denied)
+            {
+                _hasPermission = false;
+                return;
+            }
+            
+            if (permissionStatus == PermissionStatus.Allowed)
+            {
+                _hasPermission = true;
+                return;
+            }
+            
+            if (permissionStatus == PermissionStatus.NotRequested
+                     || permissionStatus == PermissionStatus.RequestPending)
             {
                 _unityService = StaticServiceLocator.Get<IUnityService>();
                 _unityService.OnGamePaused += OnGamePaused;
                 var notificationArgs = new NotificationCenterArgs();
                 notificationArgs.AndroidChannelId = MAIN_CHANNEL;
+                notificationArgs.AndroidChannelName = MAIN_CHANNEL;
+                notificationArgs.AndroidChannelDescription = MAIN_CHANNEL;
                 NotificationCenter.Initialize(notificationArgs);
+                _hasPermission = AndroidNotificationCenter.Initialize();
             }
         }
 
         public void RequestPermission()
         {
+            InitNotifications();
             if (!_hasPermission)
             {
+                NotificationCenter.RequestPermission();
                 return;
             }
-
-#if UNITY_ANDROID
-            if (!Permission.HasUserAuthorizedPermission("android.permission.POST_NOTIFICATIONS"))
-            {
-                PermissionCallbacks permissionCallback = new PermissionCallbacks();
-                permissionCallback.PermissionGranted += OnPermissionGranted;
-                permissionCallback.PermissionDenied += OnPermissionDenied;
-                permissionCallback.PermissionDeniedAndDontAskAgain += OnPermissionDeniedAndDontAskAgain;
-                Permission.RequestUserPermission("android.permission.POST_NOTIFICATIONS", permissionCallback);
-            }
-            else
-            {
-                _hasPermission = true;
-            }
-
-#else
-                NotificationCenter.RequestPermission();
-#endif
-        }
-
-        private void OnPermissionDeniedAndDontAskAgain(string obj)
-        {
-            _hasPermission = false;
-            StaticServiceLocator.Get<ISaveLoadService>().Save(NOTIFICATION_PERMISION, false);
-        }
-
-
-        private void OnPermissionDenied(string obj)
-        {
-            _hasPermission = false;
-        }
-
-        private void OnPermissionGranted(string obj)
-        {
-            _hasPermission = true;
-            StaticServiceLocator.Get<ISaveLoadService>().Save(NOTIFICATION_PERMISION, true);
         }
 
         private void OnGamePaused(bool paused)

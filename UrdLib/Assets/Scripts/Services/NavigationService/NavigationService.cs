@@ -98,6 +98,12 @@ namespace Urd.Services
 
         public void Close(INavigableModel navigableModel, Action<ErrorModel> callback = null)
         {
+            if (navigableModel == null)
+            {
+                callback?.Invoke(new ErrorModel());
+                return;
+            }
+            
             if (!TryGetManager(navigableModel.GetType(), out var navigationManager))
             {
                 var errorMessage = $"[NavigationService] Cannot find manager for model {navigableModel}";

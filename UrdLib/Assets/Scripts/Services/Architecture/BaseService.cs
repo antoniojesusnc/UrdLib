@@ -7,7 +7,7 @@ namespace Urd.Services
         public abstract int LoadPriority { get; }
         public virtual void Init() { }
 
-        protected virtual bool IsLoaded { get; set; } = true;
+        public virtual bool IsLoaded { get; protected set; } = true;
 
         protected event Action OnServiceFinishLoad;
 

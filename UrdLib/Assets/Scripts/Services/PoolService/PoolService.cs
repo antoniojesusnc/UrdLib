@@ -82,7 +82,7 @@ namespace Urd.Services
 
         public void Release<T>(T item) where T : class, IPoolable
         {
-            if (_objectsPool.TryGetValue(typeof(T), out var pool))
+            if (item != null && _objectsPool.TryGetValue(typeof(T), out var pool))
             {
                 pool.Release(item);
             }

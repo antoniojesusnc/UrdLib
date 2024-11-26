@@ -12,7 +12,6 @@ namespace Urd.Services
     public class LocalizationService : BaseService, ILocalizationService
     {     
         public override int LoadPriority => 50;
-        protected override bool IsLoaded { get; set; } = false;
 
         private const string MAIN_TABLE_REFERENCE = "MainTable";
             
@@ -23,6 +22,8 @@ namespace Urd.Services
         
         public override void Init()
         {
+            IsLoaded = false;
+            
             base.Init();
 
             _eventBusService = StaticServiceLocator.Get<IEventBusService>();

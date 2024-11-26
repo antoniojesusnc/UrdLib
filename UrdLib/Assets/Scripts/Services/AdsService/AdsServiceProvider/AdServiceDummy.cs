@@ -7,6 +7,8 @@ namespace RubberDuck
     [Serializable]
     public class AdServiceDummy : IAdsServiceProvider
     {
+        public float BannerSize => 0;
+
         public void Init(Action onInitCallback = null) {
             
         }

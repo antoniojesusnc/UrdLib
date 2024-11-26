@@ -5,6 +5,8 @@ namespace Urd.Services
 {
     public interface IAdsService : IBaseService
     {
+        float BannerSize { get; }
+        
         void SetProvider(IAdsServiceProvider provider);
         void HideBanner();
         void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded);

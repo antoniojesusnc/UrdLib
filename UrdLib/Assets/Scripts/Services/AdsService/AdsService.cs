@@ -8,7 +8,8 @@ namespace Urd.Services
     public class AdsService : BaseService, IAdsService
     {
         public override int LoadPriority => 10;
-        
+
+        public float BannerSize => _adsServiceProvider.BannerSize;
         [field: SerializeField]
         public bool IsBannerEnabled { get; private set; }
         
@@ -19,7 +20,8 @@ namespace Urd.Services
         {
             SetProvider(_adsServiceProvider);
         }
-        
+
+
         public void SetProvider(IAdsServiceProvider provider)
         {
             _adsServiceProvider = provider;

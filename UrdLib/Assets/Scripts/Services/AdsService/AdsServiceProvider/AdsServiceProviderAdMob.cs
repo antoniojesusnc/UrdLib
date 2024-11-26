@@ -20,6 +20,8 @@ namespace Urd.Services
         private IEventBusService _eventBusService;
 
         public bool IsInitialized { get; private set; }
+        public override float BannerSize => _banner?.GetHeightInPixels() ?? 0f;
+
         public override void Init(Action onInitializeCallback)
         {
             base.Init(onInitializeCallback);

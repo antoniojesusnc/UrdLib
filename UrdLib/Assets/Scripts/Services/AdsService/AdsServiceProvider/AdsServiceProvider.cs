@@ -17,6 +17,8 @@ namespace Urd.Services
         protected string _androidRVId;
         [SerializeField]
         protected string _iosRVId;
+
+        public abstract float BannerSize { get; }
         
         public virtual void Init(Action onInitializeCallback) { }
         public virtual void Dispose() { }

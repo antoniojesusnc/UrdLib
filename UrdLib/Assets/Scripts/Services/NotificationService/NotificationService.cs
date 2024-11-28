@@ -108,7 +108,11 @@ namespace Urd.Services
 
         private void TryScheduleNotification(INotificationModel notificationModel)
         {
-            NotificationCenter.ScheduleNotification(notificationModel.GetNotification(), new NotificationDateTimeSchedule(notificationModel.DeliveryDateTime));
+            var deliveryDateTime = notificationModel.DeliveryDateTime;
+            if (deliveryDateTime > DateTime.UtcNow)
+            {
+                NotificationCenter.ScheduleNotification(notificationModel.GetNotification(), new NotificationDateTimeSchedule(deliveryDateTime));
+            }
         }
 
         public void CancelNotifications()

@@ -50,13 +50,11 @@ namespace Urd.Services
                 ? AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth)
                 : new AdSize(adsBannerModel.Size.x, adsBannerModel.Size.y);
 
-            Debug.Log($"loading Banner of size:({adSize.Width},{adSize.Height}");
             _banner = new BannerView(GetBannerAdUnitId(),adSize, GetAdsPosition(adsBannerModel));
 
             var request = new AdRequest();
             _banner.OnBannerAdLoaded += () => OnBannerLoaded(null, onBannerLoaded);
             _banner.OnBannerAdLoadFailed += (error) => OnBannerLoaded(error, onBannerLoaded);
-            Debug.Log("Loading Banner");
             _banner.LoadAd(request);
         }
 

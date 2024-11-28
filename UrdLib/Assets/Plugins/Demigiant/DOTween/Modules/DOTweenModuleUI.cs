@@ -28,7 +28,14 @@ namespace DG.Tweening
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<float, float, FloatOptions> DOFade(this CanvasGroup target, float endValue, float duration)
         {
-            TweenerCore<float, float, FloatOptions> t = DOTween.To(() => target.alpha, x => target.alpha = x, endValue, duration);
+            TweenerCore<float, float, FloatOptions> t = DOTween.To(() => target.alpha, 
+                                                                   x =>
+                                                                   {
+                                                                       if (target != null)
+                                                                       {
+                                                                            target.alpha = x;
+                                                                       }
+                                                                   }, endValue, duration);
             t.SetTarget(target);
             return t;
         }
@@ -207,7 +214,16 @@ namespace DG.Tweening
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
         public static TweenerCore<Vector2, Vector2, VectorOptions> DOAnchorPos(this RectTransform target, Vector2 endValue, float duration, bool snapping = false)
         {
-            TweenerCore<Vector2, Vector2, VectorOptions> t = DOTween.To(() => target.anchoredPosition, x => target.anchoredPosition = x, endValue, duration);
+            TweenerCore<Vector2, Vector2, VectorOptions> t = DOTween.To(
+                () => target?.anchoredPosition ?? Vector2.zero,
+                x =>
+                {
+                    if (target != null)
+                    {
+                        target.anchoredPosition = x;
+                    }
+                }, 
+                endValue, duration);
             t.SetOptions(snapping).SetTarget(target);
             return t;
         }

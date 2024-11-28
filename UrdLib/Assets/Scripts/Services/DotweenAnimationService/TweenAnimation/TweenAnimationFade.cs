@@ -13,7 +13,7 @@ namespace Urd.Animation
 
         private void Awake()
         {
-            _duration = 0.2f;
+            Duration = 0.2f;
             _initialFade = 0;
             _finalFade = 1;
         }
@@ -26,7 +26,7 @@ namespace Urd.Animation
             }
 
             rectTransform.alpha = _initialFade;
-            return rectTransform.DOFade(_finalFade, _duration);
+            return rectTransform.DOFade(_finalFade, Duration);
         }
     }
 }

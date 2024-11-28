@@ -33,7 +33,7 @@ namespace Urd.Animation
                 finalYPosition = -rectTransform.sizeDelta.y;
             }
 
-            return rectTransform.DOAnchorPosY(finalYPosition, _duration);
+            return rectTransform.DOAnchorPosY(finalYPosition, Duration);
         }
     }
 }

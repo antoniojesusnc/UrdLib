@@ -12,7 +12,6 @@
         "GUID:49b49c76ee64f6b41bf28ef951cb0e50",
         "GUID:48c9f6afdac61634db0e0f241c7d4d51",
         "GUID:2bafac87e7f4b9b418d9448d219b01ab",
-        "GUID:3c325c2c268f8814888b1319c8aba9c0",
         "GUID:ac740251aebda49e8bf622aa1652e9e3",
         "GUID:fe25561d224ed4743af4c60938a59d0b",
         "GUID:30e7a851ec87b44ad956804ca8ebf15c",
@@ -23,7 +22,9 @@
         "GUID:b7a16d9f27dfd4770805a4cdc942c190",
         "GUID:554646506760c444e8c83e5eb5416a5e",
         "GUID:d71139be5ab9e4bb49bc95f8093014e9",
-        "GUID:ac145e6b8c6034cdbadc8c6e26aedbcf"
+        "GUID:ac145e6b8c6034cdbadc8c6e26aedbcf",
+        "GUID:3c325c2c268f8814888b1319c8aba9c0",
+        "GUID:c2b7ebd8a90807b49b8478bcf679f341"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -31,15 +32,15 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "Newtonsoft.Json.dll",
-        "DOTween.dll",
-        "DOTweenPro.dll",
         "System.Text.Json.dll",
         "GoogleMobileAds.dll",
         "GoogleMobileAds.Core.dll",
         "Firebase.Crashlytics.dll",
         "Firebase.Platform.dll",
         "Firebase.TaskExtension.dll",
-        "Firebase.App.dll"
+        "Firebase.App.dll",
+        "DOTween.dll",
+        "DOTweenPro.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Urd.Animation
 {
@@ -9,7 +10,10 @@ namespace Urd.Animation
     {
         [field: Header("General Config"), SerializeField]
         public TEnum AnimationType { get; private set; }
-        [SerializeField] protected float _duration;
+        //[field: FormerlySerializedAs("_duration")] 
+        [field: SerializeField] 
+        public float Duration { get; protected set; }
+        
         [SerializeField] protected Ease _ease = Ease.OutQuad;
         public override Enum GetAnimationType() => AnimationType;
     }

@@ -12,7 +12,7 @@ namespace Urd.Animation
         public Tween DoAnimation(RectTransform rectTransform)
         {
             return rectTransform.DOAnchorPos(rectTransform.anchoredPosition + 
-                                             rectTransform.lossyScale.x*_finalPositionOffset, _duration)
+                                             rectTransform.lossyScale.x*_finalPositionOffset, Duration)
                                 .SetEase(_ease);
         }
     }

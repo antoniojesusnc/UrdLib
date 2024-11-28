@@ -11,6 +11,7 @@ namespace Urd.SaveLoad
         public void Save<T>(string key, T value)
         {
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(value);
+            //Debug.Log(json);
             PlayerPrefs.SetString(key, json);
         }
 

@@ -40,12 +40,12 @@ namespace Urd.UI
                 return;
             }
 
-            Vector2 finalPos01 = _point1.position.ToVector2() - Vector2.up * (100 * transform.lossyScale.x);
-            Vector2 finalPos02 = _point2.position.ToVector2() - Vector2.up * (100 * transform.lossyScale.x);
+            Vector2 finalPos01 = _point1.position.ToVector2() - Vector2.up * (100 * transform.lossyScale.y);
+            Vector2 finalPos02 = _point2.position.ToVector2() - Vector2.up * (100 * transform.lossyScale.y);
             
             Vector3 differenceVector = finalPos02 - finalPos01;
             
-            _imageRectTransform.sizeDelta = new Vector2(differenceVector.magnitude, _lineWidth);
+            _imageRectTransform.sizeDelta = new Vector2(differenceVector.magnitude/transform.lossyScale.y, _lineWidth);
             _imageRectTransform.pivot = new Vector2(0, 0.5f);
             _imageRectTransform.position = finalPos01;
             float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;

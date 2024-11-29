@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1027871056871184723}
   - component: {fileID: 5703485490124021886}
   - component: {fileID: 3451425513668101465}
+  - component: {fileID: 290379001351815532}
   m_Layer: 5
   m_Name: BoomerangCanvas
   m_TagString: BoomerangCanvas
@@ -101,6 +102,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &290379001351815532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374245945956164359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970e6a3612105e14bbb42ae9c891cda5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TopEdge: 1
+  LeftEdge: 0
+  RightEdge: 1
+  BottomEdge: 0
 --- !u!1 &5272245905775554541
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +236,7 @@ GameObject:
   - component: {fileID: 3399655420513610191}
   - component: {fileID: 453663992667539716}
   - component: {fileID: 3864113090326081163}
+  - component: {fileID: 4296443858979204189}
   m_Layer: 5
   m_Name: PopupCanvas
   m_TagString: PopupCanvas
@@ -308,6 +326,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4296443858979204189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7380652960608507507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970e6a3612105e14bbb42ae9c891cda5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TopEdge: 1
+  LeftEdge: 0
+  RightEdge: 1
+  BottomEdge: 0
 --- !u!1 &8289301703541707794
 GameObject:
   m_ObjectHideFlags: 0

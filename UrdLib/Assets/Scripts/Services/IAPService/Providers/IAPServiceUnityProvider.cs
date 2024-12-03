@@ -39,8 +39,8 @@ namespace Urd.Services.IAP
 
         public string GetPriceOf(IStoreItemModel storeItemModel)
         {
-            var product = _storeController.products.WithStoreSpecificID(storeItemModel.StoreItemId);
-            return product.metadata.localizedPriceString;
+            var product = _storeController?.products.WithStoreSpecificID(storeItemModel.StoreItemId.ToLower());
+            return product?.metadata.localizedPriceString ?? "99.99";
         }
 
         // unity listeners

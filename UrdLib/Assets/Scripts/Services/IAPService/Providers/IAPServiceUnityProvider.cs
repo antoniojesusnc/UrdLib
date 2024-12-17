@@ -54,7 +54,9 @@ namespace Urd.Services.IAP
         
         public void OnInitializeFailed(InitializationFailureReason error)
         {
-            Debug.LogWarning($"[IAPServiceUnityProvider] OnInitializeFailed {error})");
+            string warning = $"[IAPServiceUnityProvider] OnInitializeFailed {error})";
+            Debug.LogWarning(warning);
+            StaticServiceLocator.Get<IErrorService>().LogError(warning);
             _onInitializedCallback?.Invoke(false, null);
             _onInitializedCallback = null;
         }

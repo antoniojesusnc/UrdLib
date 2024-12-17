@@ -24,5 +24,10 @@ namespace Urd.Services
                     }
                 });
         }
+
+        public void LogError(string message)
+        {
+            Crashlytics.Log(message);
+        }
     }
 }

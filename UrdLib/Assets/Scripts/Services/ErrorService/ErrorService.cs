@@ -16,5 +16,10 @@ namespace Urd.Services
             base.Init();
             _errorServiceProvider.ForEach(provider => provider.Init());
         }
+
+        public void LogError(string message)
+        {
+            _errorServiceProvider.ForEach(provider => provider.LogError(message));
+        }
     }
 }

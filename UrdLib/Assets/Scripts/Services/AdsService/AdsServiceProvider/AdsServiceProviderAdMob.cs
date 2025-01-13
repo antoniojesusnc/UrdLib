@@ -60,12 +60,15 @@ namespace Urd.Services
 
         private void OnBannerLoaded(LoadAdError error, Action<AdMobBannerError> onBannerLoaded)
         {
-            if (_banner == null)
-            {
-                onBannerLoaded?.Invoke();
-            }
             
             AdMobBannerError bannerError = new AdMobBannerError();
+            if (_banner == null)
+            {
+                bannerError.SetAsError();
+                onBannerLoaded?.Invoke(bannerError);
+                return;
+            }
+            
             if (error == null)
             {
                 UnityMainThreadDispatcher.Instance()?.Enqueue(() =>

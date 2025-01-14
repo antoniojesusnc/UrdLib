@@ -25,6 +25,8 @@ using UnityEngine.Events;
 /// </summary>
 public class AspectRatioController : MonoBehaviour
 {
+    private bool IsEnabled => Application.platform == RuntimePlatform.WindowsPlayer && Application.platform != RuntimePlatform.WindowsEditor;
+    
     /// <summary>
     /// This event gets triggered every time the window resolution changes or the user toggles fullscreen.
     /// The parameters are the new width, height and fullscreen state (true means fullscreen).
@@ -167,7 +169,7 @@ public class AspectRatioController : MonoBehaviour
     {
         // Don't register WindowProc callback in Unity editor, because it would refer to the
         // Unity editor window, not the actual game window.
-        if (Application.isEditor)
+        if (Application.isEditor || !IsEnabled)
         {
             return;
         }
@@ -326,6 +328,11 @@ public class AspectRatioController : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (Application.isEditor || !IsEnabled)
+        {
+            return;
+        }
+        
         // Block switching to fullscreen if fullscreen is disallowed.
         if (!allowFullscreen && Screen.fullScreen)
         {

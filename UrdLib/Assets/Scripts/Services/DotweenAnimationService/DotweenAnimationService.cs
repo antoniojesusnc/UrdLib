@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using DG.Tweening.Core.Enums;
 using UnityEngine;
 using Urd.Animation;
 
@@ -10,7 +12,15 @@ namespace Urd.Services
         public override int LoadPriority => 90;
 
         [SerializeField] private DotweenAnimationConfig _dotweenAnimationConfig;
-        
+
+        public override void Init()
+        {
+            base.Init();
+            DOTween.Init(true, true, LogBehaviour.ErrorsOnly);
+            DOTween.nestedTweenFailureBehaviour = NestedTweenFailureBehaviour.KillWholeSequence;
+            DOTween.defaultRecyclable = true;
+        }
+
         public void SetConfig(DotweenAnimationConfig dotweenAnimationConfig)
         {
             _dotweenAnimationConfig = dotweenAnimationConfig;

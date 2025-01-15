@@ -1,6 +1,5 @@
 using System;
 using Firebase;
-using Firebase.Analytics;
 using Firebase.Extensions;
 using UnityEngine;
 
@@ -14,36 +13,38 @@ namespace Urd.Services
 
         public void Init()
         {
-            if (Application.isEditor)
-            {
-                return;
-            }
-
             Status = DependencyStatus.UnavailableUpdating;
-            Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(
+            //Debug.Log("[AnalyticsServiceProviderFirebase] CheckAndFixDependenciesAsync");
+            Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(
                 task =>
                 {
                     var dependencyStatus = task.Result;
                     Status = dependencyStatus;
+                    //Debug.Log("[AnalyticsServiceProviderFirebase] Init:" + Status);
                     if (dependencyStatus == Firebase.DependencyStatus.Available)
                     {
-                        Firebase.Analytics.FirebaseAnalytics.SetUserId(SystemInfo.deviceUniqueIdentifier);
-                        Firebase.Analytics.FirebaseAnalytics.LogEvent(
-                            Firebase.Analytics.FirebaseAnalytics.EventLogin);
+                        Firebase.FirebaseApp app = Firebase.FirebaseApp.DefaultInstance;
+                        if (!Application.isEditor)
+                        {
+                            Firebase.Analytics.FirebaseAnalytics.SetUserId(SystemInfo.deviceUniqueIdentifier);
+                            Firebase.Analytics.FirebaseAnalytics.LogEvent(
+                                Firebase.Analytics.FirebaseAnalytics.EventLogin);
+                        }
                     }
+
                     OnChangeStatus?.Invoke();
                 });
         }
 
         public void LogEvent(string eventKey, string eventValue)
         {
-            if (Application.isEditor || Status != DependencyStatus.Available)
+            if (Status != DependencyStatus.Available || Application.isEditor)
             {
                 return;
             }
 
             SetUserProperties();
-
+            
             Firebase.Analytics.FirebaseAnalytics.LogEvent(eventKey,
                                                           Firebase.Analytics.FirebaseAnalytics.ParameterValue,
                                                           eventValue);
@@ -51,7 +52,7 @@ namespace Urd.Services
 
         protected virtual void SetUserProperties()
         {
-            
+
         }
     }
 }

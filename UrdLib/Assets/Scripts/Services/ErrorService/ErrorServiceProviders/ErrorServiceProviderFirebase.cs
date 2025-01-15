@@ -10,12 +10,13 @@ namespace Urd.Services
     {
         private bool _initialized;
         private AnalyticsServiceProviderFirebase _fireBaseProvider;
-
+        
         public void Init()
         {
             if (!StaticServiceLocator.Get<IAnalyticsService>()
                                      .TryGetProvider<AnalyticsServiceProviderFirebase>(out _fireBaseProvider))
             {
+                //Debug.Log("[ErrorServiceProviderFirebase] Cannot Init");
                 return;
             }
             
@@ -25,12 +26,14 @@ namespace Urd.Services
             }
             else
             {
+                //Debug.Log("[ErrorServiceProviderFirebase] Subscribe");
                 _fireBaseProvider.OnChangeStatus += OnChangeStatus;
             }
         }
 
         private void OnChangeStatus()
         {
+            //Debug.Log($"[ErrorServiceProviderFirebase] OnChangeStatus: {_fireBaseProvider.Status}");
             if (_fireBaseProvider.Status == DependencyStatus.Available)
             {
                 InitCrashlytics();
@@ -39,6 +42,8 @@ namespace Urd.Services
 
         private void InitCrashlytics()
         {
+            //Debug.Log("[ErrorServiceProviderFirebase] InitCrashlytics");
+            
             Crashlytics.ReportUncaughtExceptionsAsFatal = true;
             Crashlytics.SetUserId(SystemInfo.deviceUniqueIdentifier);
             _initialized = true;

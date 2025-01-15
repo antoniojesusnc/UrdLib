@@ -24,7 +24,7 @@ namespace Urd.Services
 
         public bool TryGetProvider<T>(out T provider) where T : class, IAnalyticsServiceProvider
         {
-            provider = _analyticsServiceProviders.Find(provider => provider.GetType().IsAssignableFrom(typeof(T))) as T;
+            provider = _analyticsServiceProviders.Find(provider => provider is T) as T;
             return provider != null;
         }
     }

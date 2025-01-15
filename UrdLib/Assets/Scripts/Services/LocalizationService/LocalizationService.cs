@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -14,8 +15,8 @@ namespace Urd.Services
         public override int LoadPriority => 50;
 
         private const string MAIN_TABLE_REFERENCE = "MainTable";
-            
-        public CultureInfo Language { get; private set; }
+
+        public CultureInfo Language { get; private set; } = CultureInfo.CurrentCulture;
         public List<Locale> AvailableLanguages => LocalizationSettings.AvailableLocales.Locales;
 
         private IEventBusService _eventBusService;

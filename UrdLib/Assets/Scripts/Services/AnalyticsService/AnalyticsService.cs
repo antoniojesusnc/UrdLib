@@ -21,5 +21,11 @@ namespace Urd.Services
         {
             _analyticsServiceProviders.ForEach(provider => provider.LogEvent(eventKey, eventValue));
         }
+
+        public bool TryGetProvider<T>(out T provider) where T : class, IAnalyticsServiceProvider
+        {
+            provider = _analyticsServiceProviders.Find(provider => provider.GetType().IsAssignableFrom(typeof(T))) as T;
+            return provider != null;
+        }
     }
 }

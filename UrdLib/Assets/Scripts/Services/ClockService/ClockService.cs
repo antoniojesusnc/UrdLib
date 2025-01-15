@@ -233,7 +233,10 @@ namespace Urd.Services
 
             public void CallListener(float deltaTime)
             {
-                Listener.Invoke(deltaTime);
+                if (Listener != null && Listener.Target != null)
+                {
+                    Listener.Invoke(deltaTime);
+                }
             }
         }
     }

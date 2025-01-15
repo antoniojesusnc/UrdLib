@@ -17,6 +17,7 @@ namespace Urd.Services
                     {
                         Firebase.FirebaseApp app = Firebase.FirebaseApp.DefaultInstance;
                         Crashlytics.ReportUncaughtExceptionsAsFatal = true;
+                        Crashlytics.SetUserId(SystemInfo.deviceUniqueIdentifier);
                     }
                     else
                     {

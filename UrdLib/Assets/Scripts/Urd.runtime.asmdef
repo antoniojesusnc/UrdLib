@@ -40,7 +40,8 @@
         "Firebase.TaskExtension.dll",
         "Firebase.App.dll",
         "DOTween.dll",
-        "DOTweenPro.dll"
+        "DOTweenPro.dll",
+        "Firebase.Analytics.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

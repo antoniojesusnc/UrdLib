@@ -60,17 +60,25 @@ namespace Urd.Services
 
         private void OnBannerLoaded(LoadAdError error, Action<AdMobBannerError> onBannerLoaded)
         {
+            
             AdMobBannerError bannerError = new AdMobBannerError();
+            if (_banner == null)
+            {
+                bannerError.SetAsError();
+                onBannerLoaded?.Invoke(bannerError);
+                return;
+            }
+            
             if (error == null)
             {
-                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                UnityMainThreadDispatcher.Instance()?.Enqueue(() =>
                                                                  Debug.Log($"Banner loaded success"));
             }
             else
             {
-                UnityMainThreadDispatcher.Instance().Enqueue(()=> 
+                UnityMainThreadDispatcher.Instance()?.Enqueue(()=> 
                     Debug.Log($"Banner loaded with error: {error}"));
-                bannerError = JsonConvert.DeserializeObject<AdMobBannerError>(error.ToString());
+                bannerError = JsonConvert.DeserializeObject<AdMobBannerError>(error?.ToString());
             }
             
             var scale = MobileAds.Utils.GetDeviceScale();
@@ -78,8 +86,10 @@ namespace Urd.Services
             {
                 scale = 1;
             }
+
+            float heightInPixels = _banner?.GetHeightInPixels() ?? 0; 
             DOVirtual.DelayedCall(0.1f, () => 
-                _eventBusService.Send(new OnBannerLoadedEvent(_banner.GetHeightInPixels(), bannerError)));
+                _eventBusService?.Send(new OnBannerLoadedEvent(heightInPixels, bannerError)));
             onBannerLoaded?.Invoke(bannerError);
         }
 

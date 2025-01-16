@@ -4,8 +4,13 @@ using UnityEngine;
 using Urd.Notifications;
 
 using Unity.Notifications;
+#if UNITY_ANDROID 
 using Unity.Notifications.Android;
 using UnityEngine.Android;
+#else
+using Unity.Notifications.iOS;
+using UnityEngine.iOS;
+#endif
 
 namespace Urd.Services
 {
@@ -33,8 +38,9 @@ namespace Urd.Services
 
         private void InitNotifications()
         {
-            var permissionStatus = AndroidNotificationCenter.UserPermissionToPost;
-            if (permissionStatus == PermissionStatus.DeniedDontAskAgain)
+            /*
+            var permissionStatus = iOSNotificationCenter.GetNotificationSettings();
+             if (permissionStatus == NotificationsPermissionStatus PermissionStatus.DeniedDontAskAgain)
             {
                 _hasPermission = false;
                 return;
@@ -59,6 +65,7 @@ namespace Urd.Services
                 NotificationCenter.Initialize(notificationArgs);
                 _hasPermission = AndroidNotificationCenter.Initialize();
             }
+            */
         }
 
         public void RequestPermission()

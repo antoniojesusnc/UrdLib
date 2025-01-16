@@ -9,7 +9,7 @@ namespace Urd.Feedback
         public void Haptic(HapticType hapticType)
         {
 #if UNITY_IOS && !UNITY_EDITOR
-            CandyCoded.HapticFeedback.iOS.HapticFeedback.PerformHapticFeedback(GetIOSStringFromHaptic(hapticType));
+            GetIOSStringFromHaptic(hapticType);
 #elif UNITY_ANDROID && !UNITY_EDITOR
             CandyCoded.HapticFeedback.Android.HapticFeedback.PerformHapticFeedback(GetAndroidFromHaptic(hapticType));
 #else
@@ -18,13 +18,17 @@ namespace Urd.Feedback
         }
         
 #if UNITY_IOS && !UNITY_EDITOR
-        private string GetIOSStringFromHaptic(HapticType hapticType)
+        private void GetIOSStringFromHaptic(HapticType hapticType)
         {
             switch (hapticType)
             {
-                case HapticType.Medium: return "medium";
-                case HapticType.Heavy: return "heavy";
-                default: return "light";
+                case HapticType.Medium: CandyCoded.HapticFeedback.HapticFeedback.MediumFeedback();
+                    break;
+                case HapticType.Heavy:
+                    CandyCoded.HapticFeedback.HapticFeedback.HeavyFeedback();
+                    break;
+                default: CandyCoded.HapticFeedback.HapticFeedback.LightFeedback();
+                    break;
             }
         }
 #elif UNITY_ANDROID && !UNITY_EDITOR

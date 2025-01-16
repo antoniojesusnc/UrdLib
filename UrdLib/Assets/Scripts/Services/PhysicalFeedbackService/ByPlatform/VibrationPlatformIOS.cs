@@ -32,7 +32,7 @@ namespace Urd.Feedback
             {
                 return;
             }
-            
+            /*
             var sequence = DOTween.Sequence();
             for (int i = 0; i < pattern.Length; i++)
             {
@@ -47,6 +47,7 @@ namespace Urd.Feedback
             {
                 sequence.SetLoops(loop);
             }
+            */
         }
 
         private VibrationType GetVibrationByIntensity(long duration)

@@ -13,6 +13,11 @@ namespace Urd.Services
 
         public void Init()
         {
+            if (Application.isEditor)
+            {
+                return;
+            }
+
             Status = DependencyStatus.UnavailableUpdating;
             //Debug.Log("[AnalyticsServiceProviderFirebase] CheckAndFixDependenciesAsync");
             Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(

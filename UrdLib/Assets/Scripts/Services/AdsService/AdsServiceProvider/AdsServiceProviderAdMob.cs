@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using GoogleMobileAds.Api;
 using Newtonsoft.Json;
@@ -12,15 +13,20 @@ namespace Urd.Services
     [Serializable]
     public class AdsServiceProviderAdMob : AdsServiceProvider
     {
-        private const string ADMOB_CONFIG_FILE_PATH = "GoogleMobileAdsSettings"; 
-        
+        private const string ADMOB_CONFIG_FILE_PATH = "GoogleMobileAdsSettings";
+
+        [SerializeField]
+        private float _bannerSizeExtra;
+        [SerializeField]
+        private List<string> _deviceTest = new List<string>();
+
         private BannerView _banner;
         private InterstitialAd _interstitialAd;
         private RewardedAd _rewardedVideo;
         private IEventBusService _eventBusService;
 
         public bool IsInitialized { get; private set; }
-        public override float BannerSize => _banner?.GetHeightInPixels() ?? 0f;
+        public override float BannerSize => _banner?.GetHeightInPixels() + _bannerSizeExtra ?? _bannerSizeExtra;
 
         public override void Init(Action onInitializeCallback)
         {
@@ -32,11 +38,28 @@ namespace Urd.Services
 
         private void OnInitialize(InitializationStatus status, Action onInitializeCallback)
         {
+            AddTestDevices();
+
             IsInitialized = true;
             onInitializeCallback?.Invoke();
 
             _eventBusService = StaticServiceLocator.Get<IEventBusService>();
             LoadRewardVideo();
+        }
+
+        private void AddTestDevices()
+        {
+            if(_deviceTest.Count <= 0)
+            {
+                return;
+            }
+
+            RequestConfiguration requestConfiguration = new RequestConfiguration(); 
+            for (int i = 0; i < _deviceTest.Count; i++)
+            {
+                requestConfiguration.TestDeviceIds.Add(_deviceTest[i]);
+            }
+            MobileAds.SetRequestConfiguration(requestConfiguration);
         }
 
         public override void ShowBanner(AdsBannerModel adsBannerModel, Action<AdMobBannerError> onBannerLoaded)
@@ -87,7 +110,7 @@ namespace Urd.Services
                 scale = 1;
             }
 
-            float heightInPixels = _banner?.GetHeightInPixels() ?? 0; 
+            float heightInPixels = BannerSize; 
             DOVirtual.DelayedCall(0.1f, () => 
                 _eventBusService?.Send(new OnBannerLoadedEvent(heightInPixels, bannerError)));
             onBannerLoaded?.Invoke(bannerError);

@@ -173,7 +173,6 @@ GameObject:
   - component: {fileID: 1096811296353068743}
   - component: {fileID: 3579910632257775505}
   - component: {fileID: -8350625007601305741}
-  - component: {fileID: 8912410783212244100}
   m_Layer: 0
   m_Name: Persistent
   m_TagString: Untagged
@@ -225,28 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb504dd44a72d54b9c9b56b432fc630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8912410783212244100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7199379602983792154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b42c159d13b41246857007436346649, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resolutionChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  allowFullscreen: 0
-  aspectRatioWidth: 9
-  aspectRatioHeight: 16
-  minWidthPixel: 512
-  minHeightPixel: 512
-  maxWidthPixel: 2048
-  maxHeightPixel: 2048
 --- !u!1 &7380652960608507507
 GameObject:
   m_ObjectHideFlags: 0

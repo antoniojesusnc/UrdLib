@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Urd.Ads;
+using Urd.Events;
 
 namespace Urd.Services
 {
@@ -43,7 +44,12 @@ namespace Urd.Services
         public void ShowInterstitial(Action<bool> onInterstitialWatchedCallback) => _adsServiceProvider.ShowInterstitial(onInterstitialWatchedCallback);
         public void HideInterstitial() => _adsServiceProvider.HideInterstitial();
         public bool CanShowRewardedVideo(bool loadIfCannot = false) => _adsServiceProvider.CanShowRewardedVideo(loadIfCannot);
-        public void ShowRewardedVideo(Action<bool> onRewardVideoWatchedCallback) => _adsServiceProvider.ShowRewardedVideo(onRewardVideoWatchedCallback);
+
+        public void ShowRewardedVideo(Action<bool> onRewardVideoWatchedCallback)
+        {
+            StaticServiceLocator.Get<IEventBusService>().Send(new OnRewardVideoCalledEvent());
+            _adsServiceProvider.ShowRewardedVideo(onRewardVideoWatchedCallback);
+        }
         public void HideRewardedVideo() => _adsServiceProvider.HideRewardedVideo();
     }
 }

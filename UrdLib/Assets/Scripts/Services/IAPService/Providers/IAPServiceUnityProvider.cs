@@ -26,7 +26,8 @@ namespace Urd.Services.IAP
                 var item = items[i];
                 builder.AddProduct(item.Id, item.ProductType);
             }
-            
+
+            Debug.Log("Initialize Purchase");
             UnityPurchasing.Initialize(this, builder);
         }
 
@@ -34,7 +35,7 @@ namespace Urd.Services.IAP
         {
             _onPurchaseCallback = onPurchase;
             _purchaseItem = purchaseItem;
-            _storeController.InitiatePurchase(purchaseItem.Id);
+            _storeController?.InitiatePurchase(purchaseItem.Id);
         }
 
         public string GetPriceOf(IStoreItemModel storeItemModel)
@@ -46,6 +47,7 @@ namespace Urd.Services.IAP
         // unity listeners
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
+            Debug.Log("OnInitialized");
             _storeController = controller;
             _extensions = extensions;
             var allProducts = new List<Product>(controller.products.all);

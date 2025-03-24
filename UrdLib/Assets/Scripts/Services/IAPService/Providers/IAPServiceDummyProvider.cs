@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using RubberDuck.Gameplay;
+using Urd.Gameplay;
 using UnityEngine;
 using UnityEngine.Purchasing;
 

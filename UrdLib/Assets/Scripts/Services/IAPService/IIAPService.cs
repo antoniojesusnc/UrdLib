@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using RubberDuck.Gameplay;
+using Urd.Gameplay;
 using Urd.Services.IAP;
 
 namespace Urd.Services

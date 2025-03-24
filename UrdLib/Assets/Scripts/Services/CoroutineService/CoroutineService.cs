@@ -15,7 +15,7 @@ namespace Urd.Services
         {
             base.Init();
 
-            _coroutineBase = GameObject.FindObjectOfType<ServiceLocatorStarted>();
+            _coroutineBase = GameObject.FindAnyObjectByType<ServiceLocatorStarted>();
         }
 
         public Coroutine StartCoroutine(IEnumerator coroutine)

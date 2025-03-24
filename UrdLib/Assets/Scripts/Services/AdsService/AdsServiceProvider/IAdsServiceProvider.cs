@@ -1,7 +1,6 @@
 using System;
-using Urd.Ads;
 
-namespace Urd.Services
+namespace Urd.Ads
 {
     public interface IAdsServiceProvider
     {

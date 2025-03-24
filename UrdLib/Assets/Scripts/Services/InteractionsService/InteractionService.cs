@@ -6,7 +6,6 @@ using Urd.Navigation;
 
 namespace Urd.Services
 {
-
     public class InteractionService : BaseService, IInteractionService
     {
         public override int LoadPriority => 200;
@@ -30,7 +29,7 @@ namespace Urd.Services
 
         private void GetAllCameraClickability()
         {
-            var clickabilities = GameObject.FindObjectsOfType<CameraClickability>(true);
+            var clickabilities = GameObject.FindObjectsByType<CameraClickability>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (clickabilities?.Length > 0)
             {
                 _cameraClickability = new List<CameraClickability>(clickabilities);

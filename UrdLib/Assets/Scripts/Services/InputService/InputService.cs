@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Urd.Inputs;
 using Urd.Utils;
 
@@ -24,6 +25,26 @@ namespace Urd.Services
             
             LoadAllCustomInteractions();
             LoadAllInputs();
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            LoadAllCustomInteractions();
+            LoadAllInputs();
+        }
+
+        private void OnSceneUnloaded(Scene arg0)
+        {
+            _actions.ForEach(action => action.Disable());
         }
 
         private void LoadAllCustomInteractions()

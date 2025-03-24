@@ -1,8 +1,7 @@
 using System;
-using Urd.Ads;
 using Urd.Services;
 
-namespace RubberDuck
+namespace Urd.Ads
 {
     [Serializable]
     public class AdServiceDummy : IAdsServiceProvider

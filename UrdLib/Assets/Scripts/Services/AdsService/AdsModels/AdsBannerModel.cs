@@ -1,7 +1,7 @@
-using GoogleMobileAds.Api;
 using UnityEngine;
+using Urd.Services;
 
-namespace Urd.Services
+namespace Urd.Ads
 {
     public class AdsBannerModel 
     {

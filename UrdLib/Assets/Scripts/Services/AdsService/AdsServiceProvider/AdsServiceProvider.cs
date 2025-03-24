@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using Urd.Ads;
 
-namespace Urd.Services
+namespace Urd.Ads
 {
     public abstract class AdsServiceProvider : IAdsServiceProvider
     {

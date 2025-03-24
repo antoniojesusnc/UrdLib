@@ -4,10 +4,10 @@ using GoogleMobileAds.Api;
 using Newtonsoft.Json;
 using PimDeWitte.UnityMainThreadDispatcher;
 using UnityEngine;
-using Urd.Ads;
 using Urd.Events;
+using Urd.Services;
 
-namespace Urd.Services
+namespace Urd.Ads
 {
     [Serializable]
     public class AdsServiceProviderAdMob : AdsServiceProvider

@@ -1,10 +1,8 @@
-namespace RubberDuck.UI
+namespace Urd.UI
 {
     public enum StoreItemTypes
     {
-        Keys,
         Chest,
-        DuckPerKey,
         Size
     }
 }

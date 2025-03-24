@@ -66,7 +66,7 @@ namespace Urd.Editor.Utils
                 return;
             }
 
-            foreach (GameObject go in Object.FindObjectsOfType<GameObject>())
+            foreach (GameObject go in Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
                 go.SetActive(false);
 
             SceneManager.LoadScene(0);

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Urd.Audio;
 using Urd.Error;
+using Object = UnityEngine.Object;
 
 namespace Urd.Services
 {
@@ -62,7 +63,7 @@ namespace Urd.Services
 
         private void GetAudioServiceView()
         {
-            _audioServiceView = GameObject.FindObjectOfType<AudioServiceView>();
+            _audioServiceView = Object.FindAnyObjectByType<AudioServiceView>();
         }
 
         public void PlaySound(Enum audioType) => PlaySound(new AudioModel(audioType));

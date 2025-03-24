@@ -1,12 +1,12 @@
-using RubberDuck.UI;
+using Urd.UI;
 using UnityEngine;
 using UnityEngine.Localization;
 using Urd.Services.IAP;
 using Urd.Utils;
 
-namespace RubberDuck.Config
+namespace Urd.Config
 {
-    [CreateAssetMenu(fileName = "StoreItem Config", menuName = "RubberDuck/StoreItem/New StoreItem", order = 1)]
+    [CreateAssetMenu(fileName = "StoreItem Config", menuName = "Urd/StoreItem/New StoreItem", order = 1)]
     public class StoreItemConfig : ScriptableObject
     {
         [field: SerializeField]

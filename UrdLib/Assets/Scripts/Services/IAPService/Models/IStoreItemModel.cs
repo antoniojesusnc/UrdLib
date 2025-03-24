@@ -1,11 +1,11 @@
 using System;
-using RubberDuck.Config;
-using RubberDuck.UI;
+using Urd.Config;
+using Urd.UI;
 using UnityEngine;
 using UnityEngine.Localization;
 using Urd.Services.IAP;
 
-namespace RubberDuck.Gameplay
+namespace Urd.Gameplay
 {
     public interface IStoreItemModel : IDisposable
     {

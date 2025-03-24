@@ -1,4 +1,4 @@
-namespace Urd.Services
+namespace Urd.Ads
 {
     public enum AdsBannerPosition
     {

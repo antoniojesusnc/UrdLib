@@ -1,13 +1,9 @@
-using System;
-
-public class PlayerModel : IDisposable
+namespace Urd
 {
-    public void Init()
+    public class PlayerModel : IPlayerModel
     {
-        
-    }
-    public void Dispose()
-    {
-        // TODO release managed resources here
+        public virtual void Init() { }
+
+        public virtual void Dispose() { }
     }
 }

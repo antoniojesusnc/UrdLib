@@ -31,13 +31,33 @@ namespace Urd.SaveLoad
 
             try
             {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(loadedValue);
+                return JsonConvert.DeserializeObject<T>(loadedValue);
             }
             catch
             {
                 return defaultValue;
             }
         }
+
+        public bool TryLoad<T>(string key, out T loadedValue)
+        {
+            loadedValue = default;
+            if (!PlayerPrefs.HasKey(key))
+            {
+                return false;
+            }
+            
+            try
+            {
+                loadedValue = JsonConvert.DeserializeObject<T>(key);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool LoadAndPopulate<T>(string key, ref T valeToPopulate)
         {
             if (!PlayerPrefs.HasKey(key))

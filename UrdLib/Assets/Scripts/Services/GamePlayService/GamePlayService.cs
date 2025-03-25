@@ -14,24 +14,23 @@ namespace Urd.Services
 
         public bool IsLoading { get; private set; }
         public event Action OnFinishLoad;
-        
-        public PlayerModel PlayerModel { get; private set; }
+
+        private IPlayerModel _playerModel;
 
         [SerializeReference, SubclassSelector]
         private List<IGamePlayServiceModule> _gamePlayServiceModule;
 
         public override void Init()
         {
-            InitNewPlayer();
-
             base.Init();
             InitModules();
 
             LoadData();
         }
-
-        protected virtual void InitNewPlayer()
+        
+        public T GetPlayerModel<T>() where T : class, IPlayerModel
         {
+            return _playerModel as T;
         }
 
         private void InitModules()
@@ -55,17 +54,18 @@ namespace Urd.Services
         {
             IsLoading = true;
             
-            GetModule<GameSaveLoadModule>().LoadOfflineProgress(OnFinishLoadOfflineData);
+            _playerModel = GetModule<GameSaveLoadModule>().LoadOfflineProgress(OnFinishLoadOfflineData);
         }
 
         public T GetModule<T>() where T : class, IGamePlayServiceModule 
         {
-            return _gamePlayServiceModule.Find(module => module.GetType().IsAssignableFrom(typeof(T))) as T;
+            return _gamePlayServiceModule.Find(module => typeof(T).IsAssignableFrom(module.GetType())) as T;
         }
 
         private void OnFinishLoadOfflineData()
         {
-            PlayerModel.Init();
+            GetModule<GameSaveLoadModule>().SaveData();
+            _playerModel.Init();
 
             IsLoading = false;
             OnFinishLoad?.Invoke();

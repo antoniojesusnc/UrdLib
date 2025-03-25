@@ -42,6 +42,18 @@ namespace Urd.Services
 
             return default(T);
         }
+
+        public bool TryLoad<T>(string key, out T loadedValue)
+        {
+            loadedValue = default;
+            if (_providers.Count > 0)
+            {
+                return _providers[0].TryLoad<T>(key, out loadedValue);
+            }
+
+            return false;
+        }
+        
         
         public bool LoadAndPopulate<T>(string key, ref T valeToPopulate)
         {

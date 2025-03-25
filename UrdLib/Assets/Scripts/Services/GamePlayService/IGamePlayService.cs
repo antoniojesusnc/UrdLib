@@ -9,11 +9,10 @@ namespace Urd.Gameplay
 
     public interface IGamePlayService : IBaseService
     {
-       public bool IsLoading { get; }
+        public bool IsLoading { get; }
         public event Action OnFinishLoad;
 
-        PlayerModel PlayerModel { get; }
-        
+        public T GetPlayerModel<T>() where T : class, IPlayerModel;
         public T GetModule<T>() where T : class, IGamePlayServiceModule;
 
         void LoadData();

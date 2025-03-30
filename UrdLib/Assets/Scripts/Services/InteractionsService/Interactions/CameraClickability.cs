@@ -81,7 +81,7 @@ namespace Urd.Inputs
         {
             if (TryGetClickElement(position, out ITouchable touchable))
             {
-                var worldPosition = _camera.ScreenToWorldPoint(position).SetZ(0);
+                var worldPosition = _camera.ScreenToWorldPoint(position.ToVector3().SetZ(10)).SetZ(0);
                 touchable.OnTouch(worldPosition);
             }
         }

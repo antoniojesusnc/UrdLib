@@ -72,12 +72,12 @@ namespace Urd.Inputs
         
         private void OnClickOnScreen(InputAction.CallbackContext context)
         {
-            OnClick?.Invoke(_inputTouch.ScreenPosition);
+            OnClick?.Invoke(context.ReadValue<Vector2>());
         }
         
         private void OnBeginDrag(InputAction.CallbackContext context)
         {
-            OnDrag?.Invoke(true, _inputTouch.ScreenPosition);
+            OnDrag?.Invoke(true, context.ReadValue<Vector2>());
             _isDragging = true;
         }
         

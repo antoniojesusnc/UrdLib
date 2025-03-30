@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using RubberDuck.Config;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;

@@ -11,7 +11,7 @@ namespace Urd.Navigation
         public int Id => BuildIndex;
         public Enum Type { get; private set; }
 
-        public bool IsInBuildIndex => BuildIndex >= 0;
+        public bool HasBuildIndex => BuildIndex >= 0;
         public int BuildIndex { get; protected set; } = EMPTY_BUILD_INDEX;
 
         public SceneInstance SceneInstance { get; protected set; }

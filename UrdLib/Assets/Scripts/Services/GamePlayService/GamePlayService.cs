@@ -54,7 +54,8 @@ namespace Urd.Services
         {
             IsLoading = true;
             
-            _playerModel = GetModule<GameSaveLoadModule>().LoadOfflineProgress(OnFinishLoadOfflineData);
+            _playerModel = GetModule<GameSaveLoadModule>().LoadOfflineProgress();
+            OnFinishLoadOfflineData();
         }
 
         public T GetModule<T>() where T : class, IGamePlayServiceModule 
@@ -64,7 +65,6 @@ namespace Urd.Services
 
         private void OnFinishLoadOfflineData()
         {
-            GetModule<GameSaveLoadModule>().SaveData();
             _playerModel.Init();
 
             IsLoading = false;

@@ -17,10 +17,11 @@ namespace Urd.Editor.Utils
         
         static UnityModification()
         {
-            ToolbarExtender.LeftToolbarGUI.Add(OnToolbarGUI);
+            ToolbarExtender.LeftToolbarGUI.Add(OnToolbarGUIOnLeft);
+            ToolbarExtender.RightToolbarGUI.Add(OnToolbarGUIOnRight);
         }
 
-        static void OnToolbarGUI()
+        static void OnToolbarGUIOnLeft()
         {
             GUILayout.FlexibleSpace();
 
@@ -29,12 +30,55 @@ namespace Urd.Editor.Utils
                                     ? ToolbarStyles.NormalButtonStyle
                                     : ToolbarStyles.ActivatedButtonStyle))
             {
-                OpenInitialScene();
+                PlayGameFromInitialScene();
             }
         }
-        
-        
-        private static void OpenInitialScene()
+
+        static void OnToolbarGUIOnRight()
+        {
+            var index = -1;
+            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
+                AddSceneButton(index);
+            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
+                AddSceneButton(index);   
+            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
+                AddSceneButton(index);   
+            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
+                AddSceneButton(index);   
+            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
+                AddSceneButton(index);   
+
+            GUILayout.FlexibleSpace();
+        }
+
+        private static void AddSceneButton(int index)
+        { ;
+            if (GUILayout.Button(new GUIContent($"{index}", $"Open Scene {index}"),
+                    !EditorApplication.isPlaying
+                        ? ToolbarStyles.NormalButtonStyle
+                        : ToolbarStyles.ActivatedButtonStyle))
+            {
+                OpenScene(index);
+            }
+        }
+
+        private static void OpenScene(int index)
+        {
+            if (EditorApplication.isPlaying)
+            {
+                ShowNotifyOrLog.Message("Cannot be used in play mode");
+                return;
+            }
+            
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            {
+                var scenePath = SceneUtility.GetScenePathByBuildIndex(index);
+                EditorSceneManager.OpenScene(scenePath);
+            }
+        }
+
+
+        private static void PlayGameFromInitialScene()
         {
             if (EditorApplication.isPlaying)
             {

@@ -9,7 +9,7 @@ namespace Urd
     {
         protected string PLAYER_KEY = "PLAYER_KEY";
 
-        public override IPlayerModel LoadOfflineProgress(Action onFinishLoadOfflineData)
+        public override IPlayerModel LoadOfflineProgress()
         {
             var saveLoadService = StaticServiceLocator.Get<ISaveLoadService>();
             if (!saveLoadService.HasKey(PLAYER_KEY))

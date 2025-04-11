@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using Urd.Utils;
 
@@ -88,6 +89,7 @@ namespace RubberDuck.Editor
                     continue;
                 }
                 AssetDatabase.CreateAsset(config, string.Format(RELATIVE_FILE_NAME_FORMAT, folder, config.name));
+                EditorUtility.SetDirty(config);
                 list.Add(config);
             }
 

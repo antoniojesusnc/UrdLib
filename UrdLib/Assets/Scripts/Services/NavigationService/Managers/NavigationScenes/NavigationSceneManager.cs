@@ -13,20 +13,22 @@ namespace Urd.Navigation
         public override void Open(INavigableModel navigableModel, Action<ErrorModel> onOpenNavigable)
         {
             var sceneModel = navigableModel as SceneModel;
-            
-            if (!TryGetBuildSceneBuildIndex(sceneModel.Type.ToString(), out int buildIndex))
-            {
-                var error = new ErrorModel(
-                    $"[NavigationPopupManager] Error when try to get the scene, scene type {sceneModel.Type}",
-                    ErrorCode.Error_404_Not_Found, UnityWebRequest.Result.DataProcessingError);
-                Debug.LogWarning(error.ToString());
 
-                onOpenNavigable?.Invoke(error);
-                return;
+            if (!sceneModel.HasBuildIndex)
+            {
+                if (!TryGetBuildSceneBuildIndex(sceneModel.Type.ToString(), out int buildIndex))
+                {
+                    var error = new ErrorModel(
+                        $"[NavigationPopupManager] Error when try to get the scene, scene type {sceneModel.Type}",
+                        ErrorCode.Error_404_Not_Found, UnityWebRequest.Result.DataProcessingError);
+                    Debug.LogWarning(error.ToString());
+
+                    onOpenNavigable?.Invoke(error);
+                    return;
+                }
+                sceneModel.SetBuildIndex(buildIndex);
             }
 
-            
-            sceneModel.SetBuildIndex(buildIndex);
             StaticServiceLocator.Get<IAssetService>().LoadScene(sceneModel, 
                                                                 sceneModel => OnLoadSceneCallback(sceneModel, onOpenNavigable));
         }
@@ -43,7 +45,7 @@ namespace Urd.Navigation
         {
             var sceneModel = navigableModel as SceneModel;
             
-            sceneModel.SetScene(SceneManager.GetSceneByName(sceneModel.Type.ToString()));
+            sceneModel.SetScene(SceneManager.GetSceneByBuildIndex(sceneModel.BuildIndex));
             
             StaticServiceLocator.Get<IAssetService>().UnLoadScene(sceneModel, 
                                                                   success => OnUnLoadSceneCallback(success, onCloseNavigable));
@@ -53,8 +55,9 @@ namespace Urd.Navigation
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
+                var sceneModel = navigableModel as SceneModel;
                 var scene = SceneManager.GetSceneAt(i);
-                if (scene.name == navigableModel.Type.ToString())
+                if (scene.buildIndex == sceneModel.BuildIndex)
                 {
                     return true;
                 }

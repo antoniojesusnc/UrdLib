@@ -6,7 +6,7 @@ namespace Urd
     [Serializable]
     public abstract class GameSaveLoadModule : GamePlayServiceModule
     {
-        public abstract IPlayerModel LoadOfflineProgress(Action onFinishLoadOfflineData);
+        public abstract IPlayerModel LoadOfflineProgress();
 
         public abstract void SaveData();
     }

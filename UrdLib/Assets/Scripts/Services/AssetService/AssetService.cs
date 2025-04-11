@@ -114,7 +114,7 @@ namespace Urd.Services
 
         public void LoadScene(SceneModel sceneModel, Action<SceneModel> onLoadSceneCallback)
         {
-            if (sceneModel.IsInBuildIndex)
+            if (sceneModel.HasBuildIndex)
             {
                 LoadSceneFromBuildIndex(sceneModel, onLoadSceneCallback);
             }
@@ -225,7 +225,6 @@ namespace Urd.Services
             sceneModel.CleanScene();
             onUnloadSceneCallback.Invoke(true);
         }
-
 
         private void UnloadSceneFromAddressable(SceneModel sceneModel, Action<bool> onLoadSceneCallback)
         {

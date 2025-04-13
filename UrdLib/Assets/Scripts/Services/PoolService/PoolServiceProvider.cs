@@ -9,6 +9,9 @@ namespace Urd.Services
         
         [field: SerializeField]
         public int Amount { get; private set; }
+
+        [field: SerializeField]
+        public int MaxAmount { get; private set; }
         public abstract IPoolable OnCreateItem();
     }
 }

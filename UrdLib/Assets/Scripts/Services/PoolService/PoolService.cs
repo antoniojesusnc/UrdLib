@@ -27,14 +27,14 @@ namespace Urd.Services
             for (int i = 0; i < _poolServiceProviders.Count; i++)
             {
                 var poolInfo = _poolServiceProviders[i];
-                var objectPool = new ObjectPool<IPoolable>(poolInfo.OnCreateItem, OnTakeFromPool, OnReturnToPool, OnDestroyPoolObject, false, poolInfo.Amount);
+                var objectPool = new ObjectPool<IPoolable>(poolInfo.OnCreateItem, OnTakeFromPool, OnReturnToPool, OnDestroyPoolObject, true, poolInfo.Amount, poolInfo.MaxAmount);
                 _objectsPool.Add(poolInfo.Type, objectPool);
             }
         }
         
         public void Init<T>(Func<T> onCreate, int amount) where T : class, IPoolable
         {
-            var objectPool = new ObjectPool<IPoolable>(onCreate, OnTakeFromPool, OnReturnToPool, OnDestroyPoolObject, false, amount);
+            var objectPool = new ObjectPool<IPoolable>(onCreate, OnTakeFromPool, OnReturnToPool, OnDestroyPoolObject, true, amount);
             _objectsPool.Add(typeof(T), objectPool);
         }
         
@@ -65,19 +65,30 @@ namespace Urd.Services
                 return item;
             }
 
-            return default;
+            return null;
         }
 
         public bool TryGet<T>(out T item) where T : class, IPoolable
         {
-            item = default;
-            if (_objectsPool.TryGetValue(typeof(T), out var pool))
+            item = null;
+            if (_objectsPool.TryGetValue(typeof(T), out var pool) && IsNotMax<T>(pool))
             {
                 item = pool.Get() as T;
                 return true;
             }
 
             return false;
+        }
+
+        private bool IsNotMax<T>(ObjectPool<IPoolable> pool) where T : class, IPoolable
+        {
+            var provider = _poolServiceProviders.Find(providerData => providerData.Type == typeof(T));
+            if (provider == null)
+            {
+                return true;
+            }
+            
+            return pool.CountInactive > 0 || pool.CountActive <= provider.Amount;
         }
 
         public void Release<T>(T item) where T : class, IPoolable

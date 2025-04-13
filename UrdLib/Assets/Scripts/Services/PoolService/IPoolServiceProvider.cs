@@ -6,6 +6,7 @@ namespace Urd.Services
     {
         Type Type { get; }
         int Amount { get; }
+        int MaxAmount { get; }
         IPoolable OnCreateItem();
     }
 }

@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Urd.Utils;
 
 namespace Urd.Inputs
@@ -10,6 +13,8 @@ namespace Urd.Inputs
 
         private InputTouchController _inputTouchController;
         private IDraggable _dragObject;
+        private PointerEventData _pointerEventData;
+        private List<RaycastResult> _raycastResults = new List<RaycastResult>();
 
         private void Awake()
         {
@@ -77,43 +82,73 @@ namespace Urd.Inputs
             return false;
         }
         
+        private bool IsOverInteractableUI(Vector2 screenPosition)
+        {
+            _pointerEventData = new PointerEventData(EventSystem.current)
+            {
+                position = screenPosition
+            };
+            _raycastResults.Clear();
+            GraphicRaycaster[] graphicRaycasters = FindObjectsByType<GraphicRaycaster>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            foreach (GraphicRaycaster graphicRaycaster in graphicRaycasters)
+            {
+                graphicRaycaster.Raycast(_pointerEventData, _raycastResults);
+                foreach (RaycastResult result in _raycastResults)
+                {
+                    var uiSelectable = result.gameObject.GetComponent<Selectable>();
+                    var graphic = result.gameObject.GetComponent<Graphic>();
+                    if (uiSelectable != null && uiSelectable.interactable
+                        || graphic != null && graphic.raycastTarget)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+        
         private void OnClick(Vector2 position)
         {
+            if (IsOverInteractableUI(position))
+            {
+                return;
+            }
             if (TryGetClickElement(position, out ITouchable touchable))
             {
-                var worldPosition = _camera.ScreenToWorldPoint(position.ToVector3().SetZ(10)).SetZ(0);
-                touchable.OnTouch(worldPosition);
+                touchable.OnTouch(position);
             }
         }
 
         private void OnDrag(bool isDragging, Vector2 position)
         {
+            if (IsOverInteractableUI(position))
+            {
+                return;
+            }
+            
             if (!TryGetClickElement(position, out IDraggable dragCandidate))
             {
                 return;
             }
 
-            var worldPosition = _camera.ScreenToWorldPoint(position).SetZ(0);
-
             if (!isDragging)
             {
-                _dragObject?.OnEndDrag(worldPosition);
+                _dragObject?.OnEndDrag(position);
                 _dragObject = null;
             }
             else if (_dragObject == null)
             {
                 _dragObject = dragCandidate;
-                _dragObject.OnBeginDrag(worldPosition);
+                _dragObject.OnBeginDrag(position);
             }
             else if (_dragObject == dragCandidate)
             {
-                _dragObject.OnDrag(worldPosition);
+                _dragObject.OnDrag(position);
             }
             else
             {
-                _dragObject.OnEndDrag(worldPosition);
+                _dragObject.OnEndDrag(position);
                 _dragObject = dragCandidate;
-                _dragObject.OnBeginDrag(worldPosition);
+                _dragObject.OnBeginDrag(position);
             }
         }
     }

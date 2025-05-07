@@ -8,12 +8,11 @@ namespace Urd.Utils
         where T : System.IComparable
     {
         protected TController Controller { get; private set; }
-        public List<FsmTransition<TController, T>> Transitions { get; private set; }
+        public List<FsmTransition<TController, T>> Transitions { get; private set; } = new List<FsmTransition<TController, T>>();
         public T State { get; private set; }
 
         public FsmState(TController controller, T state)
         {
-            Transitions = new List<FsmTransition<TController, T>>();
             Controller = controller;
             State = state;
             
@@ -30,6 +29,7 @@ namespace Urd.Utils
         
         public virtual void OnActivate()
         {
+            Transitions.ForEach(transition => transition.OnBeginChecks());
         }
 
         public virtual void Update(float dt)

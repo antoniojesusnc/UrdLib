@@ -21,6 +21,11 @@ namespace Urd.Utils
             Controller.AddTransition(this);
         }
 
+        public virtual void OnBeginChecks()
+        {
+            
+        }
+
         public virtual void Dispose()
         {
             Controller = null;

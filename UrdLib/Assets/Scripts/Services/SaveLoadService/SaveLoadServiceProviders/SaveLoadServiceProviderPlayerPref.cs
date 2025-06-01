@@ -33,8 +33,9 @@ namespace Urd.SaveLoad
             {
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(loadedValue);
             }
-            catch
+            catch(Exception e)
             {
+                Debug.LogWarning($"[SaveLoadServiceProviderPlayerPref] error loading {key}: {e.Message}");
                 return defaultValue;
             }
         }
@@ -57,8 +58,9 @@ namespace Urd.SaveLoad
                 Newtonsoft.Json.JsonConvert.PopulateObject(loadedValue, valeToPopulate);
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                Debug.LogWarning($"[SaveLoadServiceProviderPlayerPref] error loading {key}: {e.Message}");
                 return false;
             }
         }

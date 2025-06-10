@@ -11,7 +11,7 @@ namespace Urd.Utils
     {
         public bool EnableLog = false;
         
-        public bool CheckAllPossibleTransitions { get; set; }
+        public bool CheckAllPossibleTransitions { get; private set; }
         
         private List<FsmState<TController, T>> _allStates;
         private List<FsmTransition<TController, T>> _allTransitions;
@@ -100,11 +100,11 @@ namespace Urd.Utils
             }
         }
 
-        public void ForceChangeState(T newState) => ChangeState(newState);
-        protected virtual void ChangeState(T newState)
+        public void ForceChangeState(T newState) => ChangeState(newState, forced: true );
+        protected virtual void ChangeState(T newState, bool forced = false)
         {
             //Debug.Log($"Transition from {_currentState.State} to {newState}");
-            if (_currentState.State.Equals(newState))
+            if (!forced && _currentState.State.Equals(newState))
             {
                 return;
             }
@@ -153,12 +153,18 @@ namespace Urd.Utils
         
         public void AddState(FsmState<TController, T> newState)
         {
-            _allStates.Add(newState);
+            if (!_allStates.Contains(newState))
+            {
+                _allStates.Add(newState);
+            }
         }
         
         public void AddTransition(FsmTransition<TController, T> newTransition)
         {
-            _allTransitions.Add(newTransition);
+            if (!_allTransitions.Contains(newTransition))
+            {
+                _allTransitions.Add(newTransition);
+            }
         }
     }
 }

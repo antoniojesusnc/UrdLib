@@ -32,7 +32,7 @@ namespace Urd.Utils
             Transitions.ForEach(transition => transition.OnBeginChecks());
         }
 
-        public virtual void Update(float dt)
+        public virtual void Update(float deltaTime)
         {
 
         }

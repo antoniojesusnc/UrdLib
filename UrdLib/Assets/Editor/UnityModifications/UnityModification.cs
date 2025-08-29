@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -36,24 +37,20 @@ namespace Urd.Editor.Utils
 
         static void OnToolbarGUIOnRight()
         {
-            var index = -1;
-            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
-                AddSceneButton(index);
-            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
-                AddSceneButton(index);   
-            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
-                AddSceneButton(index);   
-            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
-                AddSceneButton(index);   
-            if (EditorSceneManager.sceneCountInBuildSettings > ++index)
-                AddSceneButton(index);   
+            for (int i = 0; i < EditorSceneManager.sceneCountInBuildSettings; i++)
+            {
+                AddSceneButton(i);
+            }
 
             GUILayout.FlexibleSpace();
         }
 
         private static void AddSceneButton(int index)
-        { ;
-            if (GUILayout.Button(new GUIContent($"{index}", $"Open Scene {index}"),
+        { 
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(index);
+            string sceneName = Path.GetFileNameWithoutExtension(scenePath);
+            
+            if (GUILayout.Button(new GUIContent($"{index}", $"{sceneName}"),
                     !EditorApplication.isPlaying
                         ? ToolbarStyles.NormalButtonStyle
                         : ToolbarStyles.ActivatedButtonStyle))

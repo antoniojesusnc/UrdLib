@@ -18,7 +18,7 @@ namespace Urd.Services
         private IPlayerModel _playerModel;
 
         [SerializeReference, SubclassSelector]
-        private List<IGamePlayServiceModule> _gamePlayServiceModule;
+        private List<IGamePlayModule> _gamePlayServiceModule;
 
         public override void Init()
         {
@@ -58,7 +58,7 @@ namespace Urd.Services
             OnFinishLoadOfflineData();
         }
 
-        public T GetModule<T>() where T : class, IGamePlayServiceModule 
+        public T GetModule<T>() where T : class, IGamePlayModule 
         {
             return _gamePlayServiceModule.Find(module => typeof(T).IsAssignableFrom(module.GetType())) as T;
         }
@@ -92,7 +92,7 @@ namespace Urd.Services
         {
             for (int i = 0; i < _gamePlayServiceModule.Count; i++)
             {
-                _gamePlayServiceModule[i]?.BeginGame();
+                _gamePlayServiceModule[i]?.BeginGameCoroutine();
             }
         }
     }

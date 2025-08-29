@@ -4,7 +4,7 @@ namespace Urd.Audio
     {
         None,
         Intro,
-        ButtonClick,
+        Click,
         BackgroundMusic,
         Size,
     }

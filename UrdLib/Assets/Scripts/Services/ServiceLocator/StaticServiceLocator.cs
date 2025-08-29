@@ -8,7 +8,8 @@ namespace Urd.Services
         private static Dictionary<Type, IBaseService> Services = new Dictionary<Type, IBaseService>();
 
         public static bool AllServicesLoaded { get; private set; }
-        
+        public static Action OnServiceInitialized;
+
         public static void Init()
         {
             Services = new Dictionary<Type, IBaseService>();
@@ -48,6 +49,7 @@ namespace Urd.Services
         public static void ServicesLoaded()
         {
             AllServicesLoaded = true;
+            OnServiceInitialized?.Invoke();
         }
         
         public static void Reset()

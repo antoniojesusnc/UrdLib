@@ -4,7 +4,7 @@ using Urd.Services;
 namespace Urd
 {
     [Serializable]
-    public abstract class GameSaveLoadModule : GamePlayServiceModule
+    public abstract class GameSaveLoadModule : GamePlayModule
     {
         public abstract IPlayerModel LoadOfflineProgress();
 

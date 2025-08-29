@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Urd.Animation
 {
     [CreateAssetMenu(fileName = "TweenAnimationFade", menuName = "Urd/Services/DotweenAnimations/TweenAnimationFade", order = 1)]
-    public class TweenAnimationFade : TweenAnimation<PopupDotweenAnimationTypes>, ITweenAnimation<CanvasGroup>
+    public class TweenAnimationFade : TweenAnimation, ITweenAnimation<CanvasGroup>
     {
         [Header("Specific Configs")]
         [SerializeField] private float _initialFade;
@@ -18,8 +18,6 @@ namespace Urd.Animation
             _finalFade = 1;
         }
 
-        public override Tween DoAnimation(GameObject gameObject) => DoAnimation(gameObject.GetComponent<CanvasGroup>());
-        
         public Tween DoAnimation(CanvasGroup canvasGroup)
         {
             if (canvasGroup == null)

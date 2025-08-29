@@ -6,7 +6,7 @@ using Urd.Animation;
 namespace Urd.Animation
 {
     [CreateAssetMenu(fileName = "TweenAnimationPopupMoveAnchorFooter", menuName = "Urd/Services/DotweenAnimations/TweenAnimationPopupMoveAnchorFooter", order = 1)]
-    public class TweenAnimationPopupMoveAnchorFooter : TweenAnimation<PopupDotweenAnimationTypes>, ITweenAnimation<RectTransform>
+    public class TweenAnimationPopupMoveAnchorFooter : TweenAnimation, ITweenAnimation<RectTransform>
     {
         public enum TweenAnimationPopupMoveAnchorFooterBehavior
         {
@@ -17,8 +17,6 @@ namespace Urd.Animation
         [Header("Specific Configs")]
         [SerializeField] private TweenAnimationPopupMoveAnchorFooterBehavior _behavior;
 
-        public override Tween DoAnimation(GameObject gameObject) => DoAnimation(gameObject.GetComponent<RectTransform>());
-        
         public Tween DoAnimation(RectTransform rectTransform)
         {
             float finalYPosition = 0;

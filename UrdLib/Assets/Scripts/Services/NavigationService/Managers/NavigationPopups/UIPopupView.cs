@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using MyBox;
 using UnityEngine;
-using Urd.Animation;
+using Urd.Animations;
 using Urd.Audio;
 using Urd.Feedback;
 using Urd.Services;
@@ -23,9 +23,9 @@ namespace Urd.Navigation
         [SerializeField]
         private bool _useAnimationsWhenOpenOrClose;
         [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
-        private TweenAnimation _openAnimation;
+        private TweenAnimationGameObject _openAnimation;
         [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
-        private TweenAnimation _closeAnimation;
+        private TweenAnimationGameObject _closeAnimation;
         
         private CanvasGroup _canvasGroup;
         
@@ -102,7 +102,7 @@ namespace Urd.Navigation
         public void ClosePopup()
         {
             StaticServiceLocator.Get<IPhysicalFeedbackService>().Haptic(HapticType.Light);
-            StaticServiceLocator.Get<IAudioService>().PlaySound(AudioGenericType.ButtonClick);
+            StaticServiceLocator.Get<IAudioService>().PlaySound(AudioGenericType.Click);
 
             StaticServiceLocator.Get<INavigationService>().Close(Model);
         }

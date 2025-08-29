@@ -13,7 +13,7 @@ namespace Urd.Gameplay
         public event Action OnFinishLoad;
 
         public T GetPlayerModel<T>() where T : class, IPlayerModel;
-        public T GetModule<T>() where T : class, IGamePlayServiceModule;
+        public T GetModule<T>() where T : class, IGamePlayModule;
 
         void LoadData();
     }

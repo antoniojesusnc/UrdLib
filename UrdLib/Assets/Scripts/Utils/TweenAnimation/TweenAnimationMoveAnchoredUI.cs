@@ -5,18 +5,16 @@ using UnityEngine;
 namespace Urd.Animation
 {
     [CreateAssetMenu(fileName = "TweenAnimationMoveAnchoredUI", menuName = "Urd/Services/DotweenAnimations/TweenAnimationMoveAnchoredUI", order = 1)]
-    public class TweenAnimationMoveAnchoredUI : TweenAnimation<PopupDotweenAnimationTypes>, ITweenAnimation<RectTransform>
+    public class TweenAnimationMoveAnchoredUI : TweenAnimation, ITweenAnimation<RectTransform>
     {
         [Header("Specific Configs"), SerializeField] private Vector2 _finalPositionOffset;
 
-        public override Tween DoAnimation(GameObject gameObject) => DoAnimation(gameObject.GetComponent<RectTransform>());
-        
         public Tween DoAnimation(RectTransform rectTransform)
         {
             
             return rectTransform.DOAnchorPos(rectTransform.anchoredPosition + 
                                              rectTransform.lossyScale.x*_finalPositionOffset, Duration)
-                                .SetEase(_ease);
+                                .SetEase(Ease);
         }
     }
 }

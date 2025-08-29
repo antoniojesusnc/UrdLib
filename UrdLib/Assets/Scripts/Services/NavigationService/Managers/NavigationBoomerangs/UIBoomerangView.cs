@@ -23,9 +23,9 @@ namespace Urd.Navigation
         [SerializeField]
         private bool _useAnimationsWhenOpenOrClose;
         [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
-        protected TweenAnimation _openAnimation;
+        protected TweenAnimationGameObject _openAnimation;
         [SerializeField, ConditionalField("_useAnimationsWhenOpenOrClose")] 
-        protected TweenAnimation _closeAnimation;
+        protected TweenAnimationGameObject _closeAnimation;
 
         protected List<Tween> _activeTween = new List<Tween>();
         

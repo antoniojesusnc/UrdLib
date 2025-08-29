@@ -6,12 +6,10 @@ namespace Urd.Animation
 {
     public interface IBaseTweenAnimation
     {
-        Enum GetAnimationType();
     }
     
     public interface IBaseTweenAnimation<TEnum> : IBaseTweenAnimation where TEnum : Enum, IConvertible
     {
-        TEnum AnimationType { get; }
     }
     
     public interface ITweenAnimation : IBaseTweenAnimation

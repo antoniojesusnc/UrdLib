@@ -21,5 +21,6 @@ namespace Urd.Animation
     public abstract class TweenAnimation : ScriptableObject, IBaseTweenAnimation
     {
         public abstract Enum GetAnimationType();
+        public abstract Tween DoAnimation(GameObject gameObject);
     }
 }

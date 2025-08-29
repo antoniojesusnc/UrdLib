@@ -9,8 +9,11 @@ namespace Urd.Animation
     {
         [Header("Specific Configs"), SerializeField] private Vector2 _finalPositionOffset;
 
+        public override Tween DoAnimation(GameObject gameObject) => DoAnimation(gameObject.GetComponent<RectTransform>());
+        
         public Tween DoAnimation(RectTransform rectTransform)
         {
+            
             return rectTransform.DOAnchorPos(rectTransform.anchoredPosition + 
                                              rectTransform.lossyScale.x*_finalPositionOffset, Duration)
                                 .SetEase(_ease);

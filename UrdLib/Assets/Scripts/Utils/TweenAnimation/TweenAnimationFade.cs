@@ -18,15 +18,18 @@ namespace Urd.Animation
             _finalFade = 1;
         }
 
-        public Tween DoAnimation(CanvasGroup rectTransform)
+        public override Tween DoAnimation(GameObject gameObject) => DoAnimation(gameObject.GetComponent<CanvasGroup>());
+        
+        public Tween DoAnimation(CanvasGroup canvasGroup)
         {
-            if (rectTransform == null)
+            if (canvasGroup == null)
             {
                 return null;
             }
 
-            rectTransform.alpha = _initialFade;
-            return rectTransform.DOFade(_finalFade, Duration);
+            canvasGroup.alpha = _initialFade;
+            return canvasGroup.DOFade(_finalFade, Duration);
         }
+
     }
 }

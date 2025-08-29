@@ -105,7 +105,6 @@ namespace Urd.Editor
             AddPopupConfig();
             FillPopupConfig();
             AddBoomerangConfig();
-            AddDotweenAnimationConfig();
             AddDotweenAnimationFade();
             AddNotificationConfig();
             AddAudioConfig();
@@ -138,14 +137,6 @@ namespace Urd.Editor
                 navigationService.NavigationManagers.Find(
                     navigationManager => navigationManager.GetType().IsAssignableFrom(typeof(NavigationBoomerangManager))) as NavigationBoomerangManager;
             navigationBoomerangManager.SetConfig(uiBoomerangConfig);
-        }
-        
-        private static void AddDotweenAnimationConfig()
-        {
-            var dotweenAnimationConfig = CreateConfig<DotweenAnimationConfig>(CONFIG_FILE_DOTWEEEN_ANIMATION, RelativeServiceFolder);
-            var dotweenAnimationService = _serviceLocatorConfig.ListOfServices.Find(
-                service => service.GetMainInterface().IsAssignableFrom(typeof(IDotweenAnimationService))) as IDotweenAnimationService;
-            dotweenAnimationService.SetConfig(dotweenAnimationConfig);
         }
         
         private static void AddDotweenAnimationFade()

@@ -1,3 +1,4 @@
+#if FIREBASE
 using System;
 using Firebase;
 using Firebase.Crashlytics;
@@ -67,3 +68,4 @@ namespace Urd.Services
         }
     }
 }
+#endif

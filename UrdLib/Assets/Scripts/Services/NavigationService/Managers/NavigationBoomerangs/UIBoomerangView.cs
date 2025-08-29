@@ -29,8 +29,6 @@ namespace Urd.Navigation
 
         protected List<Tween> _activeTween = new List<Tween>();
         
-        private IDotweenAnimationService _dotweenAnimationService;
-        
         protected virtual void Awake()
         {
             var backgroundTransform = transform.Find("BlackBackground");
@@ -53,8 +51,6 @@ namespace Urd.Navigation
         {
             Model = model;
             
-            _dotweenAnimationService = StaticServiceLocator.Get<IDotweenAnimationService>();
-
             SetHeaderText();
         }
 
@@ -68,25 +64,12 @@ namespace Urd.Navigation
             Tween tweenBlackground = null;
             Tween tweenDialog = null;
             TweenAnimationFade fadeAnimation;
-            if (_background != null)
-            {
-                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
-                        PopupDotweenAnimationTypes.FadeIn, out fadeAnimation))
-                {
-                    tweenBlackground = fadeAnimation.DoAnimation(_background);
-                }
-                else
-                {
-                    _background.alpha = 1;
-                }
-            }
-
+            
             if (!_useAnimationsWhenOpenOrClose)
             {
-                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
-                        PopupDotweenAnimationTypes.FadeIn, out fadeAnimation))
+                if (_openAnimation != null)
                 {
-                    tweenDialog = fadeAnimation.DoAnimation(_container);
+                    tweenDialog = _openAnimation.DoAnimation(_container.gameObject);
                 }
                 else
                 {
@@ -139,26 +122,12 @@ namespace Urd.Navigation
             Tween tweenBlackground = null;
             Tween tweenDialog = null;
             TweenAnimationFade fadeAnimation;
-            if (_background != null)
-            {
-
-                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
-                        PopupDotweenAnimationTypes.FadeOut, out fadeAnimation))
-                {
-                    tweenBlackground = fadeAnimation.DoAnimation(_background);
-                }
-                else
-                {
-                    _background.alpha = 0;
-                }
-            }
-
+            
             if (!_useAnimationsWhenOpenOrClose)
             {
-                if (_dotweenAnimationService.TryGetAnimation<TweenAnimationFade>(
-                        PopupDotweenAnimationTypes.FadeOut, out fadeAnimation))
+                if (_closeAnimation != null)
                 {
-                    tweenDialog = fadeAnimation.DoAnimation(_container);
+                    tweenDialog = _closeAnimation.DoAnimation(_container.gameObject);
                 }
                 else
                 {

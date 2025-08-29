@@ -1,6 +1,7 @@
+#if ADSMOB
 using System;
-using DG.Tweening;
 using GoogleMobileAds.Api;
+
 using Newtonsoft.Json;
 using PimDeWitte.UnityMainThreadDispatcher;
 using UnityEngine;
@@ -9,6 +10,7 @@ using Urd.Services;
 
 namespace Urd.Ads
 {
+    
     [Serializable]
     public class AdsServiceProviderAdMob : AdsServiceProvider
     {
@@ -222,3 +224,4 @@ namespace Urd.Ads
         }
     }
 }
+#endif 

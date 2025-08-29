@@ -1,3 +1,4 @@
+#if FIREBASE
 using System;
 using Firebase;
 using Firebase.Extensions;
@@ -56,3 +57,4 @@ namespace Urd.Services
         }
     }
 }
+#endif

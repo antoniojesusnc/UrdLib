@@ -15,7 +15,7 @@ namespace Urd.Animation
 
             sequence.Append(
                 DOTween.To(
-                    (value) => effect.colorFactor = value,
+                    (value) => effect.colorAlpha = value,
                     0, 
                     1, 
                     Duration*0.5f)).SetEase(Ease).SetLoops(2, LoopType.Yoyo);

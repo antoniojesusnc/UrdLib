@@ -131,8 +131,8 @@ namespace Urd
 
                 if (tutorialEvent.FlipX || tutorialEvent.FlipY)
                 {
-                    _image.GetOrAddComponent<UIFlip>().horizontal = tutorialEvent.FlipX;
-                    _image.GetOrAddComponent<UIFlip>().vertical = tutorialEvent.FlipY;
+                    _image.GetOrAddComponent<UIEffect>().flip = Flip.Horizontal;
+                    _image.GetOrAddComponent<UIEffect>().flip = Flip.Vertical;
                 }
 
                 _image.transform.DOScale(Vector3.one, duration: 0.4f)
@@ -152,7 +152,7 @@ namespace Urd
         {
             gameObject.SetActive(false);
 
-            UIFlip uiFlip = _image.GetComponent<UIFlip>();
+            UIEffect uiFlip = _image.GetComponent<UIEffect>();
             if (uiFlip != null) 
                 Destroy(uiFlip);
         }

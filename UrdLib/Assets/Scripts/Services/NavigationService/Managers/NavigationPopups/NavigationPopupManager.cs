@@ -20,7 +20,7 @@ namespace Urd.Navigation
             {
                 if (_popupParent == null)
                 {
-                    _popupParent = GameObject.FindGameObjectWithTag(CanvasTags.PopupCanvas.ToString()).transform;
+                    _popupParent = GameObject.FindGameObjectWithTag(CanvasTags.PopupCanvas.ToString())?.transform;
                 }
 
                 return _popupParent;
